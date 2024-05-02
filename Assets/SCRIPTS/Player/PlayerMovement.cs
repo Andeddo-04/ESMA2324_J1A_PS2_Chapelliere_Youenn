@@ -27,9 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float controller_horizontalMovement, keyboard_horizontalMovement;
 
-    private bool isAiming = false, endOfAiming;
-
-    private Vector3 velocity, controller_AttackDirection, aim;
+    private Vector3 velocity;
 
     private Player player;
 
@@ -87,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         if (useController)
         {
             ////////// * Contrôle à la manette * \\\\\\\\\\
-            controller_horizontalMovement = player.GetAxis("Controler_MoveHorizontal") * moveSpeed * Time.deltaTime;
+            controller_horizontalMovement = player.GetAxis("Controller_MoveHorizontal") * moveSpeed * Time.deltaTime;
 
             Vector3 targetVelocityWhisControler = new Vector2(controller_horizontalMovement, 0.0f);
             characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisControler, ref velocity, 0.05f);
