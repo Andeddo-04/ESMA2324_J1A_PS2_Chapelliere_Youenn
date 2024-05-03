@@ -154,6 +154,7 @@ Transform:
   m_Children:
   - {fileID: 765383236}
   - {fileID: 628526496}
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &117140381
@@ -770,12 +771,12 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 29.41208, z: -88.85825}
-  m_LocalScale: {x: 8.885825, y: 8.885825, z: 8.885825}
+  m_LocalPosition: {x: 0, y: 0.31000018, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 413609571}
-  m_Father: {fileID: 765383236}
+  m_Father: {fileID: 78539588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -1117,7 +1118,7 @@ GameObject:
   - component: {fileID: 628526496}
   m_Layer: 0
   m_Name: CrossHairTracker
-  m_TagString: Untagged
+  m_TagString: CrossHairTracker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1270,7 +1271,7 @@ GameObject:
   - component: {fileID: 765383241}
   m_Layer: 0
   m_Name: Character_Sprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1287,8 +1288,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 0.1125388, y: 0.1125388, z: 0.1125388}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 519420032}
+  m_Children: []
   m_Father: {fileID: 78539588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &765383237
@@ -1359,12 +1359,11 @@ MonoBehaviour:
   characterSpriteRenderer: {fileID: 765383237}
   characterBoxCollider: {fileID: 765383239}
   crossHair: {fileID: 911816190}
-  newPositionOfCrossHair: {fileID: 765383235}
-  crossHairMovement: {fileID: 911816192}
+  newPositionOfCrosshairTracker: {fileID: 765383235}
   playerId: 0
-  moveSpeed: 10
+  moveSpeed: 200
   completeDongeon: 0
-  useController: 1
+  useController: 0
 --- !u!61 &765383239
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1796,7 +1795,6 @@ GameObject:
   m_Component:
   - component: {fileID: 911816191}
   - component: {fileID: 911816193}
-  - component: {fileID: 911816192}
   m_Layer: 0
   m_Name: Crosshair
   m_TagString: Untagged
@@ -1819,21 +1817,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 628526496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &911816192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911816190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443afd7d85dc3194b985625c2e64bdf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crossHair: {fileID: 911816190}
-  playerMovement: {fileID: 765383238}
-  playerId: 0
 --- !u!212 &911816193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3496,8 +3479,8 @@ MonoBehaviour:
         _enabled: 1
         _ruleSets: []
     - _id: 3
-      _name: MyPlayer
-      _descriptiveName: Player0
+      _name: Player
+      _descriptiveName: Player
       _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
@@ -3648,7 +3631,7 @@ MonoBehaviour:
       _userAssignable: 1
       _categoryId: 0
     - _id: 9
-      _name: KeyBord_HorizontalMovement
+      _name: KeyBoard_HorizontalMovement
       _type: 0
       _descriptiveName: Action0
       _positiveDescriptiveName: MoveRight
