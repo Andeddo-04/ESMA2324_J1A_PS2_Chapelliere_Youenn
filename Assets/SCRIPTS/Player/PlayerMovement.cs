@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed;
 
-    public bool completeDongeon = false, useController = false;
+    public bool useController = false;
 
     ////////// * Variables privées * \\\\\\\\\\
 
