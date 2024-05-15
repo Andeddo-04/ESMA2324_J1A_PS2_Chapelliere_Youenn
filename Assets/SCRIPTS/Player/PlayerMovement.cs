@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
             if (jumping)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpAmount);
+                jumpTime += Time.deltaTime;
             }
 
             if (player.GetButtonUp("KeyBoard_Jump") | jumpTime > buttonTime)
