@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - CrossHairTracker
+  - KeyBoardType
+  - ControllerType
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

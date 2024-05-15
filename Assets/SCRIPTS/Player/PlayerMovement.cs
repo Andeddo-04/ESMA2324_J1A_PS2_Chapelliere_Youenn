@@ -5,21 +5,26 @@ public class PlayerMovement : MonoBehaviour
 {
     ////////// * Variables publiques * \\\\\\\\\\
 
-    public Rigidbody2D characterSprite;
+    public Rigidbody2D rb;
 
-    public SpriteRenderer characterSpriteRenderer;
+    public SpriteRenderer rbRenderer;
 
     public BoxCollider2D characterBoxCollider;
 
-    public GameObject crossHair, newPositionOfCrosshairTracker;//, canvasMainMenu, canvasUI, canvaspauseMenu;
+    //public GameObject canvasMainMenu, canvasUI, canvaspauseMenu;
+
+    public LayerMask groundCollisionLayer;
 
     public static PlayerMovement instance;
 
+    public Transform groundCheck;
+
     public int playerId = 0;
 
-    public float moveSpeed, jumpForce;
+    public float moveSpeed, groundCheckRadius, buttonTime, jumpAmount, jumpTime;
 
-    public bool useController = false;
+    public bool useController = false, isGrounded, jumping;
+
 
     ////////// * Variables privées * \\\\\\\\\\
 
@@ -30,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity, controller_AttackDirection, aim;
 
     private Player player;
-
 
     ////////// * Méthode Awake() * \\\\\\\\\\
     void Awake()
@@ -50,12 +54,11 @@ public class PlayerMovement : MonoBehaviour
     ////////// * Méthode Update() * \\\\\\\\\\
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundCollisionLayer);
+        
         //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
         //{
-            MovePlayer();
-            MoveCrossHair();
-            //RotatePlayerTowardsCrosshair();
-            crossHairTracker();
+        MovePlayer();
 
         //}
 
@@ -70,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         //    Cursor.lockState = CursorLockMode.None;
         //    Cursor.visible = true;
         //}
+
     }
 
     ////////// * Méthode MovePlayer() * \\\\\\\\\\
@@ -81,12 +85,8 @@ public class PlayerMovement : MonoBehaviour
             controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
 
             Vector3 targetVelocityWhisControler = new Vector2(controller_horizontalMovement, 0.0f);
-            characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisControler, ref velocity, 0.05f);
-            
-            if (player.GetButtonDown("Controller_Jump"))
-            {
-                characterSprite.velocity = new Vector2(characterSprite.velocity.x, jumpForce);
-            }
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocityWhisControler, ref velocity, 0.05f);
+
         }
 
         if (!useController)
@@ -95,94 +95,27 @@ public class PlayerMovement : MonoBehaviour
             keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
 
             Vector3 targetVelocityWhisKeyBoard = new Vector2(keyboard_horizontalMovement, 0.0f);
-            characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisKeyBoard, ref velocity, 0.05f);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocityWhisKeyBoard, ref velocity, 0.05f);
 
-            if (player.GetButtonDown("KeyBoard_Jump"))
+            if (player.GetButtonDown("KeyBoard_Jump") && isGrounded)
             {
-                characterSprite.velocity = new Vector2(characterSprite.velocity.x, jumpForce);
+                jumping = true;
+                jumpTime = 0;
+            }
+
+            if (jumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpAmount);
+            }
+
+            if (player.GetButtonUp("KeyBoard_Jump") | jumpTime > buttonTime)
+            {
+                jumping = false;
             }
         }
     }
 
-    ////////// * Méthode MoveCrossHair() * \\\\\\\\\\
-    void MoveCrossHair()
-    {
-        ////////// * Contrôle du crosshair à la manette * \\\\\\\\\\
-        if (useController)
-        {
-            controller_AttackDirection = new Vector3(player.GetAxis("Controller_AttackDirection_X"), player.GetAxis("Controller_AttackDirection_Y"), 0.0f);
-
-            if (controller_AttackDirection.magnitude > 0.0f)
-            {
-                controller_AttackDirection.Normalize();
-                controller_AttackDirection *= 2.0f;
-                crossHair.transform.localPosition = controller_AttackDirection;
-                crossHair.SetActive(true);
-            }
-
-            else
-            {
-                crossHair.SetActive(false);
-            }
-        }
-
-        ////////// * Contrôle du crosshair à la sourie * \\\\\\\\\\
-        if (!useController)
-        {
-            // mouse_AttackDirection = new Vector3(player.GetAxis("Mouse_AimHorizontal"), player.GetAxis("Mouse_AimVertical"), 0.0f);
-            Vector3 mouseMovement = new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0f);
-            aim += mouseMovement * 0.5f;
-
-            isAiming = player.GetButton("Mouse_IsAiming");
-            endOfAiming = player.GetButtonUp("Mouse_IsAiming");
-
-            if (isAiming)
-            {
-                crossHair.SetActive(true);
-
-                if (aim.magnitude > 1.0f)
-                {
-                    aim.Normalize();
-                    aim *= 2.0f;
-                    crossHair.transform.localPosition = aim;
-                }
-            }
-
-            else
-            {
-                crossHair.SetActive(false);
-            }
-        }
-    }
-
-    ////////// * Méthode RotatePlayerTowardsCrosshair() * \\\\\\\\\\
-    //void RotatePlayerTowardsCrosshair()
-    //{
-    //    if (crossHair && crossHair.activeSelf)
-    //    {
-    //        // Get the direction from player position to crosshair position
-    //        Vector3 directionToCrosshair = crossHair.transform.position - transform.position;
-
-    //        // Calculate the angle in degrees
-    //        float angle = Mathf.Atan2(directionToCrosshair.y, directionToCrosshair.x) * Mathf.Rad2Deg;
-
-    //        // Rotate the player sprite towards the crosshair
-    //        characterSpriteRenderer.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    //    }
-    //    else
-    //    {
-    //        // Reset the rotation of the player sprite if crosshair is not active
-    //        characterSpriteRenderer.transform.rotation = Quaternion.identity;
-    //    }
-
-    //}
-
-    ////////// * Méthode crossHairTracker() * \\\\\\\\\\
-    void crossHairTracker()
-    {
-        GameObject.FindGameObjectWithTag("CrossHairTracker").transform.position = newPositionOfCrosshairTracker.transform.position;
-    }
-
+    ////////// *  * \\\\\\\\\\
     public void SetControllerUsage(bool useController)
     {
         this.useController = useController;
@@ -198,7 +131,5 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        
     }
 }
