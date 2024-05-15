@@ -7,9 +7,9 @@ public class MainMenu : MonoBehaviour
 
     public static bool gameIsPaused = true;
 
-    public GameObject settingsWindow, canvasMainMenu, canvasUI; //, canvasPauseMenu;
+    public GameObject settingsWindow;
 
-    public PlayerMovement playerMovement;
+    private PlayerMovement playerMovement;
 
     //private void Update()
     //{
@@ -23,8 +23,6 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(levelToLoad);
-        canvasMainMenu.SetActive(false);
-        canvasUI.SetActive(true);
         playerMovement.HideAndLockCursor();
     }
 

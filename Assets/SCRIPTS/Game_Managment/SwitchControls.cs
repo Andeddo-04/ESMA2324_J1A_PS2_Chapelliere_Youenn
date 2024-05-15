@@ -7,7 +7,7 @@ public class SwitchControls : MonoBehaviour
 {
     public Toggle controlesClavier, controlesManette;
 
-    public PlayerMovement playerMovement;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {

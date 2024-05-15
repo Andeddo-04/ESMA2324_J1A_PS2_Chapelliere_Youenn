@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     public int playerId = 0;
 
-    public float moveSpeed;
+    public float moveSpeed, jumpForce;
 
     public bool useController = false;
 
@@ -57,8 +57,6 @@ public class PlayerMovement : MonoBehaviour
             //RotatePlayerTowardsCrosshair();
             crossHairTracker();
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         //}
 
         //else if (canvasMainMenu.activeSelf == true && canvaspauseMenu.activeSelf == false && canvasUI.activeSelf == false)
@@ -84,6 +82,11 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 targetVelocityWhisControler = new Vector2(controller_horizontalMovement, 0.0f);
             characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisControler, ref velocity, 0.05f);
+            
+            if (player.GetButtonDown("Controller_Jump"))
+            {
+                characterSprite.velocity = new Vector2(characterSprite.velocity.x, jumpForce);
+            }
         }
 
         if (!useController)
@@ -93,6 +96,11 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 targetVelocityWhisKeyBoard = new Vector2(keyboard_horizontalMovement, 0.0f);
             characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisKeyBoard, ref velocity, 0.05f);
+
+            if (player.GetButtonDown("KeyBoard_Jump"))
+            {
+                characterSprite.velocity = new Vector2(characterSprite.velocity.x, jumpForce);
+            }
         }
     }
 
@@ -180,9 +188,15 @@ public class PlayerMovement : MonoBehaviour
         this.useController = useController;
     }
 
-    public void HideAndLockCursor()
+    public void ShowAndUnlockCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void HideAndLockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
