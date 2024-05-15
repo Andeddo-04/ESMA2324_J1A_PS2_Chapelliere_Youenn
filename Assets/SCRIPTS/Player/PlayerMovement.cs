@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         if (useController)
         {
             ////////// * Contrôle à la manette * \\\\\\\\\\
-            controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * (moveSpeed * 2.0f) * Time.deltaTime;
+            controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
 
             Vector3 targetVelocityWhisControler = new Vector2(controller_horizontalMovement, 0.0f);
             characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisControler, ref velocity, 0.05f);
@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         if (!useController)
         {
             ////////// * Contrôle au clavier * \\\\\\\\\\
-            keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * (moveSpeed * 2.0f) * Time.deltaTime;
+            keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
 
             Vector3 targetVelocityWhisKeyBoard = new Vector2(keyboard_horizontalMovement, 0.0f);
             characterSprite.velocity = Vector3.SmoothDamp(characterSprite.velocity, targetVelocityWhisKeyBoard, ref velocity, 0.05f);
@@ -198,5 +198,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        
     }
 }

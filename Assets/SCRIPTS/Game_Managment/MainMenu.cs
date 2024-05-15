@@ -9,8 +9,6 @@ public class MainMenu : MonoBehaviour
 
     public GameObject settingsWindow;
 
-    private PlayerMovement playerMovement;
-
     //private void Update()
     //{
     //    if (canvasMainMenu.activeSelf == true && canvasPauseMenu.activeSelf == false && canvasUI.activeSelf == false)
@@ -23,7 +21,8 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(levelToLoad);
-        playerMovement.HideAndLockCursor();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void SettingsButton()
