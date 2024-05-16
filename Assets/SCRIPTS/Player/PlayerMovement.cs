@@ -13,26 +13,20 @@ public class PlayerMovement : MonoBehaviour
 
     //public GameObject canvasMainMenu, canvasUI, canvaspauseMenu;
 
-    public LayerMask groundCollisionLayer;
-
     public static PlayerMovement instance;
 
-    public Transform groundCheck;
+    public float moveSpeed;
 
-    public int playerId = 0;
-
-    public float moveSpeed, groundCheckRadius, buttonTime, jumpAmount, jumpTime;
-
-    public bool useController = false, isGrounded, jumping;
+    public bool useController = false;
 
 
     ////////// * Variables privées * \\\\\\\\\\
 
     private float controller_horizontalMovement, keyboard_horizontalMovement;
 
-    private bool isAiming = false, endOfAiming;
+    private int playerId = 0;
 
-    private Vector3 velocity, controller_AttackDirection, aim;
+    private Vector3 velocity;
 
     private Player player;
 
@@ -54,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     ////////// * Méthode Update() * \\\\\\\\\\
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundCollisionLayer);
         
         //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
         //{
@@ -84,9 +77,7 @@ public class PlayerMovement : MonoBehaviour
             ////////// * Contrôle à la manette * \\\\\\\\\\
             controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
 
-            Vector3 targetVelocityWhisControler = new Vector2(controller_horizontalMovement, 0.0f);
-            rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocityWhisControler, ref velocity, 0.05f);
-
+            rb.velocity = new Vector2(controller_horizontalMovement, rb.velocity.y);
         }
 
         if (!useController)
@@ -94,27 +85,12 @@ public class PlayerMovement : MonoBehaviour
             ////////// * Contrôle au clavier * \\\\\\\\\\
             keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
 
-            Vector3 targetVelocityWhisKeyBoard = new Vector2(keyboard_horizontalMovement, 0.0f);
-            rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocityWhisKeyBoard, ref velocity, 0.05f);
-
-            if (player.GetButtonDown("KeyBoard_Jump") && isGrounded)
-            {
-                jumping = true;
-                jumpTime = 0;
-            }
-
-            if (jumping)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpAmount);
-                jumpTime += Time.deltaTime;
-            }
-
-            if (player.GetButtonUp("KeyBoard_Jump") | jumpTime > buttonTime)
-            {
-                jumping = false;
-            }
+            rb.velocity = new Vector2(keyboard_horizontalMovement, rb.velocity.y);
         }
     }
+
+
+
 
     ////////// *  * \\\\\\\\\\
     public void SetControllerUsage(bool useController)
