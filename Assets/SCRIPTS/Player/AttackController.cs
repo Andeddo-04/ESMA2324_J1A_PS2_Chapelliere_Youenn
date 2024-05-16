@@ -21,6 +21,8 @@ public class AttackController : MonoBehaviour
 
     private int playerId = 0;
 
+    private float ATKCooldown = 0.5f;
+
     ////////// * Méthode Awake() * \\\\\\\\\\
     void Awake()
     {
@@ -42,19 +44,19 @@ public class AttackController : MonoBehaviour
         {
             
             // Vérifie si le joystick est vers le haut et que la touche d'attack est pressée et si le joueur n'attack pas
-            if ( (player.GetAxis("Controller_AttackDirection_Y") > 0) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+            if ( (player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
             {
                 StartCoroutine(AttackAtTop());
             }
 
             // Vérifie si le joystick est vers la droite et que la touche d'attack est pressée et si le joueur n'attack pas
-            else if ( (player.GetAxis("Controller_AttackDirection_X") > 0) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+            else if ( (player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
             {
                 StartCoroutine(AttackAtRight());
             }
 
             // Vérifie si le joystick est vers la gauche et que la touche d'attack est pressée et si le joueur n'attack pas
-            else if ( (player.GetAxis("Controller_AttackDirection_X") < 0) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+            else if ( (player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
             {
                 StartCoroutine(AttackAtLeft());
             }
@@ -88,7 +90,7 @@ public class AttackController : MonoBehaviour
         topHitboxAttack.SetActive(true);
         yield return new WaitForSeconds(0.33f);
         topHitboxAttack.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ATKCooldown);
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
 
@@ -98,7 +100,7 @@ public class AttackController : MonoBehaviour
         rightHitboxAttack.SetActive(true);
         yield return new WaitForSeconds(0.33f);
         rightHitboxAttack.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ATKCooldown);
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
 
@@ -108,7 +110,7 @@ public class AttackController : MonoBehaviour
         leftHitboxAttack.SetActive(true);
         yield return new WaitForSeconds(0.33f);
         leftHitboxAttack.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ATKCooldown);
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
 }

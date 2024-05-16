@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Basic_Guardian : MonoBehaviour
+public class ArcherGuardian : MonoBehaviour
 {
-    
-
     public Rigidbody2D mobRigidbody;
 
     public SpriteRenderer mobSpriteRenderer;
+
+    public BoxCollider2D boxCollider2;
 
     public Transform[] waypoints;
 
@@ -16,7 +16,7 @@ public class Basic_Guardian : MonoBehaviour
 
     public int damageOnCollision;
 
-    public bool isDead = false;
+    public bool isDead = false, haveSheild = true;
 
 
 
@@ -58,7 +58,20 @@ public class Basic_Guardian : MonoBehaviour
     //        playerHealth.TakeDamage(10);
     //    }
     //}
-    
 
+    public void TakeDamages()
+    {
+        if (haveSheild)
+        {
+            haveSheild = false;
+        }
+
+        else Die();
+    }
+
+    public void Die()
+    {
+        Destroy(transform.parent.gameObject);
+    }
 
 }

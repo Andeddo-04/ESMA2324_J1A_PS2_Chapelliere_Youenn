@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1038492043172739477}
   m_Layer: 0
-  m_Name: Basic Guardian
+  m_Name: Archer Guardian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,8 +87,8 @@ Transform:
   m_GameObject: {fileID: 2945034382791838307}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.6365, y: -2.1154, z: 0}
+  m_LocalScale: {x: 0.3636, y: 0.3636, z: 0.3636}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6141209395809992735}
@@ -108,9 +108,9 @@ GameObject:
   - component: {fileID: 8836433333861288098}
   - component: {fileID: 6187657517670150514}
   - component: {fileID: 5396050434248530212}
-  - component: {fileID: 8388698381988847731}
+  - component: {fileID: 686953022603626518}
   m_Layer: 6
-  m_Name: Basic Guardian
+  m_Name: Archer Guardian
   m_TagString: Basic_Guardian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 411b7781346aaad438fe62d06bc79be1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c9ce4e64fb83764aa394faeeed56210, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -209,7 +209,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &5396050434248530212
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -242,20 +242,20 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0018444136, y: -0.06486191}
+  m_Offset: {x: -0.0028593838, y: -0.0019356608}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.48, y: 0.48}
+    oldSize: {x: 0.8, y: 0.8}
     newSize: {x: 0.48, y: 0.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32579547, y: 0.35027614}
+  m_Size: {x: 0.7094433, y: 0.7968502}
   m_EdgeRadius: 0
---- !u!114 &8388698381988847731
+--- !u!114 &686953022603626518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8115301800588717748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd37f625bbdb904399afc37765c3eb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bb42945153a76049bf821733efb3f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mobRigidbody: {fileID: 6187657517670150514}
@@ -275,8 +275,8 @@ MonoBehaviour:
   - {fileID: 5467858482724684783}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 64
-  speed: 5
-  damageOnCollision: 10
+    m_Bits: 0
+  speed: 3
+  damageOnCollision: 15
   isDead: 0
   haveSheild: 1

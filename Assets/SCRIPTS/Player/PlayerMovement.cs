@@ -48,10 +48,16 @@ public class PlayerMovement : MonoBehaviour
     ////////// * Méthode Update() * \\\\\\\\\\
     void Update()
     {
+        MovePlayer();
+        SelectControls();
+        
+        
+        
+        
         
         //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
         //{
-        MovePlayer();
+        
 
         //}
 
@@ -108,5 +114,13 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    void SelectControls()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            useController = !useController;
+        }
     }
 }

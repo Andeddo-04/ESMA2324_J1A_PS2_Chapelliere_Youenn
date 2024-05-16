@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - CrossHairTracker
-  - Ennemie
+  - KeyBoardType
+  - ControllerType
+  - Basic_Guardian
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Ennemie
   - 
   - 
   - 
