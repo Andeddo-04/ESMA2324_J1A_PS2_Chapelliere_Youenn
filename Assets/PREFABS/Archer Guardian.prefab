@@ -274,13 +274,12 @@ MonoBehaviour:
   waypoints:
   - {fileID: 6528639615566048535}
   - {fileID: 5467858482724684783}
+  archerGuardianHealth: {fileID: 4768471957904106352}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 0
   speed: 3
   damageOnCollision: 15
-  isDead: 0
-  haveSheild: 1
 --- !u!114 &4768471957904106352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ab9a95ad219294586e5522a2929c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphics: {fileID: 0}
+  graphics: {fileID: 8836433333861288098}
   maxhealth: 100
   currentHealth: 0
   isInvicible: 0

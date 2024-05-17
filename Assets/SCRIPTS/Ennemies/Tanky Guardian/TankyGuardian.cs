@@ -10,13 +10,13 @@ public class TankyGuardian : MonoBehaviour
 
     public Transform[] waypoints;
 
+    public TankyGuardianHealth tankyGuardianHealth;
+
     public LayerMask collisionLayer;
-    
+
     public float speed;
 
     public int damageOnCollision;
-
-    public bool isDead = false, haveSheild = true;
 
 
 
@@ -34,7 +34,7 @@ public class TankyGuardian : MonoBehaviour
 
     void Update()
     {
-        if (!isDead)
+        if (tankyGuardianHealth.isAlive)
         {
             Vector3 direction = target.position - transform.position;
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
@@ -58,20 +58,5 @@ public class TankyGuardian : MonoBehaviour
     //        playerHealth.TakeDamage(10);
     //    }
     //}
-
-    public void TakeDamages()
-    {
-        if (haveSheild)
-        {
-            haveSheild = false;
-        }
-
-        else Die();
-    }
-
-    public void Die()
-    {
-        Destroy(transform.parent.gameObject);
-    }
 
 }
