@@ -11,9 +11,15 @@ public class AttackController : MonoBehaviour
 
     public PlayerMovement playerMovement;
 
-    public GameObject topHitboxAttack, rightHitboxAttack, leftHitboxAttack;
+    public GameObject handTopHitboxAttack, handRightHitboxAttack, handLeftHitboxAttack;
 
-    public bool isAttacking;
+    public GameObject swordTopHitboxAttack, swordRightHitboxAttack, swordLeftHitboxAttack;
+    
+    public GameObject halberdTopHitboxAttack, halberdRightHitboxAttack, halberdLeftHitboxAttack;
+    
+    public GameObject flailWeaponTopHitboxAttack, flailWeaponRightHitboxAttack, flailWeaponLeftHitboxAttack;
+
+    public bool isAttacking, dontUseWeapon = true, useSword = false, useHalberd = false, useFlaidWeapon = false;
 
     ////////// * Variables privées * \\\\\\\\\\
 
@@ -40,77 +46,344 @@ public class AttackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ChoseYourWeapon();
+
         if (playerMovement.useController)
         {
-            
-            // Vérifie si le joystick est vers le haut et que la touche d'attack est pressée et si le joueur n'attack pas
-            if ( (player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+            if (dontUseWeapon)
             {
-                StartCoroutine(AttackAtTop());
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(DontUseWeaponAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(DontUseWeaponAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(DontUseWeaponAttackAtLeft());
+                }
             }
 
-            // Vérifie si le joystick est vers la droite et que la touche d'attack est pressée et si le joueur n'attack pas
-            else if ( (player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+            if (useSword)
             {
-                StartCoroutine(AttackAtRight());
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(SwordAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(SwordAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(SwordAttackAtLeft());
+                }
             }
 
-            // Vérifie si le joystick est vers la gauche et que la touche d'attack est pressée et si le joueur n'attack pas
-            else if ( (player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+            if (useHalberd)
             {
-                StartCoroutine(AttackAtLeft());
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(HalberdAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(HalberdAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(HalberdAttackAtLeft());
+                }
+            }
+
+            if (useFlaidWeapon)
+            {
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(FlailWeaponAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(FlailWeaponAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                {
+                    StartCoroutine(FlailWeaponAttackAtLeft());
+                }
             }
         }
 
         if (!playerMovement.useController)
         {
-            // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-            if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+            if (dontUseWeapon)
             {
-                StartCoroutine(AttackAtTop());
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                {
+                    StartCoroutine(DontUseWeaponAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                {
+                    StartCoroutine(DontUseWeaponAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                {
+                    StartCoroutine(DontUseWeaponAttackAtLeft());
+                }
+
             }
 
-            // Vérifie si la flèche droite est pressée et si l'objet est au sol
-            else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+            if (useSword)
             {
-                StartCoroutine(AttackAtRight());
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                {
+                    StartCoroutine(SwordAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                {
+                    StartCoroutine(SwordAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                {
+                    StartCoroutine(SwordAttackAtLeft());
+                }
             }
 
-            // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-            else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && isAttacking)
+            if (useHalberd)
             {
-                StartCoroutine(AttackAtLeft());
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                {
+                    StartCoroutine(HalberdAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                {
+                    StartCoroutine(HalberdAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                {
+                    StartCoroutine(HalberdAttackAtLeft());
+                }
+            }
+
+            if (useFlaidWeapon)
+            {
+                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                {
+                    StartCoroutine(FlailWeaponAttackAtTop());
+                }
+
+                // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                {
+                    StartCoroutine(FlailWeaponAttackAtRight());
+                }
+
+                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                {
+                    StartCoroutine(FlailWeaponAttackAtLeft());
+                }
             }
         }
     }
 
-    public IEnumerator AttackAtTop()
+    void ChoseYourWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            dontUseWeapon = true;
+            useSword = false;
+            useHalberd = false;
+            useFlaidWeapon = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            dontUseWeapon = false;
+            useSword = true;
+            useHalberd = false;
+            useFlaidWeapon = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            dontUseWeapon = false;
+            useSword = false;
+            useHalberd = true;
+            useFlaidWeapon = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            dontUseWeapon = false;
+            useSword = false;
+            useHalberd = false;
+            useFlaidWeapon = true;
+        }
+    }
+
+    ////////// * Coroutine Attaque a l'epee * \\\\\\\\\\
+    public IEnumerator DontUseWeaponAttackAtTop()
     {
         isAttacking = true; // Définit l'attaque comme en cours
-        topHitboxAttack.SetActive(true);
+        handTopHitboxAttack.SetActive(true);
         yield return new WaitForSeconds(0.33f);
-        topHitboxAttack.SetActive(false);
+        handTopHitboxAttack.SetActive(false);
         yield return new WaitForSeconds(ATKCooldown);
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
 
-    public IEnumerator AttackAtRight()
+    public IEnumerator DontUseWeaponAttackAtRight()
     {
         isAttacking = true; // Définit l'attaque comme en cours
-        rightHitboxAttack.SetActive(true);
+        handRightHitboxAttack.SetActive(true);
         yield return new WaitForSeconds(0.33f);
-        rightHitboxAttack.SetActive(false);
+        handRightHitboxAttack.SetActive(false);
         yield return new WaitForSeconds(ATKCooldown);
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
 
-    public IEnumerator AttackAtLeft()
+    public IEnumerator DontUseWeaponAttackAtLeft()
     {
         isAttacking = true; // Définit l'attaque comme en cours
-        leftHitboxAttack.SetActive(true);
+        handLeftHitboxAttack.SetActive(true);
         yield return new WaitForSeconds(0.33f);
-        leftHitboxAttack.SetActive(false);
+        handLeftHitboxAttack.SetActive(false);
         yield return new WaitForSeconds(ATKCooldown);
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
+
+    ////////// * Coroutine Attaque a l'epee * \\\\\\\\\\
+    public IEnumerator SwordAttackAtTop()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        swordTopHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        swordTopHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    public IEnumerator SwordAttackAtRight()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        swordRightHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        swordRightHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    public IEnumerator SwordAttackAtLeft()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        swordLeftHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        swordLeftHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    ////////// * Coroutine Attaque a la halbarde * \\\\\\\\\\
+    public IEnumerator HalberdAttackAtTop()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        halberdTopHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        halberdTopHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    public IEnumerator HalberdAttackAtRight()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        halberdRightHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        halberdRightHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    public IEnumerator HalberdAttackAtLeft()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        halberdLeftHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        halberdLeftHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    ////////// * Coroutine Attaque au fléau d'arme * \\\\\\\\\\
+    public IEnumerator FlailWeaponAttackAtTop()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        flailWeaponTopHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        flailWeaponTopHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    public IEnumerator FlailWeaponAttackAtRight()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        flailWeaponRightHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        flailWeaponRightHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+    public IEnumerator FlailWeaponAttackAtLeft()
+    {
+        isAttacking = true; // Définit l'attaque comme en cours
+        flailWeaponLeftHitboxAttack.SetActive(true);
+        yield return new WaitForSeconds(0.33f);
+        flailWeaponLeftHitboxAttack.SetActive(false);
+        yield return new WaitForSeconds(ATKCooldown);
+        isAttacking = false; // Réinitialise l'attaque comme terminée
+    }
+
+
+    
+
 }

@@ -8,6 +8,9 @@ TagManager:
   - KeyBoardType
   - ControllerType
   - Basic_Guardian
+  - Tanky_Guardian
+  - Archer_Guardian
+  - Noble_Guardian
   layers:
   - Default
   - TransparentFX

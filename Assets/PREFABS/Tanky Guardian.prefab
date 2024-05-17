@@ -109,9 +109,10 @@ GameObject:
   - component: {fileID: 6187657517670150514}
   - component: {fileID: 5396050434248530212}
   - component: {fileID: 6039861480070257796}
+  - component: {fileID: 2527537323495391915}
   m_Layer: 6
   m_Name: Tanky Guardian
-  m_TagString: Basic_Guardian
+  m_TagString: Tanky_Guardian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,3 +281,20 @@ MonoBehaviour:
   damageOnCollision: 20
   isDead: 0
   haveSheild: 1
+--- !u!114 &2527537323495391915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115301800588717748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a858ced787cb4b4fa86a42fb98f065a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics: {fileID: 0}
+  maxhealth: 100
+  currentHealth: 0
+  isInvicible: 0
+  isAlive: 1

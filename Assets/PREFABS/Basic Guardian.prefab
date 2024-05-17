@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 6187657517670150514}
   - component: {fileID: 5396050434248530212}
   - component: {fileID: 8388698381988847731}
+  - component: {fileID: 3482920452294559292}
   m_Layer: 6
   m_Name: Basic Guardian
   m_TagString: Basic_Guardian
@@ -209,7 +210,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &5396050434248530212
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -273,10 +274,26 @@ MonoBehaviour:
   waypoints:
   - {fileID: 6528639615566048535}
   - {fileID: 5467858482724684783}
+  basicGuardianHealth: {fileID: 3482920452294559292}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
   speed: 5
   damageOnCollision: 10
-  isDead: 0
-  haveSheild: 1
+--- !u!114 &3482920452294559292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115301800588717748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f9231667396cd439ad8679e97bb5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics: {fileID: 8836433333861288098}
+  maxhealth: 100
+  currentHealth: 0
+  isInvicible: 0
+  isAlive: 1
