@@ -48,4 +48,12 @@ public class EnemyObject
 {
     public GameObject gameObject;
     public bool isDead;
+    public BasicGuardianHealth basicGardianHealth;
+    void Update()
+    {
+        if (basicGardianHealth.isAlive == false)
+        {
+            isDead = true;
+        }
+    }
 }

@@ -6,6 +6,8 @@ public class BasicGuardianHealth : MonoBehaviour
 {
     ////////// * Variables publiques * \\\\\\\\\\
 
+    public GameObject gameObject;
+
     public SpriteRenderer graphics;
 
     public int maxhealth = 100, currentHealth;
@@ -39,6 +41,6 @@ public class BasicGuardianHealth : MonoBehaviour
 
     public void Die()
     {
-        Destroy(transform.parent.gameObject);
+        transform.parent.gameObject.SetActive(false);
     }
 }

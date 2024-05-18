@@ -3158,6 +3158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Guardian
       objectReference: {fileID: 0}
+    - target: {fileID: 2945034382791838307, guid: ff8e0eba35cba874c850f81fb09df70d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3533,6 +3537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f9231667396cd439ad8679e97bb5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameObject: {fileID: 844468851}
   graphics: {fileID: 844468857}
   maxhealth: 100
   currentHealth: 0
@@ -4710,8 +4715,10 @@ MonoBehaviour:
   enemiesToTrack:
   - gameObject: {fileID: 844468851}
     isDead: 0
+    basicGardianHealth: {fileID: 844468853}
   - gameObject: {fileID: 288396871}
     isDead: 0
+    basicGardianHealth: {fileID: 0}
 --- !u!1 &1576030098
 GameObject:
   m_ObjectHideFlags: 0
