@@ -47,30 +47,4 @@ public class AttackHitboxDetection : MonoBehaviour
             archerGuardian.TakeDamages();
         }
     }
-
-
-
-
-
-
-
-
-
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    Debug.Log("kjdwsvklhifwdblhiwfdb");
-    //    if (collision.collider.CompareTag("Basic_Guardian"))
-    //    {
-    //        if (basicGuardian.haveSheild)
-    //        {
-    //            basicGuardian.BreakSheild();
-    //        }
-
-    //        else if (!basicGuardian.haveSheild)
-    //        {
-    //            basicGuardian.SelfDestroy();
-    //        }
-    //    }
-    //}
 }

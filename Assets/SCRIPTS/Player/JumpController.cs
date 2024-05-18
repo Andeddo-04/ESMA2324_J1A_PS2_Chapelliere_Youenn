@@ -6,7 +6,7 @@ public class JumpController : MonoBehaviour
 
     public Transform groundCheck;
 
-    public LayerMask groundCollisionLayer;
+    public LayerMask[] canJumpingCollisionLayer;
 
     public static JumpController instance;
 
@@ -15,7 +15,6 @@ public class JumpController : MonoBehaviour
     public float jumpForce, maxVelocityY, groundCheckRadius; // Vitesse maximale en Y
 
     public bool isGrounded;
-
 
     private Rigidbody2D rb;
 
@@ -60,7 +59,6 @@ public class JumpController : MonoBehaviour
                 Jump();
             }
         }
-        
     }
 
     void Jump()
@@ -75,10 +73,17 @@ public class JumpController : MonoBehaviour
 
     bool IsGrounded()
     {
-        // Vérifie si un cercle de rayon groundCheckRadius à la position groundCheck.position touche un collider du layer spécifié (groundCollisionLayer)
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundCollisionLayer);
+        // Vérifie si un cercle de rayon groundCheckRadius à la position groundCheck.position touche un collider de chaque layer spécifié dans la liste canJumpingCollisionLayer
+        foreach (LayerMask layer in canJumpingCollisionLayer)
+        {
+            if (Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, layer))
+            {
+                isGrounded = true;
+                return true;
+            }
+        }
 
-        return isGrounded;
+        isGrounded = false;
+        return false;
     }
-
 }

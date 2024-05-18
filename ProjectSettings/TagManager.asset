@@ -11,6 +11,7 @@ TagManager:
   - Tanky_Guardian
   - Archer_Guardian
   - Noble_Guardian
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Ennemie
-  - 
+  - platforms
   - 
   - 
   - 

@@ -18,6 +18,8 @@ public class ArcherGuardian : MonoBehaviour
 
     public int damageOnCollision;
 
+    public bool playerIsDetected = false;
+
 
 
     private Transform target;
@@ -34,7 +36,7 @@ public class ArcherGuardian : MonoBehaviour
 
     void Update()
     {
-        if (archerGuardianHealth.isAlive)
+        if (archerGuardianHealth.isAlive && playerIsDetected == false)
         {
             Vector3 direction = target.position - transform.position;
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
@@ -48,6 +50,16 @@ public class ArcherGuardian : MonoBehaviour
                 mobSpriteRenderer.flipX = !mobSpriteRenderer.flipX;
             }
         }
+
+        else if (archerGuardianHealth.isAlive && playerIsDetected == true)
+        {
+            return;
+        }
+    }
+
+    public void DetectPlayer(bool _newvalue)
+    {
+        playerIsDetected = _newvalue;
     }
 
     //void OnCollisionEnter2D(Collision2D collision)

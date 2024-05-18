@@ -51,10 +51,6 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
         SelectControls();
         
-        
-        
-        
-        
         //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
         //{
         

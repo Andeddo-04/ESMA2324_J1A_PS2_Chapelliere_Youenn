@@ -49,16 +49,4 @@ public class BasicGuardian : MonoBehaviour
             }
         }
     }
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.transform.CompareTag("Player"))
-    //    {
-    //        playerHealth = collision.transform.GetComponent<playerHealth>();
-    //        playerHealth.TakeDamage(10);
-    //    }
-    //}
-
-    
-
 }
