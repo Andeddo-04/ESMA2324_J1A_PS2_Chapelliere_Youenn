@@ -4713,12 +4713,10 @@ MonoBehaviour:
   objectsToPersist:
   - {fileID: 78539587}
   enemiesToTrack:
-  - gameObject: {fileID: 844468851}
+  - gameObject: {fileID: 288346876}
     isDead: 0
-    basicGardianHealth: {fileID: 844468853}
   - gameObject: {fileID: 288396871}
     isDead: 0
-    basicGardianHealth: {fileID: 0}
 --- !u!1 &1576030098
 GameObject:
   m_ObjectHideFlags: 0

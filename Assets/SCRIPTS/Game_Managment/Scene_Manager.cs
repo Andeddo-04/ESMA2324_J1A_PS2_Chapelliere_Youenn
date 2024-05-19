@@ -24,15 +24,17 @@ public class Scene_Manager : MonoBehaviour
     {
         foreach (var enemy in enemiesToTrack)
         {
-            var isDead = enemy.isDead;
-
             if (enemy.gameObject != null)
             {
                 var enemyHealth = enemy.gameObject.GetComponent<IEnemyHealth>();
 
                 if (enemyHealth != null)
                 {
-                    enemyHealth.OnDeath += () => isDead = true;
+                    enemyHealth.OnDeath += () =>
+                    {
+                        Debug.Log($"{enemy.gameObject.name} has died.");
+                        enemy.isDead = true;
+                    };
                 }
                 else
                 {
@@ -41,6 +43,7 @@ public class Scene_Manager : MonoBehaviour
             }
         }
     }
+
 }
 
 [System.Serializable]
@@ -48,12 +51,4 @@ public class EnemyObject
 {
     public GameObject gameObject;
     public bool isDead;
-    public BasicGuardianHealth basicGardianHealth;
-    void Update()
-    {
-        if (basicGardianHealth.isAlive == false)
-        {
-            isDead = true;
-        }
-    }
 }

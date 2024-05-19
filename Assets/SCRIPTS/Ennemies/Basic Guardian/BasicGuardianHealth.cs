@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class BasicGuardianHealth : MonoBehaviour
+public class BasicGuardianHealth : MonoBehaviour, IEnemyHealth
 {
+    public event Action OnDeath;
+
     ////////// * Variables publiques * \\\\\\\\\\
 
     public GameObject gameObject;
@@ -41,6 +44,9 @@ public class BasicGuardianHealth : MonoBehaviour
 
     public void Die()
     {
-        transform.parent.gameObject.SetActive(false);
+        Debug.Log($"{gameObject.name} is dying.");
+        OnDeath?.Invoke();
+        gameObject.SetActive(false); // Assuming you want to deactivate the enemy
     }
+
 }
