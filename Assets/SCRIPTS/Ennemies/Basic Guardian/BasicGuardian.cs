@@ -12,6 +12,8 @@ public class BasicGuardian : MonoBehaviour
 
     public BasicGuardianHealth basicGuardianHealth;
 
+    public GameObject detectionArea;
+
     public LayerMask collisionLayer;
     
     public float speed;
@@ -19,10 +21,12 @@ public class BasicGuardian : MonoBehaviour
     public int damageOnCollision;
 
 
-
+    
     private Transform target;
 
     private int desPoint;
+
+    private bool playerIsDetected;
 
     //public PlayerHealth playerHealth;
 
@@ -48,5 +52,11 @@ public class BasicGuardian : MonoBehaviour
                 mobSpriteRenderer.flipX = !mobSpriteRenderer.flipX;
             }
         }
+    }
+
+    public void DetectPlayer(bool _newvalue)
+    {
+        playerIsDetected = _newvalue;
+        detectionArea.SetActive(false);
     }
 }

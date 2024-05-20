@@ -10,9 +10,13 @@ public class TankyGuardian : MonoBehaviour
 
     public Transform[] waypoints;
 
+    public GameObject detectionArea;
+
     public TankyGuardianHealth tankyGuardianHealth;
 
     public LayerMask collisionLayer;
+
+    public bool playerIsDetected = false;
 
     public float speed;
 
@@ -48,6 +52,12 @@ public class TankyGuardian : MonoBehaviour
                 mobSpriteRenderer.flipX = !mobSpriteRenderer.flipX;
             }
         }
+    }
+
+    public void DetectPlayer(bool _newvalue)
+    {
+        playerIsDetected = _newvalue;
+        detectionArea.SetActive(false);
     }
 
     //void OnCollisionEnter2D(Collision2D collision)

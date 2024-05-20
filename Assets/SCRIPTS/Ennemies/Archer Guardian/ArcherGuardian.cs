@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+
 
 public class ArcherGuardian : MonoBehaviour
 {
@@ -10,17 +12,19 @@ public class ArcherGuardian : MonoBehaviour
 
     public Transform[] waypoints;
 
+    public GameObject detectionArea;
+
     public ArcherGuardianHealth archerGuardianHealth;
 
     public LayerMask collisionLayer;
 
-    public float speed;
+    public bool playerIsDetected = false;
 
     public int damageOnCollision;
 
-    public bool playerIsDetected = false;
+    public float speed;
 
-
+        
 
     private Transform target;
 
@@ -60,7 +64,11 @@ public class ArcherGuardian : MonoBehaviour
     public void DetectPlayer(bool _newvalue)
     {
         playerIsDetected = _newvalue;
+        detectionArea.SetActive(false);
     }
+            
+
+    
 
     //void OnCollisionEnter2D(Collision2D collision)
     //{

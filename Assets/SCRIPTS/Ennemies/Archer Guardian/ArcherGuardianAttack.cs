@@ -1,50 +1,35 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerDetectionArea : MonoBehaviour
+public class ArcherGuardianAttack : MonoBehaviour
 {
-    public float arrowSpeed = 10f; // Vitesse de la flèche
+    public ArcherGuardian archerGuardian;
+
     public Transform firePoint; // Point de départ de la flèche (par exemple, la main de l'archer)
+    
     public GameObject arrowPrefab; // Préfabriqué de la flèche
 
+
     private GameObject player;
-    public ArcherGuardian archerGuardian;
+
+    public float arrowSpeed = 10f;
+    
     private bool isAttacking = false; // Indique si l'archer est en train d'attaquer
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Détection de l'entrée du joueur dans la zone
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.CompareTag("Player"))
+        if (archerGuardian.playerIsDetected == true)
         {
-            archerGuardian.DetectPlayer(true);
-            StartCoroutine(AttackPlayer());
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            archerGuardian.DetectPlayer(true);
             if (!isAttacking)
             {
                 StartCoroutine(AttackPlayer());
             }
-        }
-    }
-
-    // Détection de la sortie du joueur de la zone
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            archerGuardian.DetectPlayer(false);
         }
     }
 

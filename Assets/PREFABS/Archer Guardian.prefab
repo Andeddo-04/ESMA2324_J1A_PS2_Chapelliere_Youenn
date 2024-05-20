@@ -133,9 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7196c6b37c152cd4a818e8bb26223037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowSpeed: 10
-  firePoint: {fileID: 2125676845154580312}
-  arrowPrefab: {fileID: 5156150931271555575, guid: ed1ff39fffdc9f843a131125f1157b21, type: 3}
   archerGuardian: {fileID: 686953022603626518}
 --- !u!1 &1703156388859694164
 GameObject:
@@ -308,6 +305,7 @@ GameObject:
   - component: {fileID: 5396050434248530212}
   - component: {fileID: 686953022603626518}
   - component: {fileID: 4768471957904106352}
+  - component: {fileID: 7949130287864191768}
   m_Layer: 6
   m_Name: Archer Guardian
   m_TagString: Archer_Guardian
@@ -474,13 +472,14 @@ MonoBehaviour:
   waypoints:
   - {fileID: 6528639615566048535}
   - {fileID: 5467858482724684783}
+  detectionArea: {fileID: 364626128948154525}
   archerGuardianHealth: {fileID: 4768471957904106352}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 0
-  speed: 3
-  damageOnCollision: 15
   playerIsDetected: 0
+  damageOnCollision: 15
+  speed: 3
 --- !u!114 &4768471957904106352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,3 +497,19 @@ MonoBehaviour:
   currentHealth: 0
   isInvicible: 0
   isAlive: 1
+--- !u!114 &7949130287864191768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115301800588717748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe4c9b6bc40da643bfcef34459f60f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archerGuardian: {fileID: 686953022603626518}
+  firePoint: {fileID: 2125676845154580312}
+  arrowPrefab: {fileID: 5156150931271555575, guid: ed1ff39fffdc9f843a131125f1157b21, type: 3}
+  arrowSpeed: 10
