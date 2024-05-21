@@ -16,29 +16,34 @@ public class BasicGuardian : MonoBehaviour
 
     public LayerMask collisionLayer;
     
-    public float speed;
+    public float speed, distanceToStop;
 
     public int damageOnCollision;
 
 
-    
+
+
+    private GameObject player;
+
     private Transform target;
 
     private int desPoint;
 
-    private bool playerIsDetected;
+    private bool playerIsDetected = false;
 
     //public PlayerHealth playerHealth;
 
     void Start()
     {
         target = waypoints[0];
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 
     void Update()
     {
-        if (basicGuardianHealth.isAlive)
+        if (basicGuardianHealth.isAlive && playerIsDetected == false)
         {
             Vector3 direction = target.position - transform.position;
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
@@ -52,6 +57,38 @@ public class BasicGuardian : MonoBehaviour
                 mobSpriteRenderer.flipX = !mobSpriteRenderer.flipX;
             }
         }
+
+        else if (basicGuardianHealth.isAlive && playerIsDetected)
+        {
+            float playerPositionX = player.transform.position.x;
+            float enemyPositionX = transform.position.x;
+            float distance = Mathf.Abs(playerPositionX - enemyPositionX); // Distance entre l'ennemi et le joueur sur l'axe X
+
+            if (distance > distanceToStop)
+            {
+                // Déterminer la direction du mouvement sur l'axe X
+                float directionX = playerPositionX > enemyPositionX ? 1f : -1f;
+
+                // Déplacer l'ennemi vers le joueur
+                mobRigidbody.velocity = new Vector2(directionX * speed, mobRigidbody.velocity.y);
+
+                // Flip du sprite de l'ennemi en fonction de la direction
+                if (directionX > 0 && !mobSpriteRenderer.flipX)
+                {
+                    mobSpriteRenderer.flipX = true;
+                }
+                else if (directionX < 0 && mobSpriteRenderer.flipX)
+                {
+                    mobSpriteRenderer.flipX = false;
+                }
+            }
+            else
+            {
+                // Arrêter l'ennemi quand il est à la distance désirée
+                mobRigidbody.velocity = new Vector2(0, mobRigidbody.velocity.y);
+            }
+        }
+
     }
 
     public void DetectPlayer(bool _newvalue)
