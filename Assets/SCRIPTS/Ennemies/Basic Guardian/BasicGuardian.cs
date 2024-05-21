@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BasicGuardian : MonoBehaviour
@@ -12,13 +13,11 @@ public class BasicGuardian : MonoBehaviour
 
     public BasicGuardianHealth basicGuardianHealth;
 
-    public GameObject detectionArea;
+    public GameObject detectionArea, attackHitbox;
 
     public LayerMask collisionLayer;
     
     public float speed, distanceToStop;
-
-    public int damageOnCollision;
 
 
 
@@ -66,6 +65,8 @@ public class BasicGuardian : MonoBehaviour
 
             if (distance > distanceToStop)
             {
+                attackHitbox.SetActive(false);
+
                 // Déterminer la direction du mouvement sur l'axe X
                 float directionX = playerPositionX > enemyPositionX ? 1f : -1f;
 
@@ -86,6 +87,8 @@ public class BasicGuardian : MonoBehaviour
             {
                 // Arrêter l'ennemi quand il est à la distance désirée
                 mobRigidbody.velocity = new Vector2(0, mobRigidbody.velocity.y);
+
+                StartCoroutine(DontUseWeaponAttackAtTop());
             }
         }
 
@@ -95,5 +98,11 @@ public class BasicGuardian : MonoBehaviour
     {
         playerIsDetected = _newvalue;
         detectionArea.SetActive(false);
+    }
+
+    public IEnumerator DontUseWeaponAttackAtTop()
+    {
+        yield return new WaitForSeconds(0.5f);
+        attackHitbox.SetActive(true);
     }
 }

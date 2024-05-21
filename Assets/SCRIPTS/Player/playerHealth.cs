@@ -60,7 +60,8 @@ public class playerHealth : MonoBehaviour
             isInvicible = true;
             StartCoroutine(InvincibilityFlash());
             StartCoroutine(HandleInvincibilityDelay());
-            
+
+            Debug.Log("ouch");
         }
     }
 

@@ -9,8 +9,6 @@ public class BasicGuardianHealth : MonoBehaviour, IEnemyHealth
 
     ////////// * Variables publiques * \\\\\\\\\\
 
-    public GameObject gameObject;
-
     public SpriteRenderer graphics;
 
     public int maxhealth = 100, currentHealth;
