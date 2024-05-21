@@ -4,7 +4,7 @@ using UnityEngine;
 public class BasicGuardianAttack : MonoBehaviour
 {
 
-    private GameObject attackHitbox;
+    private GameObject attackHitbox.SetActive(false);
 
     private BasicGuardian basicGuardian;
 
@@ -15,9 +15,7 @@ public class BasicGuardianAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        attackHitbox = attackHitbox.GetComponent<GameObject>();
-        basicGuardian = basicGuardian.GetComponent<BasicGuardian>();
-        attackHitbox.SetActive(false);
+        basicGuardian = basicGuardian.GetComponent<BasicGuardian>()
     }
 
     // Update is called once per frame
@@ -31,8 +29,7 @@ public class BasicGuardianAttack : MonoBehaviour
     }
 
     public IEnumerator AttackProcess()
-    {
-        
+    {        
         basicGuardian.attackHitbox.SetActive(true);
         playerHealth.TakeDamage(damage);
         basicGuardian.attackHitbox.SetActive(false);
