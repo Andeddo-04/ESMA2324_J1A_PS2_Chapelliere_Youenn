@@ -1034,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &257026517
 Transform:
   m_ObjectHideFlags: 0
@@ -1216,7 +1216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &288346877
 Transform:
   m_ObjectHideFlags: 0
@@ -2777,7 +2777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2945034382791838307, guid: 55a8ff9b6f74a004fbe0f4637d091249, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5467858482724684783, guid: 55a8ff9b6f74a004fbe0f4637d091249, type: 3}
       propertyPath: m_LocalScale.y
@@ -3280,8 +3280,8 @@ MonoBehaviour:
   maxhealth: 100
   currentHealth: 0
   isInvicible: 0
+  isAlive: 1
   graphics: {fileID: 765383237}
-  instance: {fileID: 765383245}
 --- !u!1001 &803739595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3336,7 +3336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2945034382791838307, guid: ff8e0eba35cba874c850f81fb09df70d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6141209395809992735, guid: ff8e0eba35cba874c850f81fb09df70d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4752,7 +4752,6 @@ MonoBehaviour:
   guardianSpriteRenderer: {fileID: 1338905504}
   attackHitbox: {fileID: 1338905500}
   tankyGuardian: {fileID: 288396874}
-  playerHealth: {fileID: 765383245}
   damage: 30
   canAttack: 1
 --- !u!1 &1385058178
@@ -6299,7 +6298,6 @@ MonoBehaviour:
   guardianSpriteRenderer: {fileID: 1965310213}
   attackHitbox: {fileID: 1965310210}
   basicGuardian: {fileID: 844468854}
-  playerHealth: {fileID: 765383245}
   damage: 10
   canAttack: 1
 --- !u!212 &1965310213
