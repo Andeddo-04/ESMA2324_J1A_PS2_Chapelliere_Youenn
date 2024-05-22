@@ -11,8 +11,6 @@ public class TankyGuardianAttack : MonoBehaviour
 
     public TankyGuardian tankyGuardian;
 
-    public playerHealth playerHealth;
-
     public int damage;
 
     public bool canAttack = true;
@@ -38,10 +36,8 @@ public class TankyGuardianAttack : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Player"))
+        if (collision.transform.CompareTag("Player") && playerHealth.instance.isAlive)
         {
-            playerHealth = collision.transform.GetComponent<playerHealth>();
-
             if (canAttack)
             {
                 canAttack = false;
@@ -54,7 +50,7 @@ public class TankyGuardianAttack : MonoBehaviour
     {
         instance.guardianSpriteRenderer.enabled = true;
 
-        playerHealth.TakeDamage(damage);
+        playerHealth.instance.TakeDamage(damage);
 
         yield return new WaitForSeconds(0.33f);
 

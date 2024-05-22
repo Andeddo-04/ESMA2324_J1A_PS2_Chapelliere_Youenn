@@ -35,7 +35,7 @@ public class ArcherGuardianAttack : MonoBehaviour
 
     public IEnumerator AttackPlayer()
     {
-        if (!isAttacking)
+        if (!isAttacking && playerHealth.instance.isAlive)
         {
             isAttacking = true;
 

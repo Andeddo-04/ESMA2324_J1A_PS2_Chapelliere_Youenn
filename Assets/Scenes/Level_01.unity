@@ -1034,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &257026517
 Transform:
   m_ObjectHideFlags: 0
@@ -1216,7 +1216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &288346877
 Transform:
   m_ObjectHideFlags: 0
@@ -2775,6 +2775,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tanky Guardian
       objectReference: {fileID: 0}
+    - target: {fileID: 2945034382791838307, guid: 55a8ff9b6f74a004fbe0f4637d091249, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5467858482724684783, guid: 55a8ff9b6f74a004fbe0f4637d091249, type: 3}
       propertyPath: m_LocalScale.y
       value: 2.95
@@ -3332,7 +3336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2945034382791838307, guid: ff8e0eba35cba874c850f81fb09df70d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6141209395809992735, guid: ff8e0eba35cba874c850f81fb09df70d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4629,8 +4633,8 @@ Transform:
   m_GameObject: {fileID: 1338905500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.8184824, y: -0.17001936, z: 0}
-  m_LocalScale: {x: 0.23444422, y: 0.54568905, z: 1.746205}
+  m_LocalPosition: {x: -0.381, y: -0.005, z: 0}
+  m_LocalScale: {x: 0.29598585, y: 0.75714356, z: 1.746205}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 288396872}
@@ -4749,7 +4753,7 @@ MonoBehaviour:
   attackHitbox: {fileID: 1338905500}
   tankyGuardian: {fileID: 288396874}
   playerHealth: {fileID: 765383245}
-  damage: 0
+  damage: 30
   canAttack: 1
 --- !u!1 &1385058178
 GameObject:

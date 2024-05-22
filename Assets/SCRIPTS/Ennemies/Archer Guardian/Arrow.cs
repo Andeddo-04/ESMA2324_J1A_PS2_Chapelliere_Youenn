@@ -2,12 +2,46 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public float destroyDelay = 5f; // Délai avant la destruction de la flèche
+    public BoxCollider2D boxCollider2D;
+
+    public LayerMask[] layerMasks;
+
+    public string[] tagsToTrack;
+
+    public int damage;
+
+    
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        foreach (var tag in tagsToTrack)
+        {
+            if (collider.CompareTag(tag))
+            {
+                MakeDamages();
+            }
+        }
+
+        foreach (var layerMask in layerMasks)
+        {
+            if ((layerMask & (1 << collider.gameObject.layer)) != 0)
+            {
+                DestroyArrow();
+            }
+        }
+        
+    }
+
+    void MakeDamages()
+    {
+        playerHealth.instance.TakeDamage(damage);
+        DestroyArrow();
+    }
 
     // Appelé lorsque la flèche est activée
-    private void OnEnable()
-    {
-        // Détruit la flèche après un certain délai
-        Destroy(gameObject, destroyDelay);
+    void DestroyArrow()
+    { 
+        // Détruit la flèche
+        Destroy(gameObject);
     }
 }

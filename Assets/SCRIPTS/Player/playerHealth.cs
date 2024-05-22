@@ -8,13 +8,13 @@ public class playerHealth : MonoBehaviour
     
     public int currentHealth;
 
-    public bool isInvicible = false;
+    public bool isInvicible = false, isAlive = true;
 
     public SpriteRenderer graphics;
 
     //public PlayerHealthbar healthBar;
 
-    public playerHealth instance;
+    public static playerHealth instance;
 
     private void Awake()
     {
@@ -60,8 +60,6 @@ public class playerHealth : MonoBehaviour
             isInvicible = true;
             StartCoroutine(InvincibilityFlash());
             StartCoroutine(HandleInvincibilityDelay());
-
-            Debug.Log("ouch");
         }
     }
 
