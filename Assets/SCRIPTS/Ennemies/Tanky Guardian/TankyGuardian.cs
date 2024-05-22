@@ -6,21 +6,17 @@ public class TankyGuardian : MonoBehaviour
 
     public SpriteRenderer mobSpriteRenderer;
 
-    public BoxCollider2D boxCollider2;
+    public BoxCollider2D boxCollider2D;
 
     public Transform[] waypoints;
 
-    public GameObject detectionArea;
-
     public TankyGuardianHealth tankyGuardianHealth;
+
+    public GameObject detectionArea;
 
     public LayerMask collisionLayer;
 
-    public bool playerIsDetected = false;
-
     public float speed, distanceToStop;
-
-    public int damageOnCollision;
 
 
     private GameObject player;
@@ -29,7 +25,7 @@ public class TankyGuardian : MonoBehaviour
 
     private int desPoint;
 
-    //public PlayerHealth playerHealth;
+    private bool playerIsDetected = false;
 
     void Start()
     {
@@ -91,15 +87,7 @@ public class TankyGuardian : MonoBehaviour
     {
         playerIsDetected = _newvalue;
         detectionArea.SetActive(false);
+        
     }
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.transform.CompareTag("Player"))
-    //    {
-    //        playerHealth = collision.transform.GetComponent<playerHealth>();
-    //        playerHealth.TakeDamage(10);
-    //    }
-    //}
 
 }

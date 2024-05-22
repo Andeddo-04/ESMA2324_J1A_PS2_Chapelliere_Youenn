@@ -3,36 +3,65 @@ using UnityEngine;
 
 public class BasicGuardianAttack : MonoBehaviour
 {
+    public Collider2D guardianCollider;
 
-    private GameObject attackHitbox.SetActive(false);
+    public SpriteRenderer guardianSpriteRenderer;
 
-    private BasicGuardian basicGuardian;
+    public GameObject attackHitbox;
+
+    public BasicGuardian basicGuardian;
 
     public playerHealth playerHealth;
 
     public int damage;
 
-    // Start is called before the first frame update
-    void Start()
+    public bool canAttack = true;
+
+    public static BasicGuardianAttack instance;
+
+
+    public void Awake()
     {
-        basicGuardian = basicGuardian.GetComponent<BasicGuardian>()
+        if (instance != null)
+        {
+            Debug.LogWarning("Il y a plus d'une instance de BasicGuardianAttack dans la scène");
+            return;
+        }
+
+        instance = this;
     }
 
-    // Update is called once per frame
-    void OnTriggerEnter2D(Collider2D collision)
+    public void Start()
+    {
+        instance.guardianCollider.isTrigger = true;
+    }
+    
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
             playerHealth = collision.transform.GetComponent<playerHealth>();
-            StartCoroutine(AttackProcess());
+
+            if (canAttack)
+            {
+                canAttack = false;
+                StartCoroutine(AttackProcess());
+            }
         }
     }
 
     public IEnumerator AttackProcess()
-    {        
-        basicGuardian.attackHitbox.SetActive(true);
+    {
+        instance.guardianSpriteRenderer.enabled = true;
+        
         playerHealth.TakeDamage(damage);
-        basicGuardian.attackHitbox.SetActive(false);
-        yield return new WaitForSeconds(0.75f);
+
+        yield return new WaitForSeconds(0.33f);
+
+        instance.guardianSpriteRenderer.enabled = false;
+        
+        yield return new WaitForSeconds(1.5f);
+
+        canAttack = true;
     }
 }

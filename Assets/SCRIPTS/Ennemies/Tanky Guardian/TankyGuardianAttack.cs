@@ -1,31 +1,67 @@
+using System.Collections;
 using UnityEngine;
 
 public class TankyGuardianAttack : MonoBehaviour
 {
+    public Collider2D guardianCollider;
 
-    private GameObject attackHitbox;
+    public SpriteRenderer guardianSpriteRenderer;
+
+    public GameObject attackHitbox;
+
+    public TankyGuardian tankyGuardian;
 
     public playerHealth playerHealth;
 
-    // Start is called before the first frame update
-    void Start()
+    public int damage;
+
+    public bool canAttack = true;
+
+    public static TankyGuardianAttack instance;
+
+
+    public void Awake()
     {
-        attackHitbox = attackHitbox.GetComponent<GameObject>();
-        attackHitbox.SetActive(false);
+        if (instance != null)
+        {
+            Debug.LogWarning("Il y a plus d'une instance de TankyGuardianAttack dans la scène");
+            return;
+        }
+
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-        
+        instance.guardianCollider.isTrigger = true;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
             playerHealth = collision.transform.GetComponent<playerHealth>();
-            playerHealth.TakeDamage(10);
+
+            if (canAttack)
+            {
+                canAttack = false;
+                StartCoroutine(AttackProcess());
+            }
         }
+    }
+
+    public IEnumerator AttackProcess()
+    {
+        instance.guardianSpriteRenderer.enabled = true;
+
+        playerHealth.TakeDamage(damage);
+
+        yield return new WaitForSeconds(0.33f);
+
+        instance.guardianSpriteRenderer.enabled = false;
+
+        yield return new WaitForSeconds(1.5f);
+
+        canAttack = true;
     }
 }
