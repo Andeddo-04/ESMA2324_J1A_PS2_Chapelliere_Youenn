@@ -25,7 +25,7 @@ public class BasicGuardian : MonoBehaviour
 
     private int desPoint;
 
-    private bool playerIsDetected = false;
+    private bool playerIsDetected = false, isFacingRight= false;
 
     void Start()
     {
@@ -47,7 +47,13 @@ public class BasicGuardian : MonoBehaviour
             {
                 desPoint = (desPoint + 1) % waypoints.Length; // % = reste division
                 target = waypoints[desPoint];
-                mobSpriteRenderer.flipX = !mobSpriteRenderer.flipX;
+
+                //isFacingRight devient son opposé (TRUE ou FALSE)
+                //on multiplie le scale X du joueur par -1
+                isFacingRight = !isFacingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
             }
         }
 
@@ -66,13 +72,40 @@ public class BasicGuardian : MonoBehaviour
                 mobRigidbody.velocity = new Vector2(directionX * speed, mobRigidbody.velocity.y);
 
                 // Flip du sprite de l'ennemi en fonction de la direction
-                if (directionX > 0 && !mobSpriteRenderer.flipX)
+                if (directionX > 0 && !isFacingRight)
                 {
-                    mobSpriteRenderer.flipX = true;
+                    //isFacingRight devient son opposé (TRUE ou FALSE)
+                    //on multiplie le scale X du joueur par -1
+                    isFacingRight = !isFacingRight;
+                    Vector3 localScale = transform.localScale;
+                    localScale.x *= -1f;
+                    transform.localScale = localScale;
                 }
-                else if (directionX < 0 && mobSpriteRenderer.flipX)
+                else if (directionX < 0 && isFacingRight)
                 {
-                    mobSpriteRenderer.flipX = false;
+                    //isFacingRight devient son opposé (TRUE ou FALSE)
+                    //on multiplie le scale X du joueur par -1
+                    isFacingRight = !isFacingRight;
+                    Vector3 localScale = transform.localScale;
+                    localScale.x *= -1f;
+                    transform.localScale = localScale;
+                }if (directionX > 0 && !isFacingRight)
+                {
+                    //isFacingRight devient son opposé (TRUE ou FALSE)
+                    //on multiplie le scale X du joueur par -1
+                    isFacingRight = !isFacingRight;
+                    Vector3 localScale = transform.localScale;
+                    localScale.x *= -1f;
+                    transform.localScale = localScale;
+                }
+                else if (directionX < 0 && isFacingRight)
+                {
+                    //isFacingRight devient son opposé (TRUE ou FALSE)
+                    //on multiplie le scale X du joueur par -1
+                    isFacingRight = !isFacingRight;
+                    Vector3 localScale = transform.localScale;
+                    localScale.x *= -1f;
+                    transform.localScale = localScale;
                 }
             }
             else

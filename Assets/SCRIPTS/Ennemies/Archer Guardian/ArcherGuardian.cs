@@ -18,7 +18,7 @@ public class ArcherGuardian : MonoBehaviour
 
     public LayerMask collisionLayer;
 
-    public bool playerIsDetected = false;
+    public bool playerIsDetected = false, isFacingRight = false;
 
     public int damageOnCollision;
 
@@ -52,6 +52,13 @@ public class ArcherGuardian : MonoBehaviour
                 desPoint = (desPoint + 1) % waypoints.Length; // % = reste division
                 target = waypoints[desPoint];
                 mobSpriteRenderer.flipX = !mobSpriteRenderer.flipX;
+
+                //isFacingRight devient son opposé (TRUE ou FALSE)
+                //on multiplie le scale X du joueur par -1
+                isFacingRight = !isFacingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
             }
         }
 

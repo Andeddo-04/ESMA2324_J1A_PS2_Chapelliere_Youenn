@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BasicGuardianHealth : MonoBehaviour, IEnemyHealth
+public class BasicGuardianHealth : MonoBehaviour
 {
-    public event Action OnDeath;
+    //public event Action OnDeath;
 
     ////////// * Variables publiques * \\\\\\\\\\
 
+    public GameObject basicGuardian;
+
     public SpriteRenderer graphics;
+
+    public BaseEnemy baseEnemy;
 
     public int maxhealth = 100, currentHealth;
 
@@ -42,9 +46,8 @@ public class BasicGuardianHealth : MonoBehaviour, IEnemyHealth
 
     public void Die()
     {
-        Debug.Log($"{gameObject.name} is dying.");
-        OnDeath?.Invoke();
-        gameObject.SetActive(false); // Assuming you want to deactivate the enemy
+        baseEnemy.TriggerOnDeath();
+        basicGuardian.SetActive(false); // Assuming you want to deactivate the enemy
     }
 
 }

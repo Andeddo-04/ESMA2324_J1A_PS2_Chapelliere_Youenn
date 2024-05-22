@@ -6,7 +6,11 @@ public class TankyGuardianHealth : MonoBehaviour
 {
     ////////// * Variables publiques * \\\\\\\\\\
 
+    public GameObject tankyGuardian;
+
     public SpriteRenderer graphics;
+
+    public BaseEnemy baseEnemy;
 
     public int maxhealth = 100, currentHealth;
 
@@ -39,6 +43,7 @@ public class TankyGuardianHealth : MonoBehaviour
 
     public void Die()
     {
-        Destroy(transform.parent.gameObject);
+        baseEnemy.TriggerOnDeath();
+        tankyGuardian.SetActive(false);
     }
 }

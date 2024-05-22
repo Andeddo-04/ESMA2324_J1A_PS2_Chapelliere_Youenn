@@ -26,7 +26,7 @@ public class Scene_Manager : MonoBehaviour
         {
             if (enemy.gameObject != null)
             {
-                var enemyHealth = enemy.gameObject.GetComponent<IEnemyHealth>();
+                var enemyHealth = enemy.gameObject.GetComponentInChildren<BaseEnemy>();
 
                 if (enemyHealth != null)
                 {

@@ -6,7 +6,11 @@ public class ArcherGuardianHealth : MonoBehaviour
 {
     ////////// * Variables publiques * \\\\\\\\\\
 
+    public GameObject archerGuardian;
+
     public SpriteRenderer graphics;
+
+    public BaseEnemy baseEnemy;
 
     public int maxhealth = 100, currentHealth;
 
@@ -39,6 +43,7 @@ public class ArcherGuardianHealth : MonoBehaviour
 
     public void Die()
     {
-        Destroy(transform.parent.gameObject);
+        baseEnemy.TriggerOnDeath();
+        archerGuardian.SetActive(false);
     }
 }

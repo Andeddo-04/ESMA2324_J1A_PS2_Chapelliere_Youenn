@@ -37,7 +37,7 @@ public class Arrow : MonoBehaviour
         playerHealth.instance.TakeDamage(damage);
         DestroyArrow();
     }
-
+    
     // Appelé lorsque la flèche est activée
     void DestroyArrow()
     { 
