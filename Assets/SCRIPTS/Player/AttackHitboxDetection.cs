@@ -16,7 +16,7 @@ public class AttackHitboxDetection : MonoBehaviour
 
     private BasicGuardianHealth basicGuardian;
     private TankyGuardianHealth tankyGuardian;
-    //private NobleGuardianHealth nobleGuardian;
+    private NobleGuardianHealth nobleGuardian;
     private ArcherGuardianHealth archerGuardian;
 
     ////////// * Méthode Awake() * \\\\\\\\\\
@@ -35,11 +35,11 @@ public class AttackHitboxDetection : MonoBehaviour
             tankyGuardian.TakeDamages();
         }
 
-        //if (collision.transform.CompareTag("Noble_Guardian"))
-        //{
-        //    nobleGuardian = collision.transform.GetComponent<NobleGuardianHealth>();
-        //    nobleGuardian.TakeDamages();
-        //}
+        if (collision.transform.CompareTag("Noble_Guardian"))
+        {
+            nobleGuardian = collision.transform.GetComponent<NobleGuardianHealth>();
+            nobleGuardian.TakeDamages();
+        }
 
         if (collision.transform.CompareTag("Archer_Guardian"))
         {

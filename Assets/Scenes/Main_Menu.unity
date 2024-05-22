@@ -4756,7 +4756,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Commandes :\n\n- d\xE9placement horizontale [ Q D ] [ Joystick gauche
     ]\n- saut [ ESPACE ] [ X (manette PS4) ]\n\n- selection arme [ 0 1 2 3 ]\n- switch
-    en clavier et manette [ TAB ]\n\n"
+    entre clavier et manette [ TAB ]\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicGuardian : MonoBehaviour
+public class NobleGuardian : MonoBehaviour
 {
     public Rigidbody2D mobRigidbody;
 
@@ -10,7 +10,7 @@ public class BasicGuardian : MonoBehaviour
 
     public Transform[] waypoints;
 
-    public BasicGuardianHealth basicGuardianHealth;
+    public NobleGuardianHealth nobleGuardianHealth;
 
     public GameObject detectionArea;
 
@@ -36,7 +36,7 @@ public class BasicGuardian : MonoBehaviour
 
     void Update()
     {
-        if (basicGuardianHealth.isAlive && playerIsDetected == false)
+        if (nobleGuardianHealth.isAlive && playerIsDetected == false)
         {
             Vector3 direction = target.position - transform.position;
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
@@ -57,7 +57,7 @@ public class BasicGuardian : MonoBehaviour
             }
         }
 
-        else if (basicGuardianHealth.isAlive && playerIsDetected)
+        else if (nobleGuardianHealth.isAlive && playerIsDetected)
         {
             float playerPositionX = player.transform.position.x;
             float enemyPositionX = transform.position.x;
