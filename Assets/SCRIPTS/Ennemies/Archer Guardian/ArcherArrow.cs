@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class ArcherArrow : MonoBehaviour
 {
     public BoxCollider2D boxCollider2D;
 

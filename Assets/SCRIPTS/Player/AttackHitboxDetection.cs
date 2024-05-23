@@ -19,8 +19,6 @@ public class AttackHitboxDetection : MonoBehaviour
     private NobleGuardianHealth nobleGuardian;
     private ArcherGuardianHealth archerGuardian;
 
-    ////////// * Méthode Awake() * \\\\\\\\\\
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Basic_Guardian"))
