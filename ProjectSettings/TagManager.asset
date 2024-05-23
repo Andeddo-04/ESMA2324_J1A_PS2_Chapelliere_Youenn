@@ -12,6 +12,11 @@ TagManager:
   - Archer_Guardian
   - Noble_Guardian
   - Arrow
+  - crossHairTracker
+  - InteractUI
+  - PlayerHealthBar
+  - PauseMenu
+  - SceneManager
   layers:
   - Default
   - TransparentFX

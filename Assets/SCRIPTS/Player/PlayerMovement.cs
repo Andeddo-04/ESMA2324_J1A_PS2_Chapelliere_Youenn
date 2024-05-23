@@ -22,9 +22,13 @@ public class PlayerMovement : MonoBehaviour
 
     ////////// * Variables privées * \\\\\\\\\\
 
+    private GameObject sceneManager;
+
+    private PauseMenu pauseMenu;
+
     private float controller_horizontalMovement, keyboard_horizontalMovement;
 
-    private int playerId = 0;
+    public int playerId = 0;
 
     private Vector3 velocity;
 
@@ -42,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         instance = this;
+
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+
+        pauseMenu = sceneManager.GetComponent<PauseMenu>();
     }
 
 
@@ -50,10 +58,10 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         SelectControls();
-        
+
         //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
         //{
-        
+
 
         //}
 
