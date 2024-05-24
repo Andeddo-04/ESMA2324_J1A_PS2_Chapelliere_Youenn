@@ -9,17 +9,13 @@ public class AttackController : MonoBehaviour
 
     public static AttackController instance;
 
-    public PlayerMovement playerMovement;
-
     public GameObject handTopHitboxAttack, handRightHitboxAttack, handLeftHitboxAttack;
 
     public GameObject swordTopHitboxAttack, swordRightHitboxAttack, swordLeftHitboxAttack;
     
     public GameObject halberdTopHitboxAttack, halberdRightHitboxAttack, halberdLeftHitboxAttack;
     
-    public GameObject flailWeaponTopHitboxAttack, flailWeaponRightHitboxAttack, flailWeaponLeftHitboxAttack;
-
-    public bool isAttacking, dontUseWeapon = true, useSword = false, useHalberd = false, useFlaidWeapon = false;
+    public bool isAttacking, dontUseWeapon = true, useSword = false, useHalberd = false, useBow = false;
 
     ////////// * Variables privées * \\\\\\\\\\
 
@@ -48,7 +44,7 @@ public class AttackController : MonoBehaviour
     {
         ChoseYourWeapon();
 
-        if (playerMovement.useController)
+        if (PlayerMovement.instance.useController)
         {
             if (dontUseWeapon)
             {
@@ -113,29 +109,13 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useFlaidWeapon)
+            if (useBow)
             {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(FlailWeaponAttackAtTop());
-                }
-
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(FlailWeaponAttackAtRight());
-                }
-
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(FlailWeaponAttackAtLeft());
-                }
+                CrosshairMovement.instance.MoveCrossHair();
             }
         }
 
-        if (!playerMovement.useController)
+        if (!PlayerMovement.instance.useController)
         {
             if (dontUseWeapon)
             {
@@ -201,25 +181,9 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useFlaidWeapon)
+            if (useBow)
             {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
-                {
-                    StartCoroutine(FlailWeaponAttackAtTop());
-                }
-
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
-                {
-                    StartCoroutine(FlailWeaponAttackAtRight());
-                }
-
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
-                {
-                    StartCoroutine(FlailWeaponAttackAtLeft());
-                }
+                CrosshairMovement.instance.MoveCrossHair();
             }
         }
     }
@@ -231,7 +195,7 @@ public class AttackController : MonoBehaviour
             dontUseWeapon = true;
             useSword = false;
             useHalberd = false;
-            useFlaidWeapon = false;
+            useBow = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
@@ -239,7 +203,7 @@ public class AttackController : MonoBehaviour
             dontUseWeapon = false;
             useSword = true;
             useHalberd = false;
-            useFlaidWeapon = false;
+            useBow = false;
         }
 
         else if (Input.GetKeyDown(KeyCode.Keypad2))
@@ -247,7 +211,7 @@ public class AttackController : MonoBehaviour
             dontUseWeapon = false;
             useSword = false;
             useHalberd = true;
-            useFlaidWeapon = false;
+            useBow = false;
         }
 
         else if (Input.GetKeyDown(KeyCode.Keypad3))
@@ -255,7 +219,7 @@ public class AttackController : MonoBehaviour
             dontUseWeapon = false;
             useSword = false;
             useHalberd = false;
-            useFlaidWeapon = true;
+            useBow = true;
         }
     }
 
@@ -353,35 +317,35 @@ public class AttackController : MonoBehaviour
     }
 
     ////////// * Coroutine Attaque au fléau d'arme * \\\\\\\\\\
-    public IEnumerator FlailWeaponAttackAtTop()
-    {
-        isAttacking = true; // Définit l'attaque comme en cours
-        flailWeaponTopHitboxAttack.SetActive(true);
-        yield return new WaitForSeconds(0.33f);
-        flailWeaponTopHitboxAttack.SetActive(false);
-        yield return new WaitForSeconds(ATKCooldown);
-        isAttacking = false; // Réinitialise l'attaque comme terminée
-    }
+    //public IEnumerator FlailWeaponAttackAtTop()
+    //{
+    //    isAttacking = true; // Définit l'attaque comme en cours
+    //    flailWeaponTopHitboxAttack.SetActive(true);
+    //    yield return new WaitForSeconds(0.33f);
+    //    flailWeaponTopHitboxAttack.SetActive(false);
+    //    yield return new WaitForSeconds(ATKCooldown);
+    //    isAttacking = false; // Réinitialise l'attaque comme terminée
+    //}
 
-    public IEnumerator FlailWeaponAttackAtRight()
-    {
-        isAttacking = true; // Définit l'attaque comme en cours
-        flailWeaponRightHitboxAttack.SetActive(true);
-        yield return new WaitForSeconds(0.33f);
-        flailWeaponRightHitboxAttack.SetActive(false);
-        yield return new WaitForSeconds(ATKCooldown);
-        isAttacking = false; // Réinitialise l'attaque comme terminée
-    }
+    //public IEnumerator FlailWeaponAttackAtRight()
+    //{
+    //    isAttacking = true; // Définit l'attaque comme en cours
+    //    flailWeaponRightHitboxAttack.SetActive(true);
+    //    yield return new WaitForSeconds(0.33f);
+    //    flailWeaponRightHitboxAttack.SetActive(false);
+    //    yield return new WaitForSeconds(ATKCooldown);
+    //    isAttacking = false; // Réinitialise l'attaque comme terminée
+    //}
 
-    public IEnumerator FlailWeaponAttackAtLeft()
-    {
-        isAttacking = true; // Définit l'attaque comme en cours
-        flailWeaponLeftHitboxAttack.SetActive(true);
-        yield return new WaitForSeconds(0.33f);
-        flailWeaponLeftHitboxAttack.SetActive(false);
-        yield return new WaitForSeconds(ATKCooldown);
-        isAttacking = false; // Réinitialise l'attaque comme terminée
-    }
+    //public IEnumerator FlailWeaponAttackAtLeft()
+    //{
+    //    isAttacking = true; // Définit l'attaque comme en cours
+    //    flailWeaponLeftHitboxAttack.SetActive(true);
+    //    yield return new WaitForSeconds(0.33f);
+    //    flailWeaponLeftHitboxAttack.SetActive(false);
+    //    yield return new WaitForSeconds(ATKCooldown);
+    //    isAttacking = false; // Réinitialise l'attaque comme terminée
+    //}
 
 
     

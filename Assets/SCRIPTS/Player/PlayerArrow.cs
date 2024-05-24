@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArcherArrow : MonoBehaviour
+public class PlayerArrow : MonoBehaviour
 {
     public BoxCollider2D boxCollider2D;
 
@@ -68,7 +68,7 @@ public class ArcherArrow : MonoBehaviour
 
     void MakeDamages()
     {
-        tag.TakeDamage(damage);
+        //tag.TakeDamage(damage);
         DestroyArrow();
     }
     

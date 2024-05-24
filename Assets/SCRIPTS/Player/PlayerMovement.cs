@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float controller_horizontalMovement, keyboard_horizontalMovement;
 
-    public int playerId = 0;
+    private int playerId = 0;
 
     private Vector3 velocity;
 
@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         SelectControls();
+        CrosshairMovement.instance.MoveCrossHair();
+
 
         //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
         //{

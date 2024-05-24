@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1018196208147977304}
   - component: {fileID: 319840717307063356}
   m_Layer: 0
-  m_Name: Arrow
+  m_Name: Archer Arrow
   m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5156150931271555575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0386f72d1705d4da5233df3dbd1e37, type: 3}
+  m_Script: {fileID: 11500000, guid: 6382964edf5ad6d4eb434a72aac6d617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider2D: {fileID: -1018196208147977304}
@@ -177,4 +177,4 @@ MonoBehaviour:
     m_Bits: 8
   tagsToTrack:
   - Player
-  damage: 20
+  damage: 0
