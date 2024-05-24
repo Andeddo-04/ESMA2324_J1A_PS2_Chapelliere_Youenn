@@ -27,11 +27,11 @@ public class ArcherGuardianHealth : MonoBehaviour
         //healthBar.SetMaxHealth(maxhealth);
     }
 
-    public void TakeDamages()
+    public void TakeDamages(int _damage)
     {
         if (isAlive)
         {
-            currentHealth -= 50;
+            currentHealth -= _damage;
         }
 
         if (currentHealth <= 0)

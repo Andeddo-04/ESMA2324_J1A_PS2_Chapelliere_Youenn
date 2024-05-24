@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 7781650111052491108}
   m_Layer: 6
   m_Name: Tanky Guardian
-  m_TagString: Tanky_Guardian
+  m_TagString: TankyGuardian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

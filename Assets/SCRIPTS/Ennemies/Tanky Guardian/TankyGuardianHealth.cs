@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankyGuardianHealth : MonoBehaviour
+public class TankyGuardianHealth : MonoBehaviour    
 {
     ////////// * Variables publiques * \\\\\\\\\\
 
@@ -27,11 +27,11 @@ public class TankyGuardianHealth : MonoBehaviour
         //healthBar.SetMaxHealth(maxhealth);
     }
 
-    public void TakeDamages()
+    public void TakeDamages(int _damage)
     {
         if (isAlive)
         {
-            currentHealth -= 50;
+            currentHealth -= _damage;
         }
 
         if (currentHealth <= 0)

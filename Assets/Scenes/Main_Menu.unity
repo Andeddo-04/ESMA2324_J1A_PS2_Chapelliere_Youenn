@@ -3647,7 +3647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1283207258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4660,6 +4660,24 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 0
+    - _id: 40
+      _name: Mouse_Aim_X
+      _type: 0
+      _descriptiveName: Action0
+      _positiveDescriptiveName: AtRight
+      _negativeDescriptiveName: AtLeft
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 0
+    - _id: 42
+      _name: Mouse_Aim_Y
+      _type: 0
+      _descriptiveName: Action0
+      _positiveDescriptiveName: AtUp
+      _negativeDescriptiveName: AtDown
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 0
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -4669,7 +4687,7 @@ MonoBehaviour:
     actionCategoryMap:
       list:
       - categoryId: 0
-        actionIds: 00000000030000001400000001000000190000001b00000004000000020000000700000005000000060000001700000008000000090000000c0000001a0000000d0000001c0000001e0000001f00000020000000100000000e0000000f00000018000000210000002200000023000000
+        actionIds: 00000000030000001400000001000000190000001b00000004000000020000000700000005000000060000001700000008000000090000000c0000001a0000000d0000001c0000001e0000001f00000020000000100000000e0000000f0000001800000021000000280000002a0000002200000023000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -5428,7 +5446,7 @@ MonoBehaviour:
         _axisRange: 0
         _invert: 0
         _axisContribution: 0
-        _keyboardKeyCode: 39
+        _keyboardKeyCode: 27
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
@@ -5495,12 +5513,34 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 40
+        _elementType: 0
+        _elementIdentifierId: 0
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 42
+        _elementType: 0
+        _elementIdentifierId: 1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     customControllerMaps: []
     customControllers: []
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 4
-    actionIdCounter: 40
+    actionIdCounter: 43
     actionCategoryIdCounter: 1
     inputBehaviorIdCounter: 2
     mapCategoryIdCounter: 6

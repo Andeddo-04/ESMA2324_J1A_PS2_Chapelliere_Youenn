@@ -168,7 +168,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5156150931271555575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0386f72d1705d4da5233df3dbd1e37, type: 3}
+  m_Script: {fileID: 11500000, guid: 12d9ddac8b714ed4398c5e66fa449582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider2D: {fileID: -1018196208147977304}
@@ -176,5 +176,8 @@ MonoBehaviour:
   - serializedVersion: 2
     m_Bits: 8
   tagsToTrack:
-  - Player
-  damage: 20
+  - BasicGuardian
+  - TankyGuardian
+  - ArcherGuardian
+  - NobleGuardian
+  damage: 100

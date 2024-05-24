@@ -7,16 +7,15 @@ TagManager:
   - CrossHairTracker
   - KeyBoardType
   - ControllerType
-  - Basic_Guardian
-  - Tanky_Guardian
-  - Archer_Guardian
-  - Noble_Guardian
   - Arrow
-  - crossHairTracker
   - InteractUI
   - PlayerHealthBar
   - PauseMenu
   - SceneManager
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
   layers:
   - Default
   - TransparentFX

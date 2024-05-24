@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     public BoxCollider2D characterBoxCollider;
 
-    //public GameObject canvasMainMenu, canvasUI, canvaspauseMenu;
+    public GameObject newPosition;
+
+    public CrosshairMovement crosshairMovement;
 
     public static PlayerMovement instance;
 
@@ -57,28 +59,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        SelectControls();
-        CrosshairMovement.instance.MoveCrossHair();
-
-
-        //if (canvaspauseMenu.activeSelf == false && canvasMainMenu.activeSelf == false)
-        //{
-
-
-        //}
-
-        //else if (canvasMainMenu.activeSelf == true && canvaspauseMenu.activeSelf == false && canvasUI.activeSelf == false)
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //}
-
-        //else if (canvasMainMenu.activeSelf == false && canvaspauseMenu.activeSelf == true && canvasUI.activeSelf == true)
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //}
-
+        //SelectControls();
+        crossHairTracker();
+        crosshairMovement.MoveCrossHair();
     }
 
     ////////// * Méthode MovePlayer() * \\\\\\\\\\
@@ -101,8 +84,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
+    void crossHairTracker()
+    {
+        GameObject.FindGameObjectWithTag("CrossHairTracker").transform.position = newPosition.transform.position;
+    }
 
     ////////// *  * \\\\\\\\\\
     public void SetControllerUsage(bool useController)
@@ -122,11 +107,11 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void SelectControls()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            useController = !useController;
-        }
-    }
+    //void SelectControls()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Tab))
+    //    {
+    //        useController = !useController;
+    //    }
+    //}
 }

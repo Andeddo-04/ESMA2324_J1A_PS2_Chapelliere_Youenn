@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 358416277527663736}
   m_Layer: 6
   m_Name: Basic Guardian
-  m_TagString: Basic_Guardian
+  m_TagString: BasicGuardian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

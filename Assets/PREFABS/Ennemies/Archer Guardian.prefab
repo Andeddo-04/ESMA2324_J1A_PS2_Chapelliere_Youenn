@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 4533122328225365531}
   m_Layer: 6
   m_Name: Archer Guardian
-  m_TagString: Archer_Guardian
+  m_TagString: ArcherGuardian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -479,6 +479,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   playerIsDetected: 0
+  isFacingRight: 0
   damageOnCollision: 15
   speed: 3
 --- !u!114 &4768471957904106352

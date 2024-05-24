@@ -9,6 +9,8 @@ public class AttackController : MonoBehaviour
 
     public static AttackController instance;
 
+    public CrosshairMovement crosshairMovement;
+
     public GameObject handTopHitboxAttack, handRightHitboxAttack, handLeftHitboxAttack;
 
     public GameObject swordTopHitboxAttack, swordRightHitboxAttack, swordLeftHitboxAttack;
@@ -67,7 +69,7 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useSword)
+            else if (useSword)
             {
                 // Vérifie si la flèche du haut est pressée et si l'objet est au sol
                 if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
@@ -88,7 +90,7 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useHalberd)
+            else if (useHalberd)
             {
                 // Vérifie si la flèche du haut est pressée et si l'objet est au sol
                 if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
@@ -109,9 +111,9 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useBow)
+            else if (useBow)
             {
-                CrosshairMovement.instance.MoveCrossHair();
+                crosshairMovement.StartAttack();
             }
         }
 
@@ -139,7 +141,7 @@ public class AttackController : MonoBehaviour
 
             }
 
-            if (useSword)
+            else if (useSword)
             {
                 // Vérifie si la flèche du haut est pressée et si l'objet est au sol
                 if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
@@ -160,7 +162,7 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useHalberd)
+            else if (useHalberd)
             {
                 // Vérifie si la flèche du haut est pressée et si l'objet est au sol
                 if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
@@ -181,9 +183,9 @@ public class AttackController : MonoBehaviour
                 }
             }
 
-            if (useBow)
+            else if (useBow)
             {
-                CrosshairMovement.instance.MoveCrossHair();
+                crosshairMovement.StartAttack();
             }
         }
     }
@@ -196,6 +198,9 @@ public class AttackController : MonoBehaviour
             useSword = false;
             useHalberd = false;
             useBow = false;
+
+            crosshairMovement.IsAimingChangerAtFalse();
+            crosshairMovement.crossHair.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
@@ -204,6 +209,9 @@ public class AttackController : MonoBehaviour
             useSword = true;
             useHalberd = false;
             useBow = false;
+
+            crosshairMovement.IsAimingChangerAtFalse();
+            crosshairMovement.crossHair.SetActive(false);
         }
 
         else if (Input.GetKeyDown(KeyCode.Keypad2))
@@ -212,6 +220,9 @@ public class AttackController : MonoBehaviour
             useSword = false;
             useHalberd = true;
             useBow = false;
+
+            crosshairMovement.IsAimingChangerAtFalse();
+            crosshairMovement.crossHair.SetActive(false);
         }
 
         else if (Input.GetKeyDown(KeyCode.Keypad3))
@@ -220,6 +231,9 @@ public class AttackController : MonoBehaviour
             useSword = false;
             useHalberd = false;
             useBow = true;
+
+            crosshairMovement.IsAimingChangerAtTrue();
+            crosshairMovement.crossHair.SetActive(true);
         }
     }
 
