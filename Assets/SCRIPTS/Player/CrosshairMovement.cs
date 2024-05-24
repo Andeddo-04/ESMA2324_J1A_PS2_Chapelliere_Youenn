@@ -22,7 +22,7 @@ public class CrosshairMovement : MonoBehaviour
 
     public bool isAiming = false;
 
-    private Vector3 controller_AttackDirection, aim;
+    private Vector2 controller_AttackDirection, aim, mouseMovement;
 
     private int playerId = 0;
 
@@ -45,17 +45,19 @@ public class CrosshairMovement : MonoBehaviour
     ////////// * Méthode MoveCrossHair() * \\\\\\\\\\
     public void MoveCrossHair()
     {
-        if (pauseMenu.gameIsPaused == false)
+        if (pauseMenu.gameIsPaused == false && AttackController.instance.useBow)
         {
             ////////// * Contrôle du crosshair à la manette * \\\\\\\\\\
-            if (useController && AttackController.instance.useBow)
+            if (useController)
             {
-                controller_AttackDirection = new Vector3(player.GetAxis("Controller_AimHorizontal"), player.GetAxis("Controller_AimVertical"), 0.0f);
+                controller_AttackDirection = new Vector2(player.GetAxis("Controller_AttackDirection_X"), player.GetAxis("Controller_AttackDirection_Y"));
+
+                Debug.LogWarning("butez moi");
 
                 if (controller_AttackDirection.magnitude > 0.0f)
                 {
                     controller_AttackDirection.Normalize();
-                    controller_AttackDirection *= 2.0f;
+                    controller_AttackDirection *= 40.0f;
                     crossHair.transform.localPosition = controller_AttackDirection;
                     //crossHair.SetActive(true);
 
@@ -63,25 +65,20 @@ public class CrosshairMovement : MonoBehaviour
                     {
                         StartAttack();
                     }
-                }
 
-                else
-                {
-                    crossHair.SetActive(false);
+                    Debug.LogWarning("Hey tu me déplace avec la manette !");
                 }
             }
 
             ////////// * Contrôle du crosshair à la sourie * \\\\\\\\\\
-            if (!useController && AttackController.instance.useBow)
+            if (!useController)
             {
                 // mouse_AttackDirection = new Vector3(player.GetAxis("Mouse_AimHorizontal"), player.GetAxis("Mouse_AimVertical"), 0.0f);
-                Vector3 mouseMovement = new Vector3(player.GetAxis("Mouse_Aim_X"), player.GetAxis("Mouse_Aim_Y"), 0.0f);
+                mouseMovement = new Vector2(player.GetAxis("Mouse_Aim_X"), player.GetAxis("Mouse_Aim_Y"));
                 aim += mouseMovement;
 
                 if (isAiming)
                 {
-                    //crossHair.SetActive(true);
-
                     if (aim.magnitude > 1.0f)
                     {
                         aim.Normalize();
@@ -94,18 +91,18 @@ public class CrosshairMovement : MonoBehaviour
                         StartAttack();
                     }
                 }
-
-                else
-                {
-                    crossHair.SetActive(false);
-                }
             }
         }        
     }
 
     public void StartAttack()
     {
-        if (player.GetButtonDown("Mouse_LaunchArrow"))
+        if (PlayerMovement.instance.useController && player.GetButtonDown("Controller_Attack"))
+        {
+            StartCoroutine(LaunchArrow());
+        }
+
+        if (!PlayerMovement.instance.useController && player.GetButtonDown("Mouse_LaunchArrow"))
         {
             StartCoroutine(LaunchArrow());
         }        

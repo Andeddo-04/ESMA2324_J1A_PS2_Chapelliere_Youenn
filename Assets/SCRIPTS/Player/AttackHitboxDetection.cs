@@ -21,25 +21,25 @@ public class AttackHitboxDetection : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Basic_Guardian"))
+        if (collision.transform.CompareTag("BasicGuardian"))
         {
             basicGuardian = collision.transform.GetComponent<BasicGuardianHealth>();
             basicGuardian.TakeDamages(damage);
         }
 
-        if (collision.transform.CompareTag("Tanky_Guardian"))
+        if (collision.transform.CompareTag("TankyGuardian"))
         {
             tankyGuardian = collision.transform.GetComponent<TankyGuardianHealth>();
             tankyGuardian.TakeDamages(damage);
         }
 
-        if (collision.transform.CompareTag("Noble_Guardian"))
+        if (collision.transform.CompareTag("NobleGuardian"))
         {
             nobleGuardian = collision.transform.GetComponent<NobleGuardianHealth>();
             nobleGuardian.TakeDamages(damage);
         }
 
-        if (collision.transform.CompareTag("Archer_Guardian"))
+        if (collision.transform.CompareTag("ArcherGuardian"))
         {
             archerGuardian = collision.transform.GetComponent<ArcherGuardianHealth>();
             archerGuardian.TakeDamages(damage);

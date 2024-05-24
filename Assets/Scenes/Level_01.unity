@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 181205371}
   ennemiesLayer:
     serializedVersion: 2
@@ -926,6 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 226224534}
   ennemiesLayer:
     serializedVersion: 2
@@ -1286,6 +1288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 274140258}
   ennemiesLayer:
     serializedVersion: 2
@@ -1412,6 +1415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 298156696}
   ennemiesLayer:
     serializedVersion: 2
@@ -1996,6 +2000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 423396951}
   ennemiesLayer:
     serializedVersion: 2
@@ -2588,6 +2593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 551774552}
   ennemiesLayer:
     serializedVersion: 2
@@ -3078,6 +3084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 723836562}
   ennemiesLayer:
     serializedVersion: 2
@@ -6677,6 +6684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 1488040267}
   ennemiesLayer:
     serializedVersion: 2
@@ -7350,6 +7358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 765383242}
+  damage: 0
   attackHitbox: {fileID: 1584061882}
   ennemiesLayer:
     serializedVersion: 2
