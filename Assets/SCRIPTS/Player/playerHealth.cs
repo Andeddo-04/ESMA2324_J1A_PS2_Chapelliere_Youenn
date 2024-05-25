@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     public int maxhealth = 100;
-    
+
     public int currentHealth;
 
     public bool isInvicible = false, isAlive = true;
 
     public SpriteRenderer graphics;
 
-    //public PlayerHealthbar healthBar;
+    public GameObject crossHair;
 
-    public static playerHealth instance;
+    private PlayerHealthbar healthBar;
+    
+    private GameObject healthBarGameObject;
+
+    public static PlayerHealth instance;
 
     private void Awake()
     {
@@ -25,6 +29,10 @@ public class playerHealth : MonoBehaviour
         }
 
         instance = this;
+
+        healthBarGameObject = GameObject.FindGameObjectWithTag("PlayerHealthBar");
+
+        healthBar = healthBarGameObject.GetComponent<PlayerHealthbar>();
     }
 
 
@@ -49,7 +57,7 @@ public class playerHealth : MonoBehaviour
         if (!isInvicible)
         {
             currentHealth -= damage;
-            //healthBar.SetHealth(currentHealth);
+            healthBar.SetHealth(currentHealth);
 
             if (currentHealth <= 0)
             {
@@ -70,23 +78,25 @@ public class playerHealth : MonoBehaviour
         PlayerMovement.instance.rb.bodyType = RigidbodyType2D.Kinematic;
         PlayerMovement.instance.rb.velocity = Vector3.zero;
         PlayerMovement.instance.characterBoxCollider.enabled = false;
-        
+
+        crossHair.SetActive(false);
+
         PlayerMovement.instance.rbRenderer.enabled = false;
-        //GameOverManager.instance.OnPlayerDeath();
+        GameOverManager.instance.OnPlayerDeath();
     }
 
-    //public void Respawn()
-    //{
-    //    PlayerMovement.instance.enabled = true;
-    //    //PlayerMovement.instance.animator.SetTrigger("Respawn");
-    //    PlayerMovement.instance.characterSprite.bodyType = RigidbodyType2D.Dynamic;
-    //    PlayerMovement.instance.characterSprite.velocity = Vector3.zero;
-    //    PlayerMovement.instance.characterBoxCollider.enabled = true;
-    //    PlayerMovement.instance.characterSpriteRenderer.enabled = true;
+    public void Respawn()
+    {
+        PlayerMovement.instance.enabled = true;
+        //PlayerMovement.instance.animator.SetTrigger("Respawn");
+        PlayerMovement.instance.rb.bodyType = RigidbodyType2D.Dynamic;
+        PlayerMovement.instance.rb.velocity = Vector3.zero;
+        PlayerMovement.instance.characterBoxCollider.enabled = true;
+        PlayerMovement.instance.rbRenderer.enabled = true;
 
-    //    currentHealth = maxhealth;
-    //    healthBar.SetMaxHealth(maxhealth);
-    //}
+        currentHealth = maxhealth;
+        healthBar.SetMaxHealth(maxhealth);
+    }
 
     public IEnumerator InvincibilityFlash()
     {

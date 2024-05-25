@@ -30,8 +30,6 @@ public class ArcherGuardian : MonoBehaviour
 
     private int desPoint;
 
-    //public PlayerHealth playerHealth;
-
     void Start()
     {
         target = waypoints[0];
@@ -73,17 +71,4 @@ public class ArcherGuardian : MonoBehaviour
         playerIsDetected = _newvalue;
         detectionArea.SetActive(false);
     }
-            
-
-    
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.transform.CompareTag("Player"))
-    //    {
-    //        playerHealth = collision.transform.GetComponent<playerHealth>();
-    //        playerHealth.TakeDamage(10);
-    //    }
-    //}
-
 }

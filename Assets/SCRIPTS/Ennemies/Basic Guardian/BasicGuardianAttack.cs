@@ -36,7 +36,7 @@ public class BasicGuardianAttack : MonoBehaviour
     
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Player") && playerHealth.instance.isAlive)
+        if (collision.transform.CompareTag("Player") && PlayerHealth.instance.isAlive)
         {
             if (canAttack)
             {
@@ -50,7 +50,7 @@ public class BasicGuardianAttack : MonoBehaviour
     {
         instance.guardianSpriteRenderer.enabled = true;
         
-        playerHealth.instance.TakeDamage(damage);
+        PlayerHealth.instance.TakeDamage(damage);
 
         yield return new WaitForSeconds(0.33f);
 

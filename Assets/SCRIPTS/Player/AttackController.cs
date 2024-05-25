@@ -113,6 +113,7 @@ public class AttackController : MonoBehaviour
 
             else if (useBow)
             {
+                crosshairMovement.MoveCrossHair();
                 crosshairMovement.StartAttack();
             }
         }
@@ -360,8 +361,5 @@ public class AttackController : MonoBehaviour
     //    yield return new WaitForSeconds(ATKCooldown);
     //    isAttacking = false; // Réinitialise l'attaque comme terminée
     //}
-
-
-    
 
 }

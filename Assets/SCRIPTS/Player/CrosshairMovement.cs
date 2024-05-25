@@ -14,8 +14,6 @@ public class CrosshairMovement : MonoBehaviour
 
     public PauseMenu pauseMenu;
 
-    public bool useController = false;
-
     public float arrowSpeed;
 
     ////////// * Variables privées * \\\\\\\\\\
@@ -48,7 +46,7 @@ public class CrosshairMovement : MonoBehaviour
         if (pauseMenu.gameIsPaused == false && AttackController.instance.useBow)
         {
             ////////// * Contrôle du crosshair à la manette * \\\\\\\\\\
-            if (useController)
+            if (PlayerMovement.instance.useController)
             {
                 controller_AttackDirection = new Vector2(player.GetAxis("Controller_AttackDirection_X"), player.GetAxis("Controller_AttackDirection_Y"));
 
@@ -71,11 +69,11 @@ public class CrosshairMovement : MonoBehaviour
             }
 
             ////////// * Contrôle du crosshair à la sourie * \\\\\\\\\\
-            if (!useController)
+            if (!PlayerMovement.instance.useController)
             {
                 // mouse_AttackDirection = new Vector3(player.GetAxis("Mouse_AimHorizontal"), player.GetAxis("Mouse_AimVertical"), 0.0f);
                 mouseMovement = new Vector2(player.GetAxis("Mouse_Aim_X"), player.GetAxis("Mouse_Aim_Y"));
-                aim += mouseMovement;
+                aim += mouseMovement / 1.5f;
 
                 if (isAiming)
                 {

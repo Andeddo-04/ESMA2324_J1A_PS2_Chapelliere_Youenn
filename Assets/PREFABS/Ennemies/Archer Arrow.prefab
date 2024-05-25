@@ -177,4 +177,4 @@ MonoBehaviour:
     m_Bits: 8
   tagsToTrack:
   - Player
-  damage: 0
+  damage: 20

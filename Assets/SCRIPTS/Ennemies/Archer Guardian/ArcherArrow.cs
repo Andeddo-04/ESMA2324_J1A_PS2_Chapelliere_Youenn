@@ -34,7 +34,7 @@ public class ArcherArrow : MonoBehaviour
 
     void MakeDamages()
     {
-        playerHealth.instance.TakeDamage(damage);
+        PlayerHealth.instance.TakeDamage(damage);
         DestroyArrow();
     }
     
