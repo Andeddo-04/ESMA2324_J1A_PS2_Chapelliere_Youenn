@@ -64,6 +64,11 @@ public class PauseMenu : MonoBehaviour
         Debug.LogError("Return to main menu");
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     private void Pause()
     {
         canvasPauseMenu.SetActive(true);
