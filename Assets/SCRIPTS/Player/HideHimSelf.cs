@@ -29,11 +29,13 @@ public class HideHimSelf : MonoBehaviour
     {
         if (PlayerMovement.instance.useController && player.GetButtonDown("Controller_CoverUp"))
         {
+            PlayerMovement.instance.CanBeDetectedChanger(false);
             Debug.LogWarning("Je suis cacher");
         }
 
         if (!PlayerMovement.instance.useController && player.GetButtonDown("KeyBoard_CoverUp"))
         {
+            PlayerMovement.instance.CanBeDetectedChanger(false);
             Debug.LogWarning("Je suis cacher");
         }
     }

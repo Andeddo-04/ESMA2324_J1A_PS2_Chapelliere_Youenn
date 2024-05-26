@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed;
 
-    public bool useController = false;
+    public bool useController = false, canBeDetected = true;
 
 
     ////////// * Variables privées * \\\\\\\\\\
@@ -90,9 +90,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
     ////////// *  * \\\\\\\\\\
-    public void SetControllerUsage(bool useController)
+    public void SetControllerUsage(bool _useController)
     {
-        this.useController = useController;
+        useController = _useController;
+    }
+
+    public void CanBeDetectedChanger(bool _newValue)
+    {
+        canBeDetected = _newValue;
     }
 
     public void ShowAndUnlockCursor()
