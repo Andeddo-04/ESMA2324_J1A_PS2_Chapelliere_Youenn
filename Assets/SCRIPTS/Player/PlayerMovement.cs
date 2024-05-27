@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         //SelectControls();
         crossHairTracker();
         crosshairMovement.MoveCrossHair();
+        OpenInventory();
     }
 
     ////////// * Méthode MovePlayer() * \\\\\\\\\\
@@ -112,6 +113,34 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
+    public void OpenInventory()
+    {
+        if (useController && player.GetButtonDown("Controller_Inventory"))
+        {
+            if (InventoryUI.instance.inventoryIsActive)
+            {
+                InventoryUI.instance.ActiveInventory();
+            }
+            else
+            {
+                InventoryUI.instance.DesactivateInventory();
+            }
+        }
+
+
+        if (!useController && player.GetButtonDown("KeyBoard_Inventory"))
+        {
+            if (InventoryUI.instance.inventoryIsActive)
+            {
+                InventoryUI.instance.ActiveInventory();
+            }
+            else
+            {
+                InventoryUI.instance.DesactivateInventory();
+            }
+        }
+
+    }
     //void SelectControls()
     //{
     //    if (Input.GetKeyDown(KeyCode.Tab))
