@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject crossHair;
 
     private PlayerHealthbar healthBar;
-    
+
     private GameObject healthBarGameObject;
 
     public static PlayerHealth instance;

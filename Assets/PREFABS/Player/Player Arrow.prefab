@@ -180,4 +180,4 @@ MonoBehaviour:
   - TankyGuardian
   - ArcherGuardian
   - NobleGuardian
-  damage: 100
+  damage: 40

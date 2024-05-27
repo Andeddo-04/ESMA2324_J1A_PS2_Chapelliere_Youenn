@@ -3,94 +3,122 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    ////////// * Variables publiques * \\\\\\\\\\
-
+    // Variables publiques
     public Rigidbody2D rb;
-
+    
     public SpriteRenderer rbRenderer;
-
+    
     public BoxCollider2D characterBoxCollider;
-
-    public GameObject newPosition;
-
+    
+    public GameObject newPosition, inventoryUI;
+    
     public CrosshairMovement crosshairMovement;
-
+    
     public static PlayerMovement instance;
-
+    
     public float moveSpeed;
+    
+    public bool useController = false, canBeDetected = true, inventoryIsActive = false;
 
-    public bool useController = false, canBeDetected = true;
-
-
-    ////////// * Variables privées * \\\\\\\\\\
-
+    // Variables privées
     private GameObject sceneManager;
-
+    
     private PauseMenu pauseMenu;
-
+    
     private float controller_horizontalMovement, keyboard_horizontalMovement;
-
+    
     private int playerId = 0;
-
+    
     private Vector3 velocity;
-
+    
     private Player player;
 
-    ////////// * Méthode Awake() * \\\\\\\\\\
+    // Méthode Awake()
     void Awake()
     {
         player = ReInput.players.GetPlayer(playerId);
 
         if (instance != null)
         {
-            Debug.LogWarning("Il n'a plus d'instance de PlayerMovement dans la scène");
+            Debug.LogWarning("Il y a déjà une instance de PlayerMovement dans la scène");
             return;
         }
 
         instance = this;
 
         sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+        if (sceneManager == null)
+        {
+            Debug.LogError("Aucun GameObject avec le tag 'SceneManager' n'a été trouvé.");
+        }
+        else
+        {
+            pauseMenu = sceneManager.GetComponent<PauseMenu>();
+            if (pauseMenu == null)
+            {
+                Debug.LogError("Le composant 'PauseMenu' n'a pas été trouvé sur 'SceneManager'.");
+            }
+        }
 
-        pauseMenu = sceneManager.GetComponent<PauseMenu>();
+        Transform canvasInventoryTransform = GameObject.Find("Canvas - Inventory")?.transform;
+        if (canvasInventoryTransform != null)
+        {
+            Transform panelInventoryTransform = canvasInventoryTransform.Find("Panel - Inventory");
+            if (panelInventoryTransform != null)
+            {
+                inventoryUI = panelInventoryTransform.gameObject;
+            }
+            else
+            {
+                Debug.LogError("'panel - Inventory' n'a pas été trouvé sous 'Canvas - Inventory'.");
+            }
+        }
+        else
+        {
+            Debug.LogError("'Canvas - Inventory' n'a pas été trouvé.");
+        }
     }
 
-
-    ////////// * Méthode Update() * \\\\\\\\\\
+    // Méthode Update()
     void Update()
     {
         MovePlayer();
-        //SelectControls();
         crossHairTracker();
         crosshairMovement.MoveCrossHair();
         OpenInventory();
     }
 
-    ////////// * Méthode MovePlayer() * \\\\\\\\\\
+    // Méthode MovePlayer()
     void MovePlayer()
     {
         if (useController)
         {
-            ////////// * Contrôle à la manette * \\\\\\\\\\
+            // Contrôle à la manette
             controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
-
             rb.velocity = new Vector2(controller_horizontalMovement, rb.velocity.y);
         }
-
-        if (!useController)
+        else
         {
-            ////////// * Contrôle au clavier * \\\\\\\\\\
+            // Contrôle au clavier
             keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
-
             rb.velocity = new Vector2(keyboard_horizontalMovement, rb.velocity.y);
         }
     }
 
     void crossHairTracker()
     {
-        GameObject.FindGameObjectWithTag("CrossHairTracker").transform.position = newPosition.transform.position;
+        GameObject crossHairTracker = GameObject.FindGameObjectWithTag("CrossHairTracker");
+        if (crossHairTracker != null && newPosition != null)
+        {
+            crossHairTracker.transform.position = newPosition.transform.position;
+        }
+        else
+        {
+            Debug.LogError("Le 'CrossHairTracker' ou 'newPosition' n'a pas été trouvé.");
+        }
     }
 
-    ////////// *  * \\\\\\\\\\
+    // Méthodes diverses
     public void SetControllerUsage(bool _useController)
     {
         useController = _useController;
@@ -115,37 +143,25 @@ public class PlayerMovement : MonoBehaviour
 
     public void OpenInventory()
     {
+        if (inventoryUI == null)
+        {
+            Debug.LogError("inventoryUI n'est pas assigné.");
+            return;
+        }
+
         if (useController && player.GetButtonDown("Controller_Inventory"))
         {
-            if (InventoryUI.instance.inventoryIsActive)
-            {
-                InventoryUI.instance.ActiveInventory();
-            }
-            else
-            {
-                InventoryUI.instance.DesactivateInventory();
-            }
+            ToggleInventory();
         }
-
-
-        if (!useController && player.GetButtonDown("KeyBoard_Inventory"))
+        else if (!useController && player.GetButtonDown("KeyBoard_Inventory"))
         {
-            if (InventoryUI.instance.inventoryIsActive)
-            {
-                InventoryUI.instance.ActiveInventory();
-            }
-            else
-            {
-                InventoryUI.instance.DesactivateInventory();
-            }
+            ToggleInventory();
         }
-
     }
-    //void SelectControls()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Tab))
-    //    {
-    //        useController = !useController;
-    //    }
-    //}
+
+    private void ToggleInventory()
+    {
+        inventoryIsActive = !inventoryIsActive;
+        inventoryUI.SetActive(inventoryIsActive);
+    }
 }

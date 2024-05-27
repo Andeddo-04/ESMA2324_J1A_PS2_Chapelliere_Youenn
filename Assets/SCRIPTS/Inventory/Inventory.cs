@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    // Singleton pattern
     public static Inventory instance;
 
     private void Awake()
@@ -17,32 +16,62 @@ public class Inventory : MonoBehaviour
         instance = this;
     }
 
-    // Delegate and event for item changes
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
     public List<InventoryItem> items = new List<InventoryItem>();
+    public Dictionary<int, int> itemCounts = new Dictionary<int, int>();
 
     public void AddItem(InventoryItem item)
     {
-        items.Add(item);
+        if (item.stackable)
+        {
+            if (itemCounts.ContainsKey(item.id))
+            {
+                itemCounts[item.id]++;
+            }
+            else
+            {
+                items.Add(item);
+                itemCounts[item.id] = 1;
+            }
+        }
+        else
+        {
+            items.Add(item);
+        }
+
         Debug.Log("Added item: " + item.itemName);
 
-        // Trigger the callback
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
     }
 
     public void RemoveItem(InventoryItem item)
     {
-        if (items.Contains(item))
+        if (item.stackable && itemCounts.ContainsKey(item.id))
+        {
+            itemCounts[item.id]--;
+            if (itemCounts[item.id] <= 0)
+            {
+                itemCounts.Remove(item.id);
+                items.Remove(item);
+            }
+        }
+        else
         {
             items.Remove(item);
-            Debug.Log("Removed item: " + item.itemName);
-
-            // Trigger the callback
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
         }
+
+        Debug.Log("Removed item: " + item.itemName);
+
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
+    }
+
+    // Dans la classe Inventory
+    public bool HasItem(InventoryItem item)
+    {
+        return items.Contains(item);
     }
 }

@@ -6,15 +6,13 @@ public class CrosshairMovement : MonoBehaviour
 {
     ////////// * Variables publiques * \\\\\\\\\\
 
-    public Transform firePoint; // Point de départ de la flèche (par exemple, la main de l'archer)
+    public GameObject crossHair;
 
-    public GameObject crossHair, arrowPrefab, myPlayer;
+    public AttackController attackController;
 
     public static CrosshairMovement instance;
 
     public PauseMenu pauseMenu;
-
-    public float arrowSpeed;
 
     ////////// * Variables privées * \\\\\\\\\\
 
@@ -50,21 +48,11 @@ public class CrosshairMovement : MonoBehaviour
             {
                 controller_AttackDirection = new Vector2(player.GetAxis("Controller_AttackDirection_X"), player.GetAxis("Controller_AttackDirection_Y"));
 
-                Debug.LogWarning("butez moi");
-
                 if (controller_AttackDirection.magnitude > 0.0f)
                 {
                     controller_AttackDirection.Normalize();
                     controller_AttackDirection *= 40.0f;
                     crossHair.transform.localPosition = controller_AttackDirection;
-                    //crossHair.SetActive(true);
-
-                    if (player.GetButtonDown("Controller_Attack"))
-                    {
-                        StartAttack();
-                    }
-
-                    Debug.LogWarning("Hey tu me déplace avec la manette !");
                 }
             }
 
@@ -75,34 +63,13 @@ public class CrosshairMovement : MonoBehaviour
                 mouseMovement = new Vector2(player.GetAxis("Mouse_Aim_X"), player.GetAxis("Mouse_Aim_Y"));
                 aim += mouseMovement / 1.5f;
 
-                if (isAiming)
+                if (isAiming && aim.magnitude > 1.0f)
                 {
-                    if (aim.magnitude > 1.0f)
-                    {
-                        aim.Normalize();
-                        aim *= 40.0f;
-                        crossHair.transform.localPosition = aim;
-                    }
-
-                    if (player.GetButtonDown("Mouse_LaunchArrow"))
-                    {
-                        StartAttack();
-                    }
+                    aim.Normalize();
+                    aim *= 40.0f;
+                    crossHair.transform.localPosition = aim;
                 }
             }
-        }        
-    }
-
-    public void StartAttack()
-    {
-        if (PlayerMovement.instance.useController && player.GetButtonDown("Controller_Attack"))
-        {
-            StartCoroutine(LaunchArrow());
-        }
-
-        if (!PlayerMovement.instance.useController && player.GetButtonDown("Mouse_LaunchArrow"))
-        {
-            StartCoroutine(LaunchArrow());
         }        
     }
 
@@ -116,24 +83,6 @@ public class CrosshairMovement : MonoBehaviour
         isAiming = false;
     }
 
-    public IEnumerator LaunchArrow()
-    {
-        // Créez la flèche à partir du prefab
-        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
+    
 
-        // Calculer la direction vers le joueur
-        Vector2 direction = (firePoint.position - myPlayer.transform.position).normalized;
-
-        // Obtenez le Rigidbody2D de la flèche pour appliquer la force
-        Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-
-        // Appliquer une vitesse constante à la flèche
-        arrowRb.velocity = direction * arrowSpeed;
-
-        // Aligner la rotation de la flèche avec sa trajectoire
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-        yield return new WaitForSeconds(1.75f); // Attendez le cooldown
-    }
 }

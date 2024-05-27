@@ -1,4 +1,5 @@
 using Rewired;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +10,10 @@ public class AttackController : MonoBehaviour
 
     public static AttackController instance;
 
+    public Transform firePoint; // Point de départ de la flèche (par exemple, la main de l'archer)
+
+    public GameObject arrowPrefab, myPlayer;
+
     public CrosshairMovement crosshairMovement;
 
     public GameObject handTopHitboxAttack, handRightHitboxAttack, handLeftHitboxAttack;
@@ -16,12 +21,20 @@ public class AttackController : MonoBehaviour
     public GameObject swordTopHitboxAttack, swordRightHitboxAttack, swordLeftHitboxAttack;
     
     public GameObject halberdTopHitboxAttack, halberdRightHitboxAttack, halberdLeftHitboxAttack;
-    
+
+    //public Text arrowWarningText;
+
+    public InventoryItem ArrowItem;
+
     public bool isAttacking, dontUseWeapon = true, useSword = false, useHalberd = false, useBow = false;
+
+    public float arrowSpeed;
 
     ////////// * Variables privées * \\\\\\\\\\
 
     private Player player;
+
+    private bool isShooting = false;
 
     private int playerId = 0;
 
@@ -113,8 +126,20 @@ public class AttackController : MonoBehaviour
 
             else if (useBow)
             {
-                crosshairMovement.MoveCrossHair();
-                crosshairMovement.StartAttack();
+                if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Controller_Attack"))
+                {
+                    StartAttack();
+                }
+                else
+                {
+                    // Display arrow warning text
+                    //arrowWarningText.enabled = true;
+                }
+            }
+            else
+            {
+                // Hide arrow warning text when not using bow
+                //arrowWarningText.enabled = false;
             }
         }
 
@@ -186,7 +211,56 @@ public class AttackController : MonoBehaviour
 
             else if (useBow)
             {
-                crosshairMovement.StartAttack();
+                if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Mouse_LaunchArrow"))
+                {
+                    StartAttack();
+                }
+                else
+                {
+                    // Display arrow warning text
+                    //arrowWarningText.enabled = true;
+                }
+            }
+            else
+            {
+                // Hide arrow warning text when not using bow
+                //arrowWarningText.enabled = false;
+            }
+        }
+    }
+
+    public void StartAttack()
+    {
+        isShooting = true;
+
+        if (PlayerMovement.instance.useController && player.GetButtonDown("Controller_Attack"))
+        {
+            if (Inventory.instance.HasItem(ArrowItem) && isShooting) // Vérifie si le joueur a des flèches dans son inventaire
+            {
+                isShooting = false;
+                StartCoroutine(LaunchArrow());
+
+            }
+            else
+            {
+                // Afficher un message indiquant que le joueur n'a pas de flèches
+                Debug.Log("You don't have any arrows!");
+            }
+        }
+
+        if (!PlayerMovement.instance.useController && player.GetButtonDown("Mouse_LaunchArrow"))
+        {
+            if (Inventory.instance.HasItem(ArrowItem) && isShooting) // Vérifie si le joueur a des flèches dans son inventaire
+            {
+                isShooting = false;
+                StartCoroutine(LaunchArrow());
+
+            }
+            else
+            {
+                // Afficher un message indiquant que le joueur n'a pas de flèches
+                Debug.Log("You don't have any arrows!");
+
             }
         }
     }
@@ -331,35 +405,35 @@ public class AttackController : MonoBehaviour
         isAttacking = false; // Réinitialise l'attaque comme terminée
     }
 
-    ////////// * Coroutine Attaque au fléau d'arme * \\\\\\\\\\
-    //public IEnumerator FlailWeaponAttackAtTop()
-    //{
-    //    isAttacking = true; // Définit l'attaque comme en cours
-    //    flailWeaponTopHitboxAttack.SetActive(true);
-    //    yield return new WaitForSeconds(0.33f);
-    //    flailWeaponTopHitboxAttack.SetActive(false);
-    //    yield return new WaitForSeconds(ATKCooldown);
-    //    isAttacking = false; // Réinitialise l'attaque comme terminée
-    //}
+    public IEnumerator LaunchArrow()
+    {
+        if (Inventory.instance.HasItem(ArrowItem)) // Vérifie si le joueur a des flèches dans son inventaire
+        {
+            // Créez la flèche à partir du prefab
+            GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
 
-    //public IEnumerator FlailWeaponAttackAtRight()
-    //{
-    //    isAttacking = true; // Définit l'attaque comme en cours
-    //    flailWeaponRightHitboxAttack.SetActive(true);
-    //    yield return new WaitForSeconds(0.33f);
-    //    flailWeaponRightHitboxAttack.SetActive(false);
-    //    yield return new WaitForSeconds(ATKCooldown);
-    //    isAttacking = false; // Réinitialise l'attaque comme terminée
-    //}
+            // Calculer la direction vers le joueur
+            Vector2 direction = (firePoint.position - myPlayer.transform.position).normalized;
 
-    //public IEnumerator FlailWeaponAttackAtLeft()
-    //{
-    //    isAttacking = true; // Définit l'attaque comme en cours
-    //    flailWeaponLeftHitboxAttack.SetActive(true);
-    //    yield return new WaitForSeconds(0.33f);
-    //    flailWeaponLeftHitboxAttack.SetActive(false);
-    //    yield return new WaitForSeconds(ATKCooldown);
-    //    isAttacking = false; // Réinitialise l'attaque comme terminée
-    //}
+            // Obtenez le Rigidbody2D de la flèche pour appliquer la force
+            Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
 
+            // Appliquer une vitesse constante à la flèche
+            arrowRb.velocity = direction * arrowSpeed;
+
+            // Aligner la rotation de la flèche avec sa trajectoire
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+            // Déduire une flèche de l'inventaire
+            Inventory.instance.RemoveItem(ArrowItem);
+
+            yield return new WaitForSeconds(1.75f); // Attendez le cooldown
+        }
+        else
+        {
+            // Afficher un message indiquant que le joueur n'a pas de flèches
+            Debug.Log("You don't have any arrows!");
+        }
+    }
 }

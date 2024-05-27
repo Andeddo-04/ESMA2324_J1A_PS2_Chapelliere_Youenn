@@ -16,6 +16,7 @@ TagManager:
   - ArcherGuardian
   - TankyGuardian
   - NobleGuardian
+  - Inventory
   layers:
   - Default
   - TransparentFX
