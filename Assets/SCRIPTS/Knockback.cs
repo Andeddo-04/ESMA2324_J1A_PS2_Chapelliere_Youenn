@@ -6,6 +6,7 @@ public class Knockback : MonoBehaviour
 {
     public float repulseForce = 10f; // Force de repulsion, vous pouvez ajuster cela dans l'éditeur Unity
     public GameObject startPointOfVector;
+    public string[] targetTag;
 
     private GameObject player;
     private Rigidbody2D playerRB;
@@ -18,13 +19,16 @@ public class Knockback : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        foreach (var tag in targetTag)
         {
-            // Calcul de la direction de repulsion
-            Vector2 repulseDirection = ((Vector2)startPointOfVector.transform.position - collision.contacts[0].point).normalized;
+            if (collision.gameObject.CompareTag(tag))
+            {
+                // Calcul de la direction de repulsion
+                Vector2 repulseDirection = ((Vector2)startPointOfVector.transform.position - collision.contacts[0].point).normalized;
 
-            // Application de la force de repulsion
-            playerRB.AddForce(-repulseDirection * repulseForce, ForceMode2D.Impulse);
+                // Application de la force de repulsion
+                playerRB.AddForce(-repulseDirection * repulseForce, ForceMode2D.Impulse);
+            }
         }
     }
 }

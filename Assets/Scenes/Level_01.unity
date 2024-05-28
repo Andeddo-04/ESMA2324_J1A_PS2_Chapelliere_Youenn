@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 181205375}
   - component: {fileID: 181205374}
   - component: {fileID: 181205373}
+  - component: {fileID: 181205376}
   m_Layer: 0
   m_Name: Hand - Right_Atk_Hitbox
   m_TagString: Untagged
@@ -806,6 +807,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &181205376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181205371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &199127716
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +1017,7 @@ GameObject:
   - component: {fileID: 226224538}
   - component: {fileID: 226224537}
   - component: {fileID: 226224536}
+  - component: {fileID: 226224539}
   m_Layer: 0
   m_Name: Halberd - Right_Atk_Hitbox
   m_TagString: Untagged
@@ -1134,6 +1155,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &226224539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226224534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &228667297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,6 +1376,7 @@ GameObject:
   - component: {fileID: 274140260}
   - component: {fileID: 274140261}
   - component: {fileID: 274140262}
+  - component: {fileID: 274140263}
   m_Layer: 0
   m_Name: Sword - Left_Atk_Hitbox
   m_TagString: Untagged
@@ -1473,6 +1514,25 @@ MonoBehaviour:
   ennemiesLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &274140263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274140258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &298156696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,6 +1545,7 @@ GameObject:
   - component: {fileID: 298156700}
   - component: {fileID: 298156699}
   - component: {fileID: 298156698}
+  - component: {fileID: 298156701}
   m_Layer: 0
   m_Name: Halberd - Top_Atk_Hitbox
   m_TagString: Untagged
@@ -1622,6 +1683,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &298156701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298156696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!4 &303109263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4258391783412225049, guid: 26ff540dd1a1e2e47b1aca21d3ae0d65, type: 3}
@@ -2324,6 +2404,7 @@ GameObject:
   - component: {fileID: 423396954}
   - component: {fileID: 423396953}
   - component: {fileID: 423396955}
+  - component: {fileID: 423396956}
   m_Layer: 0
   m_Name: Sword - Right_Atk_Hitbox
   m_TagString: Untagged
@@ -2461,6 +2542,25 @@ MonoBehaviour:
   ennemiesLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &423396956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423396951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &426314114
 GameObject:
   m_ObjectHideFlags: 0
@@ -3334,6 +3434,7 @@ GameObject:
   - component: {fileID: 551774555}
   - component: {fileID: 551774554}
   - component: {fileID: 551774556}
+  - component: {fileID: 551774557}
   m_Layer: 0
   m_Name: Sword - Top_Atk_Hitbox
   m_TagString: Untagged
@@ -3471,6 +3572,25 @@ MonoBehaviour:
   ennemiesLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &551774557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551774552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &552275345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,6 +4347,7 @@ GameObject:
   - component: {fileID: 723836566}
   - component: {fileID: 723836565}
   - component: {fileID: 723836564}
+  - component: {fileID: 723836567}
   m_Layer: 0
   m_Name: Hand - Left_Atk_Hitbox
   m_TagString: Untagged
@@ -4364,6 +4485,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &723836567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723836562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &736598784
 GameObject:
   m_ObjectHideFlags: 0
@@ -8884,6 +9024,7 @@ GameObject:
   - component: {fileID: 1488040271}
   - component: {fileID: 1488040270}
   - component: {fileID: 1488040269}
+  - component: {fileID: 1488040272}
   m_Layer: 0
   m_Name: Hand - Top_Atk_Hitbox
   m_TagString: Untagged
@@ -9021,6 +9162,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1488040272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488040267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &1494575141
 GameObject:
   m_ObjectHideFlags: 0
@@ -9806,6 +9966,7 @@ GameObject:
   - component: {fileID: 1584061886}
   - component: {fileID: 1584061885}
   - component: {fileID: 1584061884}
+  - component: {fileID: 1584061887}
   m_Layer: 0
   m_Name: Halberd - Left_Atk_Hitbox
   m_TagString: Untagged
@@ -9943,6 +10104,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1584061887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584061882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 765383235}
+  targetTag:
+  - BasicGuardian
+  - ArcherGuardian
+  - TankyGuardian
+  - NobleGuardian
 --- !u!1 &1594948851
 GameObject:
   m_ObjectHideFlags: 0

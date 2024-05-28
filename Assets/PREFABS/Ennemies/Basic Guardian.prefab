@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 3024763930098596849}
   - component: {fileID: 4755281488576401178}
   - component: {fileID: 4927899319798152796}
+  - component: {fileID: 5428753663288730586}
   m_Layer: 6
   m_Name: Hitbox Attack
   m_TagString: Untagged
@@ -275,6 +276,22 @@ MonoBehaviour:
   basicGuardian: {fileID: 8388698381988847731}
   damage: 10
   canAttack: 1
+--- !u!114 &5428753663288730586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094280772143465847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b637cbd44c1d9946afb8ce5cf1a05fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulseForce: 10
+  startPointOfVector: {fileID: 8115301800588717748}
+  targetTag:
+  - Player
 --- !u!1 &5629253499146986392
 GameObject:
   m_ObjectHideFlags: 0
