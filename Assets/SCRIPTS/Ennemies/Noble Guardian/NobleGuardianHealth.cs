@@ -15,7 +15,7 @@ public class NobleGuardianHealth : MonoBehaviour
 
     public BaseEnemy baseEnemy;
 
-    public int maxhealth = 100, currentHealth;
+    public int maxHealth = 100, currentHealth;
 
     public bool isInvicible = false, isAlive = true;
 
@@ -26,8 +26,16 @@ public class NobleGuardianHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxhealth;
+        currentHealth = maxHealth;
         //healthBar.SetMaxHealth(maxhealth);
+    }
+
+    private void Update()
+    {
+        if (NobleGuardianAttack.instance != null)
+        {
+            NobleGuardianAttack.instance.UpdateStats();
+        }
     }
 
     public void TakeDamages(int _damage)
