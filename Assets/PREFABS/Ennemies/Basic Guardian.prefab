@@ -625,6 +625,9 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
+  hiddenPlayerLayer:
+    serializedVersion: 2
+    m_Bits: 512
   speed: 5
   distanceToStop: 2.5
 --- !u!114 &3482920452294559292

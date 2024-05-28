@@ -17,7 +17,7 @@ public class BasicGardianDetectionArea : MonoBehaviour
     // Détection de l'entrée du joueur dans la zone
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && PlayerMovement.instance.canBeDetected)
         {
             basicGuardian.DetectPlayer(true);
         }

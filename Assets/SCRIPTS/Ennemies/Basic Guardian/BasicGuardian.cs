@@ -3,29 +3,19 @@ using UnityEngine;
 public class BasicGuardian : MonoBehaviour
 {
     public Rigidbody2D mobRigidbody;
-
     public SpriteRenderer mobSpriteRenderer;
-
     public BoxCollider2D boxCollider2D;
-
     public Transform[] waypoints;
-
     public BasicGuardianHealth basicGuardianHealth;
-
     public GameObject detectionArea;
-
-    public LayerMask collisionLayer;
-    
+    public LayerMask collisionLayer, hiddenPlayerLayer;
     public float speed, distanceToStop;
 
-
     private GameObject player;
-
     private Transform target;
-
     private int desPoint;
-
-    private bool playerIsDetected = false, isFacingRight= false;
+    private bool playerIsDetected = false;
+    private bool isFacingRight = false;
 
     void Start()
     {
@@ -33,76 +23,84 @@ public class BasicGuardian : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-
     void Update()
     {
-        if (basicGuardianHealth.isAlive && playerIsDetected == false)
+        if (basicGuardianHealth.isAlive && !playerIsDetected)
         {
-            Vector3 direction = target.position - transform.position;
-            transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
-
-
-            // Si l'ennemie est quasiment arrivé a sa destination
-            if (Vector3.Distance(transform.position, target.position) < 0.3f)
-            {
-                desPoint = (desPoint + 1) % waypoints.Length; // % = reste division
-                target = waypoints[desPoint];
-
-                //isFacingRight devient son opposé (TRUE ou FALSE)
-                //on multiplie le scale X du joueur par -1
-                isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
-            }
+            MoveToPoint();
         }
-
         else if (basicGuardianHealth.isAlive && playerIsDetected)
         {
-            float playerPositionX = player.transform.position.x;
-            float enemyPositionX = transform.position.x;
-            float distance = Mathf.Abs(playerPositionX - enemyPositionX); // Distance entre l'ennemi et le joueur sur l'axe X
-
-            if (distance > distanceToStop)
-            {
-                // Déterminer la direction du mouvement sur l'axe X
-                float directionX = playerPositionX > enemyPositionX ? 1f : -1f;
-
-                // Déplacer l'ennemi vers le joueur
-                mobRigidbody.velocity = new Vector2(directionX * speed, mobRigidbody.velocity.y);
-
-                // Flip du sprite de l'ennemi en fonction de la direction
-                if (directionX > 0 && !isFacingRight)
-                {
-                    //isFacingRight devient son opposé (TRUE ou FALSE)
-                    //on multiplie le scale X du joueur par -1
-                    isFacingRight = !isFacingRight;
-                    Vector3 localScale = transform.localScale;
-                    localScale.x *= -1f;
-                    transform.localScale = localScale;
-                }
-                else if (directionX < 0 && isFacingRight)
-                {
-                    //isFacingRight devient son opposé (TRUE ou FALSE)
-                    //on multiplie le scale X du joueur par -1
-                    isFacingRight = !isFacingRight;
-                    Vector3 localScale = transform.localScale;
-                    localScale.x *= -1f;
-                    transform.localScale = localScale;
-                }
-            }
-            else
-            {
-                // Arrêter l'ennemi quand il est à la distance désirée
-                mobRigidbody.velocity = new Vector2(0, mobRigidbody.velocity.y);
-            }
+            FollowPlayer();
         }
-
     }
 
-    public void DetectPlayer(bool _newvalue)
+    void MoveToPoint()
     {
-        playerIsDetected = _newvalue;
-        detectionArea.SetActive(false);
+        Vector3 direction = target.position - transform.position;
+        transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
+
+        if (Vector3.Distance(transform.position, target.position) < 0.3f)
+        {
+            desPoint = (desPoint + 1) % waypoints.Length;
+            target = waypoints[desPoint];
+            Flip(direction.x);
+        }
     }
+
+    void FollowPlayer()
+    {
+        float playerPositionX = player.transform.position.x;
+        float enemyPositionX = transform.position.x;
+        float distance = Mathf.Abs(playerPositionX - enemyPositionX);
+
+        if (distance > distanceToStop)
+        {
+            float directionX = playerPositionX > enemyPositionX ? 1f : -1f;
+            mobRigidbody.velocity = new Vector2(directionX * speed, mobRigidbody.velocity.y);
+            Flip(directionX);
+        }
+        else
+        {
+            mobRigidbody.velocity = new Vector2(0, mobRigidbody.velocity.y);
+        }
+    }
+
+    void Flip(float directionX)
+    {
+        if ((directionX > 0 && isFacingRight) || (directionX < 0 && !isFacingRight))
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+    }
+
+    public void DetectPlayer(bool newValue)
+    {
+        playerIsDetected = newValue;
+        detectionArea.SetActive(!newValue);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Vérifie si le joueur est caché et si la collision est avec un objet sur le layer caché
+        if (HideHimSelf.instance.IsPlayerHidden() && ((1 << collision.gameObject.layer) & hiddenPlayerLayer) != 0)
+        {
+            // Ignore la collision entre l'objet avec lequel le joueur entre en collision et le BoxCollider de ce script
+            Physics2D.IgnoreCollision(collision.collider, boxCollider2D, true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Vérifie si le joueur n'est plus caché et si la collision est avec un objet sur le layer caché
+        if (!HideHimSelf.instance.IsPlayerHidden() && ((1 << collision.gameObject.layer) & hiddenPlayerLayer) != 0)
+        {
+            // Réactive la collision entre l'objet avec lequel le joueur sort de collision et le BoxCollider de ce script
+            Physics2D.IgnoreCollision(collision.collider, boxCollider2D, false);
+        }
+    }
+
 }

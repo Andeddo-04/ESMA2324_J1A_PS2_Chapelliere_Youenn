@@ -36,7 +36,7 @@ public class BasicGuardianAttack : MonoBehaviour
     
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Player") && PlayerHealth.instance.isAlive)
+        if (collision.transform.CompareTag("Player") && PlayerHealth.instance.isAlive && PlayerMovement.instance.canBeDetected)
         {
             if (canAttack)
             {

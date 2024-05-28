@@ -124,9 +124,13 @@ public class PlayerMovement : MonoBehaviour
         useController = _useController;
     }
 
-    public void CanBeDetectedChanger(bool _newValue)
+    public void CanBeDetected()
     {
-        canBeDetected = _newValue;
+        canBeDetected = true;
+    }
+    public void CantBeDetected()
+    {
+        canBeDetected = false;
     }
 
     public void ShowAndUnlockCursor()

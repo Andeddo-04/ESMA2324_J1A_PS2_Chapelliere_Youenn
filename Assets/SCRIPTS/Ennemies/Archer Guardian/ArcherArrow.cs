@@ -16,7 +16,7 @@ public class ArcherArrow : MonoBehaviour
     {
         foreach (var tag in tagsToTrack)
         {
-            if (collider.CompareTag(tag))
+            if (collider.CompareTag(tag) && PlayerMovement.instance.canBeDetected)
             {
                 MakeDamages();
             }

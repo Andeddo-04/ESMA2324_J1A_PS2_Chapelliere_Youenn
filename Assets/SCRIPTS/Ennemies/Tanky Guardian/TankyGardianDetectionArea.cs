@@ -17,7 +17,7 @@ public class TankyGardianDetectionArea : MonoBehaviour
     // Détection de l'entrée du joueur dans la zone
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && PlayerMovement.instance.canBeDetected)
         {
             tankyGuardian.DetectPlayer(true);
         }
