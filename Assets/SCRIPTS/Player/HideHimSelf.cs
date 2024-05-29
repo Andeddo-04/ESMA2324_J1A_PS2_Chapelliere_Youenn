@@ -10,10 +10,10 @@ public class HideHimSelf : MonoBehaviour
     public BoxCollider2D boxCollider;
     public Sprite hideSprite; // Assignez le sprite de camouflage via l'inspecteur
     public static HideHimSelf instance;
+    public bool isPlayerHidden = false;
 
     private Sprite defaultSprite;
     private Player player;
-    [SerializeField] private bool isPlayerHidden = false;
     private int playerId = 0, hiddenSortingOrder = 0, revealedSortingOrder = 10, defaultLayer, hiddenLayer;
     [SerializeField] private List<EnemyObject> enemies;
 
@@ -72,6 +72,11 @@ public class HideHimSelf : MonoBehaviour
         gameObject.layer = hiddenLayer;
         isPlayerHidden = true;
         SetEnemyCollisions(false);
+
+        if (AttackController.instance.useBow)
+        {
+            AttackController.instance.crosshairMovement.crossHair.SetActive(false);
+        }
     }
 
     void RevealPlayer()
@@ -83,6 +88,11 @@ public class HideHimSelf : MonoBehaviour
         gameObject.layer = defaultLayer;
         isPlayerHidden = false;
         SetEnemyCollisions(true);
+
+        if (AttackController.instance.useBow)
+        {
+            AttackController.instance.crosshairMovement.crossHair.SetActive(true);
+        }
     }
 
     void AdjustBoxCollider(Sprite sprite)

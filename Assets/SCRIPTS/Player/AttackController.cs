@@ -16,6 +16,8 @@ public class AttackController : MonoBehaviour
 
     public CrosshairMovement crosshairMovement;
 
+    public HideHimSelf hideHimSelf;
+
     public GameObject handTopHitboxAttack, handRightHitboxAttack, handLeftHitboxAttack;
 
     public GameObject swordTopHitboxAttack, swordRightHitboxAttack, swordLeftHitboxAttack;
@@ -57,177 +59,182 @@ public class AttackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChoseYourWeapon();
-
-        if (PlayerMovement.instance.useController)
+        if (!hideHimSelf.isPlayerHidden)
         {
-            if (dontUseWeapon)
+            ChoseYourWeapon();
+
+            if (PlayerMovement.instance.useController)
             {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                if (dontUseWeapon)
                 {
-                    StartCoroutine(DontUseWeaponAttackAtTop());
+                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                    if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(DontUseWeaponAttackAtTop());
+                    }
+
+                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                    else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(DontUseWeaponAttackAtRight());
+                    }
+
+                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                    else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(DontUseWeaponAttackAtLeft());
+                    }
                 }
 
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                else if (useSword)
                 {
-                    StartCoroutine(DontUseWeaponAttackAtRight());
+                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                    if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(SwordAttackAtTop());
+                    }
+
+                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                    else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(SwordAttackAtRight());
+                    }
+
+                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                    else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(SwordAttackAtLeft());
+                    }
                 }
 
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                else if (useHalberd)
                 {
-                    StartCoroutine(DontUseWeaponAttackAtLeft());
-                }
-            }
+                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                    if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(HalberdAttackAtTop());
+                    }
 
-            else if (useSword)
-            {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(SwordAttackAtTop());
-                }
+                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                    else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(HalberdAttackAtRight());
+                    }
 
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(SwordAttackAtRight());
-                }
-
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(SwordAttackAtLeft());
-                }
-            }
-
-            else if (useHalberd)
-            {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(HalberdAttackAtTop());
+                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                    else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                    {
+                        StartCoroutine(HalberdAttackAtLeft());
+                    }
                 }
 
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
+                else if (useBow)
                 {
-                    StartCoroutine(HalberdAttackAtRight());
-                }
-
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                {
-                    StartCoroutine(HalberdAttackAtLeft());
-                }
-            }
-
-            else if (useBow)
-            {
-                if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Controller_Attack"))
-                {
-                    StartAttack();
+                    if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Controller_Attack"))
+                    {
+                        StartAttack();
+                    }
+                    else
+                    {
+                        // Display arrow warning text
+                        //arrowWarningText.enabled = true;
+                    }
                 }
                 else
                 {
-                    // Display arrow warning text
-                    //arrowWarningText.enabled = true;
-                }
-            }
-            else
-            {
-                // Hide arrow warning text when not using bow
-                //arrowWarningText.enabled = false;
-            }
-        }
-
-        if (!PlayerMovement.instance.useController)
-        {
-            if (dontUseWeapon)
-            {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
-                {
-                    StartCoroutine(DontUseWeaponAttackAtTop());
-                }
-
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
-                {
-                    StartCoroutine(DontUseWeaponAttackAtRight());
-                }
-
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
-                {
-                    StartCoroutine(DontUseWeaponAttackAtLeft());
-                }
-
-            }
-
-            else if (useSword)
-            {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
-                {
-                    StartCoroutine(SwordAttackAtTop());
-                }
-
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
-                {
-                    StartCoroutine(SwordAttackAtRight());
-                }
-
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
-                {
-                    StartCoroutine(SwordAttackAtLeft());
+                    // Hide arrow warning text when not using bow
+                    //arrowWarningText.enabled = false;
                 }
             }
 
-            else if (useHalberd)
+            if (!PlayerMovement.instance.useController)
             {
-                // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                if (dontUseWeapon)
                 {
-                    StartCoroutine(HalberdAttackAtTop());
+                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                    if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                    {
+                        StartCoroutine(DontUseWeaponAttackAtTop());
+                    }
+
+                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                    else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                    {
+                        StartCoroutine(DontUseWeaponAttackAtRight());
+                    }
+
+                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                    else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                    {
+                        StartCoroutine(DontUseWeaponAttackAtLeft());
+                    }
+
                 }
 
-                // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                else if (useSword)
                 {
-                    StartCoroutine(HalberdAttackAtRight());
+                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                    if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                    {
+                        StartCoroutine(SwordAttackAtTop());
+                    }
+
+                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                    else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                    {
+                        StartCoroutine(SwordAttackAtRight());
+                    }
+
+                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                    else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                    {
+                        StartCoroutine(SwordAttackAtLeft());
+                    }
                 }
 
-                // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                else if (useHalberd)
                 {
-                    StartCoroutine(HalberdAttackAtLeft());
-                }
-            }
+                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
+                    if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
+                    {
+                        StartCoroutine(HalberdAttackAtTop());
+                    }
 
-            else if (useBow)
-            {
-                if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Mouse_LaunchArrow"))
+                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
+                    else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
+                    {
+                        StartCoroutine(HalberdAttackAtRight());
+                    }
+
+                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
+                    else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
+                    {
+                        StartCoroutine(HalberdAttackAtLeft());
+                    }
+                }
+
+                else if (useBow)
                 {
-                    StartAttack();
+                    if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Mouse_LaunchArrow"))
+                    {
+                        StartAttack();
+                    }
+                    else
+                    {
+                        // Display arrow warning text
+                        //arrowWarningText.enabled = true;
+                    }
                 }
                 else
                 {
-                    // Display arrow warning text
-                    //arrowWarningText.enabled = true;
+                    // Hide arrow warning text when not using bow
+                    //arrowWarningText.enabled = false;
                 }
-            }
-            else
-            {
-                // Hide arrow warning text when not using bow
-                //arrowWarningText.enabled = false;
             }
         }
     }
+
+        
 
     public void StartAttack()
     {
