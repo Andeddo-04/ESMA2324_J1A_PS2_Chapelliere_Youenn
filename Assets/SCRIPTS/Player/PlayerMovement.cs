@@ -91,17 +91,25 @@ public class PlayerMovement : MonoBehaviour
     // Méthode MovePlayer()
     void MovePlayer()
     {
-        if (useController)
+        if (inventoryIsActive == false)
         {
-            // Contrôle à la manette
-            controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
-            rb.velocity = new Vector2(controller_horizontalMovement, rb.velocity.y);
+            if (useController)
+            {
+                // Contrôle à la manette
+                controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
+                rb.velocity = new Vector2(controller_horizontalMovement, rb.velocity.y);
+            }
+            else
+            {
+                // Contrôle au clavier
+                keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
+                rb.velocity = new Vector2(keyboard_horizontalMovement, rb.velocity.y);
+            }
         }
+
         else
         {
-            // Contrôle au clavier
-            keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
-            rb.velocity = new Vector2(keyboard_horizontalMovement, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.y, rb.velocity.y);
         }
     }
 
@@ -167,5 +175,17 @@ public class PlayerMovement : MonoBehaviour
     {
         inventoryIsActive = !inventoryIsActive;
         inventoryUI.SetActive(inventoryIsActive);
+
+        if (inventoryIsActive)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+            
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }

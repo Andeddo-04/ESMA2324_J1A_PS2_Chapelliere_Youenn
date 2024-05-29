@@ -1,14 +1,30 @@
 // InventoryUI.cs
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
     public GameObject inventoryUI;
 
+    public Image selectedItemIcon;
+    public Text selectedItemDescription;
+
     Inventory inventory;
     InventorySlot[] slots;
+
+    public static InventoryUI instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of InventoryUI found!");
+            return;
+        }
+        instance = this;
+    }
 
     void Start()
     {
@@ -18,7 +34,7 @@ public class InventoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
         UpdateUI();
     }
-    
+
     void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -34,5 +50,12 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+    }
+
+    public void DisplaySelectedItem(InventoryItem item)
+    {
+        selectedItemIcon.sprite = item.itemIcon;
+        selectedItemIcon.enabled = true;
+        selectedItemDescription.text = item.description;
     }
 }

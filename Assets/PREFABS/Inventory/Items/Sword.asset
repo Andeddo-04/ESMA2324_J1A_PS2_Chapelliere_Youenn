@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f502f1e57dd4c124bb1a290dcc246c50, type: 3}
-  m_Name: Zenyatta's Balls
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: Zenyatta's Balls
-  itemIcon: {fileID: 21300000, guid: fab812a317158ef4681a4e7b07998c2e, type: 3}
-  description: 'Aaaah Maitre Zenyatta ... '
+  itemName: Sword
+  itemIcon: {fileID: 21300000, guid: 424c74054a976fc4f9692f72a667a34c, type: 3}
+  description: "Une bien belle \xE9p\xE9e"
   stackable: 1
-  id: 0
+  id: 3

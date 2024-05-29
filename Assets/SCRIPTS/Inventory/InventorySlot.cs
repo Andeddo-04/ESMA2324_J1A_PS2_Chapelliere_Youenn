@@ -1,13 +1,22 @@
 // InventorySlot.cs
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Image icon;
     public Text countText; // Assurez-vous que ce champ est assigné dans l'inspecteur
-    private InventoryItem item;
+    public InventoryItem item; // Rend cette variable publique
     private int count;
+
+    // Référence à InventoryUI pour signaler la sélection d'un item
+    private InventoryUI inventoryUI;
+
+    void Start()
+    {
+        inventoryUI = InventoryUI.instance;
+    }
 
     public void AddItem(InventoryItem newItem, int itemCount)
     {
@@ -29,8 +38,23 @@ public class InventorySlot : MonoBehaviour
         countText.enabled = false;
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            inventoryUI.DisplaySelectedItem(item);
+        }
+        else
+        {
+            Debug.Log("Slot is empty, cannot select item.");
+        }
+    }
+
     public void OnRemoveButton()
     {
-        Inventory.instance.RemoveItem(item);
+        if (item != null)
+        {
+            Inventory.instance.RemoveItem(item);
+        }
     }
 }

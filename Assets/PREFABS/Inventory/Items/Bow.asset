@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f502f1e57dd4c124bb1a290dcc246c50, type: 3}
-  m_Name: Zenyatta's Balls
+  m_Name: Bow
   m_EditorClassIdentifier: 
-  itemName: Zenyatta's Balls
-  itemIcon: {fileID: 21300000, guid: fab812a317158ef4681a4e7b07998c2e, type: 3}
-  description: 'Aaaah Maitre Zenyatta ... '
+  itemName: Bow
+  itemIcon: {fileID: 21300000, guid: 053e065dacdf9fc4ead07baf08fd8819, type: 3}
+  description: I got you in my sights
   stackable: 1
-  id: 0
+  id: 5
