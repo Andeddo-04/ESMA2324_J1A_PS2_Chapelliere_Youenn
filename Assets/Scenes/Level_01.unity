@@ -724,6 +724,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83095729}
   m_CullTransparentMesh: 1
+--- !u!1 &95031787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2945034382791838307, guid: e139ea2f372dfaa46b44cd1cd876cd7b, type: 3}
+  m_PrefabInstance: {fileID: 431066259}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &98344892
 GameObject:
   m_ObjectHideFlags: 0
@@ -4413,10 +4418,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Guardian
       objectReference: {fileID: 0}
-    - target: {fileID: 2945034382791838307, guid: e139ea2f372dfaa46b44cd1cd876cd7b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6109,10 +6110,6 @@ PrefabInstance:
     - target: {fileID: 2945034382791838307, guid: 353b09766d238ae48a0f34b09f887987, type: 3}
       propertyPath: m_Name
       value: Tanky Guardian
-      objectReference: {fileID: 0}
-    - target: {fileID: 2945034382791838307, guid: 353b09766d238ae48a0f34b09f887987, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8331,7 +8328,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 765383237}
   boxCollider: {fileID: 765383239}
   hideSprite: {fileID: 21300000, guid: 704c867569a29f5438f4223ee1635e53, type: 3}
-  IsPlayerHidden: 0
+  isPlayerHidden: 0
+  enemies: []
 --- !u!1 &767974402
 GameObject:
   m_ObjectHideFlags: 0
@@ -9274,23 +9272,6 @@ RectTransform:
   m_AnchoredPosition: {x: 87.72005, y: -10.393501}
   m_SizeDelta: {x: 175.4401, y: 20.787003}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &886876113 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8115301800588717748, guid: 96b4193e14e2d9944825fe59bafa67bf, type: 3}
-  m_PrefabInstance: {fileID: 2093363144}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &886876122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886876113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 677b89a0d70310a45b6b2c867356f185, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &889099406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 274277412895231359, guid: 3b252f9d75c23104593f0001b7bc5121, type: 3}
@@ -11674,7 +11655,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.2}
   m_FlipX: 0
@@ -11846,7 +11827,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 20df1a443bb7dd445abf482e23f98d01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -15967,11 +15948,13 @@ MonoBehaviour:
   - {fileID: 1242533334}
   - {fileID: 339422992}
   enemiesToTrack:
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 95031787}
     isDead: 0
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 2115235845}
     isDead: 0
   - gameObject: {fileID: 320875681}
+    isDead: 0
+  - gameObject: {fileID: 2087548488}
     isDead: 0
 --- !u!114 &1535495715
 MonoBehaviour:
@@ -21728,7 +21711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2087548489}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Noble Guardian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21805,17 +21788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archer Guardian
       objectReference: {fileID: 0}
-    - target: {fileID: 2945034382791838307, guid: 96b4193e14e2d9944825fe59bafa67bf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8115301800588717748, guid: 96b4193e14e2d9944825fe59bafa67bf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 886876122}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96b4193e14e2d9944825fe59bafa67bf, type: 3}
 --- !u!1 &2095721478
 GameObject:
@@ -22094,6 +22070,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108263988}
   m_CullTransparentMesh: 1
+--- !u!1 &2115235845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2945034382791838307, guid: 353b09766d238ae48a0f34b09f887987, type: 3}
+  m_PrefabInstance: {fileID: 590477265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2120271769
 GameObject:
   m_ObjectHideFlags: 0

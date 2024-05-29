@@ -44,6 +44,10 @@ public class Scene_Manager : MonoBehaviour
         }
     }
 
+    public List<EnemyObject> GetEnemies()
+    {
+        return enemiesToTrack;
+    }
 }
 
 [System.Serializable]

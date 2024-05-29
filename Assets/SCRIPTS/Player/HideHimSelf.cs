@@ -1,26 +1,24 @@
 using Rewired;
 using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
 
 public class HideHimSelf : MonoBehaviour
 {
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider;
-    public Sprite hideSprite;
+    public Sprite hideSprite; // Assignez le sprite de camouflage via l'inspecteur
     public static HideHimSelf instance;
 
     private Sprite defaultSprite;
     private Player player;
-    private bool isPlayerHidden = false;
-    private int playerId = 0;
-    private int hiddenSortingOrder = 0;
-    private int revealedSortingOrder = 10;
-    private int defaultLayer;
-    private int hiddenLayer;
+    [SerializeField] private bool isPlayerHidden = false;
+    private int playerId = 0, hiddenSortingOrder = 0, revealedSortingOrder = 10, defaultLayer, hiddenLayer;
+    [SerializeField] private List<EnemyObject> enemies;
 
     void Awake()
     {
-        instance = this;
         player = ReInput.players.GetPlayer(playerId);
 
         if (spriteRenderer == null)
@@ -31,6 +29,12 @@ public class HideHimSelf : MonoBehaviour
         defaultSprite = spriteRenderer.sprite;
         defaultLayer = gameObject.layer;
         hiddenLayer = LayerMask.NameToLayer("HiddenPlayer");
+    }
+
+    void Start()
+    {
+        // Récupérez la liste des ennemis du Scene_Manager
+        Scene_Manager sceneManager = FindObjectOfType<Scene_Manager>();
     }
 
     void Update()
@@ -67,7 +71,7 @@ public class HideHimSelf : MonoBehaviour
         spriteRenderer.sortingOrder = hiddenSortingOrder;
         gameObject.layer = hiddenLayer;
         isPlayerHidden = true;
-        Debug.LogWarning("Je suis caché");
+        SetEnemyCollisions(false);
     }
 
     void RevealPlayer()
@@ -78,7 +82,7 @@ public class HideHimSelf : MonoBehaviour
         spriteRenderer.sortingOrder = revealedSortingOrder;
         gameObject.layer = defaultLayer;
         isPlayerHidden = false;
-        Debug.LogWarning("Je ne suis plus caché");
+        SetEnemyCollisions(true);
     }
 
     void AdjustBoxCollider(Sprite sprite)
@@ -88,6 +92,21 @@ public class HideHimSelf : MonoBehaviour
         Vector2 spriteSize = sprite.bounds.size;
         boxCollider.size = spriteSize;
         boxCollider.offset = Vector2.zero;
+    }
+
+    void SetEnemyCollisions(bool enable)
+    {
+        // Récupère tous les GameObjects présents sur le layer "EnemyLayer"
+        var enemies = GameObject.FindObjectsOfType<GameObject>().Where(obj => obj.layer == LayerMask.NameToLayer("Ennemie")).ToList();
+
+        foreach (var enemy in enemies)
+        {
+            Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
+            if (enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(boxCollider, enemyCollider, !enable);
+            }
+        }
     }
 
     public bool IsPlayerHidden()
