@@ -17,3 +17,5 @@ MonoBehaviour:
   description: "Il est temps d'\xE9crabouiller ces geux"
   stackable: 1
   id: 4
+  equippable: 1
+  isEquipped: 0

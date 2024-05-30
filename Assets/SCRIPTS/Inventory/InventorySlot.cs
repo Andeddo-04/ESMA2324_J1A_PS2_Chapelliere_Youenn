@@ -1,16 +1,14 @@
-// InventorySlot.cs
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     public Image icon;
-    public Text countText; // Assurez-vous que ce champ est assigné dans l'inspecteur
-    public InventoryItem item; // Rend cette variable publique
+    public Text countText;
+    public InventoryItem item;
     private int count;
 
-    // Référence à InventoryUI pour signaler la sélection d'un item
     private InventoryUI inventoryUI;
 
     void Start()
@@ -24,8 +22,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         count = itemCount;
         icon.sprite = item.itemIcon;
         icon.enabled = true;
-        countText.text = count > 0 ? "x" + count.ToString() : "";
-        countText.enabled = count > 0;
+        countText.text = newItem.stackable ? "x" + count.ToString() : "";
+        countText.enabled = newItem.stackable && count > 0;
     }
 
     public void ClearSlot()
@@ -47,7 +45,20 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         else
         {
             Debug.Log("Slot is empty, cannot select item.");
+            // Ajoutez du code pour désélectionner l'item ici si nécessaire
         }
+    }
+
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // Optionnel : Ajoutez une logique si nécessaire
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+
+
     }
 
     public void OnRemoveButton()
@@ -55,6 +66,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         if (item != null)
         {
             Inventory.instance.RemoveItem(item);
+            inventoryUI.ClearSelectedItemDisplay();
         }
     }
 }

@@ -17,3 +17,5 @@ MonoBehaviour:
   description: "Une bien belle \xE9p\xE9e"
   stackable: 1
   id: 3
+  equippable: 1
+  isEquipped: 0

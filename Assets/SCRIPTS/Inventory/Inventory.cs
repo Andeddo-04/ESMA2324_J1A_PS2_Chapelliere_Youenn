@@ -1,4 +1,3 @@
-// Inventory.cs
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,9 +68,17 @@ public class Inventory : MonoBehaviour
             onItemChangedCallback.Invoke();
     }
 
-    // Dans la classe Inventory
     public bool HasItem(InventoryItem item)
     {
         return items.Contains(item);
+    }
+
+    public int GetItemCount(InventoryItem item)
+    {
+        if (itemCounts.ContainsKey(item.id))
+        {
+            return itemCounts[item.id];
+        }
+        return 0;
     }
 }

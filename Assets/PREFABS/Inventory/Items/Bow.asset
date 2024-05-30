@@ -17,3 +17,5 @@ MonoBehaviour:
   description: I got you in my sights
   stackable: 1
   id: 5
+  equippable: 1
+  isEquipped: 0
