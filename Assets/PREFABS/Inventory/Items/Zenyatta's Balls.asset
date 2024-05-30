@@ -17,3 +17,5 @@ MonoBehaviour:
   description: 'Aaaah Maitre Zenyatta ... '
   stackable: 1
   id: 0
+  equippable: 0
+  isEquipped: 0

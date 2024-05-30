@@ -18,9 +18,10 @@ public class InventoryUI : MonoBehaviour
     public InventorySlot equipSlot2; // Deuxième slot d'équipement
 
     Inventory inventory; // Référence à l'inventaire
-    InventorySlot[] slots; // Tableau de slots d'inventaire
+    public InventorySlot[] slots; // Tableau de slots d'inventaire
 
     public InventoryItem selectedItem; // Référence à l'item sélectionné
+    InventorySlot inventorySlot;
 
     public static InventoryUI instance; // Instance singleton de InventoryUI
 
@@ -110,12 +111,34 @@ public class InventoryUI : MonoBehaviour
     }
 
     // Méthode pour équiper l'item sélectionné
+    // Méthode pour équiper l'item sélectionné
+    // Méthode pour équiper l'item sélectionné
     public void EquipSelectedItem()
     {
-        Debug.Log("Contenant Slot : " + selectedItem);
-
+        // Vérifier si un item est sélectionné et s'il est équipable
         if (selectedItem != null && selectedItem.equippable)
         {
+            // Vérifier si la halberd est déjà équipée
+            if (equipSlot1.item != null && equipSlot1.item.itemName == "Halberd")
+            {
+                Debug.Log("Cannot equip another item while the Halberd is equipped.");
+                return; // Sortir de la méthode si la halberd est déjà équipée
+            }
+
+            // Vérifier si les deux emplacements d'équipement sont non nuls
+            if (equipSlot1.item != null && equipSlot2.item != null)
+            {
+                Debug.Log("Both equipment slots are occupied. Cannot equip new item.");
+                return; // Sortir de la méthode si les deux emplacements d'équipement sont occupés
+            }
+
+            // Cas spécial : si le joueur ne possède qu'un emplacement d'équipement disponible
+            if (equipSlot1.item != null && selectedItem.itemName == "Halberd")
+            {
+                Debug.Log("Cannot equip Halberd. Only one equipment slot available.");
+                return; // Sortir de la méthode si le joueur possède déjà un emplacement d'équipement et tente d'équiper la halberd
+            }
+
             selectedItem.isEquipped = true; // Marquer l'item comme équipé
             Debug.Log("Equipped item : " + selectedItem.itemName);
 
@@ -128,20 +151,30 @@ public class InventoryUI : MonoBehaviour
             {
                 equipSlot2.AddItem(selectedItem, 1);
             }
-            DisplaySelectedItem(selectedItem); // Mettre à jour l'affichage
 
-            // Activer/désactiver les boutons en fonction de l'état de l'item
-            equipButton.gameObject.SetActive(false);
-            unequipButton.gameObject.SetActive(true);
+            // Retirer l'item de l'emplacement de base
+            foreach (InventorySlot slot in slots)
+            {
+                if (slot.item == selectedItem)
+                {
+                    slot.ClearSlot();
+                    break;
+                }
+            }
+
+            DisplaySelectedItem(selectedItem); // Mettre à jour l'affichage de l'item sélectionné
         }
     }
+
+
 
     // Méthode pour déséquiper l'item sélectionné
     public void UnequipSelectedItem()
     {
+        // Vérifier si un item est sélectionné et s'il est équipable
         if (selectedItem != null && selectedItem.equippable)
         {
-            selectedItem.isEquipped = false; // Marquer l'item comme déséquipé
+            selectedItem.isEquipped = false; // Marquer l'item comme non équipé
             Debug.Log("Unequipped item: " + selectedItem.itemName);
 
             // Retirer l'item des slots d'équipement
@@ -153,13 +186,19 @@ public class InventoryUI : MonoBehaviour
             {
                 equipSlot2.ClearSlot();
             }
-            DisplaySelectedItem(selectedItem); // Mettre à jour l'affichage
 
-            // Activer/désactiver les boutons en fonction de l'état de l'item
-            equipButton.gameObject.SetActive(true);
-            unequipButton.gameObject.SetActive(false);
+            // Trouver le premier emplacement de base disponible et y ajouter l'item
+            InventorySlot firstAvailableSlot = FindFirstAvailableBasicSlot();
+            if (firstAvailableSlot != null)
+            {
+                firstAvailableSlot.AddItem(selectedItem, 1);
+            }
+
+            DisplaySelectedItem(selectedItem); // Mettre à jour l'affichage de l'item sélectionné
         }
     }
+
+
 
     // Méthode pour mettre à jour les slots d'équipement
     void UpdateEquipSlots()
@@ -200,4 +239,19 @@ public class InventoryUI : MonoBehaviour
         }
         return false; // Retourne faux si le pointeur n'est pas sur un slot d'item ou un bouton
     }
+
+    // Méthode pour trouver le premier emplacement de base disponible
+    public InventorySlot FindFirstAvailableBasicSlot()
+    {
+        foreach (InventorySlot slot in slots)
+        {
+            // Vérifie si le slot n'est pas équipé et s'il n'y a pas d'item dans le slot
+            if (slot.item == null)
+            {
+                return slot;
+            }
+        }
+        return null;
+    }
+
 }

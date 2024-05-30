@@ -9,5 +9,10 @@ public class InventoryItem : ScriptableObject
     public bool stackable;
     public int id;
     public bool equippable; // Indique si l'item peut être équipé
-    public bool isEquipped; // Indique si l'item est actuellement équipé
+    public bool isEquipped = false; // Indique si l'item est actuellement équipé
+
+    public InventoryItem()
+    {
+        isEquipped = false;
+    }
 }
