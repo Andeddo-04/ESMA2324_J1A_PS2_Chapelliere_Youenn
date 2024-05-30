@@ -1,5 +1,8 @@
-﻿using UnityEngine;
-using Rewired;
+﻿using Rewired;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InventoryNavigation : MonoBehaviour
 {
@@ -63,15 +66,67 @@ public class InventoryNavigation : MonoBehaviour
                 InventoryUI.instance.DisplaySelectedItem(slots[selectedRowIndex, selectedColumnIndex].item);
             }
         }
-
         else
         {
-            if (player.GetButtonDown("Mouse_SelectItem"))
+            if (player.GetButtonDown("Mouse_SelectItem")) // Si le joueur appuie sur la touche de sélection d'item
             {
-                InventoryUI.instance.DisplaySelectedItem(slots[selectedRowIndex, selectedColumnIndex].item);
+                if (InventoryUI.instance.IsPointerOverUIObject()) // Si la souris est au-dessus d'un objet UI
+                {
+                    InventorySlot clickedSlot = GetClickedSlotOrButton();
+
+                    if (clickedSlot != null)
+                    {
+                        InventoryUI.instance.DisplaySelectedItem(clickedSlot.item);
+                    }
+                    else
+                    {
+                        InventoryUI.instance.ClearSelectedItemDisplay();
+                    }
+                }
+                else
+                {
+                    InventoryUI.instance.ClearSelectedItemDisplay(); // Effacer l'affichage si le clic est en dehors des slots d'item
+                }
             }
         }
     }
+
+
+    // Méthode pour obtenir le slot d'inventaire ou le bouton cliqué
+    public InventorySlot GetClickedSlotOrButton()
+    {
+        // Créer un nouvel événement de données de pointeur à la position actuelle de la souris
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        // Liste pour stocker les résultats du raycast
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        // Effectuer un raycast pour détecter les objets sous la position actuelle de la souris
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        // Parcourir les résultats du raycast
+        foreach (var result in results)
+        {
+            // Vérifier si l'objet de résultat a un composant InventorySlot
+            InventorySlot slot = result.gameObject.GetComponent<InventorySlot>();
+            if (slot != null)
+            {
+                return slot; // Retourner le slot d'inventaire cliqué
+            }
+
+            // Vérifier si l'objet de résultat a un composant Button
+            Button button = result.gameObject.GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.Invoke(); // Appeler l'action du bouton
+                return null; // Retourner null car nous avons cliqué sur un bouton
+            }
+        }
+        return null; // Retourner null si aucun slot d'inventaire ou bouton n'a été cliqué
+    }
+
+
 
     void ChangeSelectedSlot(int rowChange, int columnChange)
     {

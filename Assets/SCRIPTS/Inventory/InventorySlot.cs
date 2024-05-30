@@ -45,9 +45,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerDownHa
         else
         {
             Debug.Log("Slot is empty, cannot select item.");
-            // Ajoutez du code pour désélectionner l'item ici si nécessaire
+            inventoryUI.ClearSelectedItemDisplay();
         }
     }
+
 
 
     public void OnPointerDown(PointerEventData eventData)

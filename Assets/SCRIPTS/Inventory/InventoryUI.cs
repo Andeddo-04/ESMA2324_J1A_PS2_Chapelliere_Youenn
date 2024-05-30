@@ -1,3 +1,4 @@
+using Rewired;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,12 +19,17 @@ public class InventoryUI : MonoBehaviour
 
     Inventory inventory; // Référence à l'inventaire
     InventorySlot[] slots; // Tableau de slots d'inventaire
+
     public InventoryItem selectedItem; // Référence à l'item sélectionné
 
     public static InventoryUI instance; // Instance singleton de InventoryUI
 
+    Player player; // Référence au joueur
+    int playerID = 0; // ID du joueur
+
     void Awake()
     {
+        player = ReInput.players.GetPlayer(playerID); // Obtenir la référence du joueur avec Rewired
         if (instance != null)
         {
             Debug.LogWarning("More than one instance of InventoryUI found!");
@@ -47,7 +53,7 @@ public class InventoryUI : MonoBehaviour
     }
 
     // Méthode pour mettre à jour l'interface utilisateur de l'inventaire
-    void UpdateUI()
+    public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -88,19 +94,15 @@ public class InventoryUI : MonoBehaviour
         else
         {
             // Si aucun item n'est sélectionné, désactivez les boutons et cachez les informations de l'item
-            selectedItemIcon.enabled = false;
-            selectedItemDescription.text = "";
-            equipButton.gameObject.SetActive(false);
-            unequipButton.gameObject.SetActive(false);
+            ClearSelectedItemDisplay();
         }
     }
 
-    
-    // Méthode pour effacer l'affichage des informations de l'item sélectionné
+    // Méthode pour effacer l'affichage de l'item sélectionné
     public void ClearSelectedItemDisplay()
     {
-        selectedItem = null; // Effacer l'item sélectionné
-        selectedItemIcon.sprite = null;
+        Debug.Log("Item Selected was clear");
+        selectedItem = null; // Réinitialiser l'item sélectionné
         selectedItemIcon.enabled = false;
         selectedItemDescription.text = "";
         equipButton.gameObject.SetActive(false);
@@ -114,7 +116,7 @@ public class InventoryUI : MonoBehaviour
 
         if (selectedItem != null && selectedItem.equippable)
         {
-            selectedItem.isEquipped = true;
+            selectedItem.isEquipped = true; // Marquer l'item comme équipé
             Debug.Log("Equipped item : " + selectedItem.itemName);
 
             // Déplacer l'item vers un slot d'équipement libre
@@ -139,7 +141,7 @@ public class InventoryUI : MonoBehaviour
     {
         if (selectedItem != null && selectedItem.equippable)
         {
-            selectedItem.isEquipped = false;
+            selectedItem.isEquipped = false; // Marquer l'item comme déséquipé
             Debug.Log("Unequipped item: " + selectedItem.itemName);
 
             // Retirer l'item des slots d'équipement
@@ -181,39 +183,21 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    // Méthode appelée chaque frame pour détecter les clics globaux
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Vérifiez si le clic ne se trouve pas sur un slot d'item
-            if (!IsPointerOverUIObject())
-            {
-                ClearSelectedItemDisplay(); // Effacer l'affichage si le clic est en dehors des slots d'item
-            }
-        }
-    }
-
     // Méthode pour vérifier si le pointeur est au-dessus d'un objet UI
-    private bool IsPointerOverUIObject()
+    public bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        //Debug.Log(eventDataCurrentPosition.position);
+
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         foreach (var result in results)
         {
-            if (result.gameObject.GetComponent<InventorySlot>() != null)
+            if (result.gameObject.GetComponent<InventorySlot>() != null || result.gameObject.GetComponent<Button>() != null)
             {
-                return true; // Retourne vrai si le pointeur est sur un slot d'item
+                return true; // Retourne vrai si le pointeur est sur un slot d'item ou un bouton
             }
         }
-        return false; // Retourne faux si le pointeur n'est pas sur un slot d'item
-    }
-
-    public void Test()
-    {
-        Debug.Log("dd");
+        return false; // Retourne faux si le pointeur n'est pas sur un slot d'item ou un bouton
     }
 }
