@@ -21433,6 +21433,7 @@ MonoBehaviour:
   unequipButton: {fileID: 1845046520}
   equipSlot1: {fileID: 1751144594}
   equipSlot2: {fileID: 540523215}
+  slots: []
   selectedItem: {fileID: 0}
 --- !u!114 &1722572887
 MonoBehaviour:
