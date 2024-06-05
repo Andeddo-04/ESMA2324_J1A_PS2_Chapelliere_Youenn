@@ -59,9 +59,11 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenuButton()
     {
+        // Désactive le menu pause
         canvasPauseMenu.SetActive(false);
-        SceneManager.LoadScene(levelToLoad);
-        Debug.LogError("Return to main menu");
+
+        // Charge la scène principale
+        SceneManager.LoadScene(levelToLoad, LoadSceneMode.Single);
     }
 
     public void QuitGame()
