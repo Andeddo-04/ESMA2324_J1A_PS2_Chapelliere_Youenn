@@ -66,8 +66,12 @@ public class JumpController : MonoBehaviour
         // Ajoute une vélocité verticale uniquement si la vélocité actuelle en Y est inférieure à maxVelocityY
         if (Mathf.Abs(rb.velocity.y) < maxVelocityY)
         {
+            PlayerMovement.instance.animator.SetBool("Jump", true);
+
             Vector2 jumpVelocity = new Vector2(rb.velocity.x, jumpForce);
             rb.velocity += jumpVelocity;
+
+            PlayerMovement.instance.animator.SetBool("Jump", false);
         }
     }
 

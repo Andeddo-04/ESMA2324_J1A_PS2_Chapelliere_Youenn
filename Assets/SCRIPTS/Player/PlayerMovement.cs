@@ -15,7 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public CrosshairMovement crosshairMovement;
     
     public static PlayerMovement instance;
-    
+
+    public Animator animator;
+
     public float moveSpeed;
     
     public bool useController = false, canBeDetected = true, inventoryIsActive = false;
@@ -98,12 +100,16 @@ public class PlayerMovement : MonoBehaviour
                 // Contrôle à la manette
                 controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
                 rb.velocity = new Vector2(controller_horizontalMovement, rb.velocity.y);
+
+                animator.SetFloat("playerSpeed", controller_horizontalMovement);
             }
             else
             {
                 // Contrôle au clavier
                 keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
                 rb.velocity = new Vector2(keyboard_horizontalMovement, rb.velocity.y);
+
+                animator.SetFloat("playerSpeed", keyboard_horizontalMovement);
             }
         }
 

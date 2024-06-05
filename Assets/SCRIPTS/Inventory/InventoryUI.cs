@@ -21,6 +21,7 @@ public class InventoryUI : MonoBehaviour
     public InventorySlot[] slots; // Tableau de slots d'inventaire
 
     public InventoryItem selectedItem; // Référence à l'item sélectionné
+
     InventorySlot inventorySlot;
 
     public static InventoryUI instance; // Instance singleton de InventoryUI
@@ -146,10 +147,14 @@ public class InventoryUI : MonoBehaviour
             if (equipSlot1.item == null)
             {
                 equipSlot1.AddItem(selectedItem, 1);
+
+                ActiveWeapon();
             }
             else if (equipSlot2.item == null)
             {
                 equipSlot2.AddItem(selectedItem, 1);
+
+                ActiveWeapon();
             }
 
             // Retirer l'item de l'emplacement de base
@@ -254,4 +259,21 @@ public class InventoryUI : MonoBehaviour
         return null;
     }
 
+    void ActiveWeapon()
+    {
+        if (selectedItem.itemName == "Sword")
+        {
+            AttackController.instance.useSword = true;
+        }
+
+        else if (selectedItem.itemName == "Halberd")
+        {
+            AttackController.instance.useSword = false;
+        }
+
+        else if (selectedItem.itemName == "Bow")
+        {
+            AttackController.instance.useBow = true;
+        }
+    }
 }

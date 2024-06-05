@@ -9440,7 +9440,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 76e3d7eb2de56e94bb1588a7ab6a4687, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f64c8aca7843d44289476e7ba9186b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9533,7 +9533,7 @@ Animator:
   m_GameObject: {fileID: 765383235}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4a6b620acdf78c143a8eb9635a81fbb7, type: 2}
+  m_Controller: {fileID: 9100000, guid: c00cd7974f6962445bd30f279018d055, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9562,6 +9562,7 @@ MonoBehaviour:
   newPosition: {fileID: 765383235}
   inventoryUI: {fileID: 339422992}
   crosshairMovement: {fileID: 1599061375}
+  animator: {fileID: 765383241}
   moveSpeed: 15
   useController: 0
   canBeDetected: 1

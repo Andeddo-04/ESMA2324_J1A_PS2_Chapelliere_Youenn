@@ -1,4 +1,4 @@
-using Rewired;
+    using Rewired;
 using UnityEngine;
 using System.Collections;
 
