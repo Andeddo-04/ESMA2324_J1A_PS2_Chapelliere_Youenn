@@ -43,10 +43,12 @@ public class HideHimSelf : MonoBehaviour
         {
             if (player.GetButton("Controller_CoverUp"))
             {
+                PlayerMovement.instance.animator.SetBool("IsHidding", true);
                 HidePlayer();
             }
             else if (player.GetButtonUp("Controller_CoverUp"))
             {
+                PlayerMovement.instance.animator.SetBool("IsHidding", false);
                 RevealPlayer();
             }
         }
@@ -54,10 +56,12 @@ public class HideHimSelf : MonoBehaviour
         {
             if (player.GetButton("KeyBoard_CoverUp"))
             {
+                PlayerMovement.instance.animator.SetBool("IsHidding", true);
                 HidePlayer();
             }
             else if (player.GetButtonUp("KeyBoard_CoverUp"))
             {
+                PlayerMovement.instance.animator.SetBool("IsHidding", false);
                 RevealPlayer();
             }
         }
