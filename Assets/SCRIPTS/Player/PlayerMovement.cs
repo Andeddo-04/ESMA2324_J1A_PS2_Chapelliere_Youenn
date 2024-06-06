@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
                 Flip(controller_horizontalMovement);
 
+                controller_horizontalMovement = Mathf.Abs(rb.velocity.x); //convertit la valeur de la vitesse en chiffre positif pour l'animator
                 animator.SetFloat("playerSpeed", controller_horizontalMovement);
             }
             else
@@ -116,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
                 Flip(keyboard_horizontalMovement);
 
+                keyboard_horizontalMovement = Mathf.Abs(rb.velocity.x); //convertit la valeur de la vitesse en chiffre positif pour l'animator
                 animator.SetFloat("playerSpeed", keyboard_horizontalMovement);
             }
         }

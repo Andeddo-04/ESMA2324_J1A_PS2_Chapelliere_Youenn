@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 71773468796071435}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.381, y: -0.005, z: 0}
-  m_LocalScale: {x: 0.29598585, y: 0.75714356, z: 1.746205}
+  m_LocalPosition: {x: -7.21, y: -0.7, z: 0}
+  m_LocalScale: {x: 5.9401503, y: 15.195141, z: 35.04465}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6141209395809992735}
@@ -316,8 +316,8 @@ Transform:
   m_GameObject: {fileID: 2947159933014332981}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.992, y: 0.13, z: 0}
-  m_LocalScale: {x: 1.0283622, y: 1.2753582, z: 1.3741323}
+  m_LocalPosition: {x: -16.49, y: 5.84, z: 0}
+  m_LocalScale: {x: 20.638237, y: 25.595207, z: 27.577509}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6141209395809992735}
@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 6039861480070257796}
   - component: {fileID: 2527537323495391915}
   - component: {fileID: 7781650111052491108}
+  - component: {fileID: 339140754890337603}
   m_Layer: 6
   m_Name: Tanky Guardian
   m_TagString: TankyGuardian
@@ -466,8 +467,8 @@ Transform:
   m_GameObject: {fileID: 8115301800588717748}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.2878, y: -3.3240821, z: 0}
-  m_LocalScale: {x: 10.332361, y: 6.1228805, z: 6.1228805}
+  m_LocalPosition: {x: 6.8, y: -3.01, z: 0}
+  m_LocalScale: {x: 0.4031865, y: 0.40059778, z: 0.40059778}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2567327569146058059}
@@ -515,7 +516,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 6311b67a8f5ed854eaf03779d9a6724b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 335680896f6b154488204e1406d382ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -585,18 +586,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0005117059, y: 0.003915757}
+  m_Offset: {x: -0.79217577, y: -1.002316}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.47, y: 1.07}
+    oldSize: {x: 20, y: 20}
     newSize: {x: 0.48, y: 0.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4777314, y: 1.0727532}
+  m_Size: {x: 6.465087, y: 17.995369}
   m_EdgeRadius: 0
 --- !u!114 &6039861480070257796
 MonoBehaviour:
@@ -654,3 +655,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677b89a0d70310a45b6b2c867356f185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &339140754890337603
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115301800588717748}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5ead3308a400743488b9af816f8c2fb9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
