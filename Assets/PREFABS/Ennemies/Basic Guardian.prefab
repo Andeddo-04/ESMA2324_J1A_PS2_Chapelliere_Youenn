@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 8388698381988847731}
   - component: {fileID: 3482920452294559292}
   - component: {fileID: 358416277527663736}
+  - component: {fileID: 5034924867662273040}
   m_Layer: 6
   m_Name: Basic Guardian
   m_TagString: BasicGuardian
@@ -655,3 +656,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677b89a0d70310a45b6b2c867356f185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5034924867662273040
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115301800588717748}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
