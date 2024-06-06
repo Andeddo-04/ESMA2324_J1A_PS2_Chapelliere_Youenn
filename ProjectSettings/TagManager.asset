@@ -17,6 +17,7 @@ TagManager:
   - TankyGuardian
   - NobleGuardian
   - Inventory
+  - AttcksHitboxsTracker
   layers:
   - Default
   - TransparentFX

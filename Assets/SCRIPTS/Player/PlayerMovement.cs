@@ -26,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
     private GameObject sceneManager;
     
     private PauseMenu pauseMenu;
-    
+
+    private bool isFacingRight;
+
     private float controller_horizontalMovement, keyboard_horizontalMovement;
     
     private int playerId = 0;
@@ -86,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         crossHairTracker();
+        AttcksHitboxsTracker();
         crosshairMovement.MoveCrossHair();
         OpenInventory();
     }
@@ -101,6 +104,8 @@ public class PlayerMovement : MonoBehaviour
                 controller_horizontalMovement = player.GetAxis("Controller_HorizontalMovement") * moveSpeed;
                 rb.velocity = new Vector2(controller_horizontalMovement, rb.velocity.y);
 
+                Flip(controller_horizontalMovement);
+
                 animator.SetFloat("playerSpeed", controller_horizontalMovement);
             }
             else
@@ -108,6 +113,8 @@ public class PlayerMovement : MonoBehaviour
                 // Contrôle au clavier
                 keyboard_horizontalMovement = player.GetAxis("KeyBoard_HorizontalMovement") * moveSpeed;
                 rb.velocity = new Vector2(keyboard_horizontalMovement, rb.velocity.y);
+
+                Flip(keyboard_horizontalMovement);
 
                 animator.SetFloat("playerSpeed", keyboard_horizontalMovement);
             }
@@ -122,6 +129,19 @@ public class PlayerMovement : MonoBehaviour
     void crossHairTracker()
     {
         GameObject crossHairTracker = GameObject.FindGameObjectWithTag("CrossHairTracker");
+        if (crossHairTracker != null && newPosition != null)
+        {
+            crossHairTracker.transform.position = newPosition.transform.position;
+        }
+        else
+        {
+            Debug.LogError("Le 'CrossHairTracker' ou 'newPosition' n'a pas été trouvé.");
+        }
+    }
+
+    void AttcksHitboxsTracker()
+    {
+        GameObject crossHairTracker = GameObject.FindGameObjectWithTag("AttcksHitboxsTracker");
         if (crossHairTracker != null && newPosition != null)
         {
             crossHairTracker.transform.position = newPosition.transform.position;
@@ -192,6 +212,24 @@ public class PlayerMovement : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+    }
+
+    void Flip(float _directionX)
+    {
+        if (_directionX < 0 && !isFacingRight)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+        else if (_directionX > 0 && isFacingRight)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
         }
     }
 }

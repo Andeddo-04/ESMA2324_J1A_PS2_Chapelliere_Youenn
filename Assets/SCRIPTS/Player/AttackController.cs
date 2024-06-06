@@ -134,16 +134,6 @@ public class AttackController : MonoBehaviour
                     {
                         StartAttack();
                     }
-                    else
-                    {
-                        // Display arrow warning text
-                        //arrowWarningText.enabled = true;
-                    }
-                }
-                else
-                {
-                    // Hide arrow warning text when not using bow
-                    //arrowWarningText.enabled = false;
                 }
             }
 
@@ -219,16 +209,6 @@ public class AttackController : MonoBehaviour
                     {
                         StartAttack();
                     }
-                    else
-                    {
-                        // Display arrow warning text
-                        //arrowWarningText.enabled = true;
-                    }
-                }
-                else
-                {
-                    // Hide arrow warning text when not using bow
-                    //arrowWarningText.enabled = false;
                 }
             }
         }
@@ -248,11 +228,6 @@ public class AttackController : MonoBehaviour
                 StartCoroutine(LaunchArrow());
 
             }
-            else
-            {
-                // Afficher un message indiquant que le joueur n'a pas de flèches
-                Debug.Log("You don't have any arrows!");
-            }
         }
 
         if (!PlayerMovement.instance.useController && player.GetButtonDown("Mouse_LaunchArrow"))
@@ -261,12 +236,6 @@ public class AttackController : MonoBehaviour
             {
                 isShooting = false;
                 StartCoroutine(LaunchArrow());
-
-            }
-            else
-            {
-                // Afficher un message indiquant que le joueur n'a pas de flèches
-                Debug.Log("You don't have any arrows!");
 
             }
         }
@@ -436,11 +405,6 @@ public class AttackController : MonoBehaviour
             Inventory.instance.RemoveItem(ArrowItem);
 
             yield return new WaitForSeconds(1.75f); // Attendez le cooldown
-        }
-        else
-        {
-            // Afficher un message indiquant que le joueur n'a pas de flèches
-            Debug.Log("You don't have any arrows!");
         }
     }
 }
