@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 1478882418772281622}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -14.5, y: 0.97, z: -0.07027405}
-  m_LocalScale: {x: 5.3302693, y: 21.20549, z: 6.054675}
+  m_LocalPosition: {x: -24.89, y: 4.69, z: -0.070274}
+  m_LocalScale: {x: 14.894372, y: 39.256107, z: 16.91858}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4092530236424430380}
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2563779597984869321}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 7135892687345189642}
   - component: {fileID: 1396010754211225504}
   - component: {fileID: 3385759329640839213}
+  - component: {fileID: 4655127709297375330}
   m_Layer: 6
   m_Name: Noble Guardian
   m_TagString: NobleGuardian
@@ -212,8 +213,8 @@ Transform:
   m_GameObject: {fileID: 3178391078406494705}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.8, y: 6.51414, z: 0}
-  m_LocalScale: {x: 0.3558673, y: 0.67648363, z: 0.7957899}
+  m_LocalPosition: {x: 17.691, y: 6.51414, z: -0.054375}
+  m_LocalScale: {x: 0.2262445, y: 0.2262445, z: 0.2262445}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4096042176535884302}
@@ -260,13 +261,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 20df1a443bb7dd445abf482e23f98d01, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 1e753e5d82b01b949a1c9279db4f45f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 20, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -335,8 +336,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
+    oldSize: {x: 20, y: 20}
+    newSize: {x: 20, y: 20}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -400,6 +401,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677b89a0d70310a45b6b2c867356f185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4655127709297375330
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178391078406494705}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a26f2568fc9e7a4cabe1fd0003b2ce8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3543832405699147436
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,8 +497,8 @@ Transform:
   m_GameObject: {fileID: 3945965456770384352}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.74757, y: -0.011223555, z: -0.07027405}
-  m_LocalScale: {x: 3.898138, y: 2.8284497, z: 7.694091}
+  m_LocalPosition: {x: -8.82, y: -0.1, z: -0.070274}
+  m_LocalScale: {x: 10.892568, y: 2.5686495, z: 21.4996}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4092530236424430380}
