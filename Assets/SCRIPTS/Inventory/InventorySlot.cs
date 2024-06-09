@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -53,7 +53,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerDownHa
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Optionnel : Ajoutez une logique si nécessaire
+        // Optionnel : Ajoutez une logique si nï¿½cessaire
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -81,9 +81,4 @@ public class Inventory : MonoBehaviour
         }
         return 0;
     }
-
-    public InventoryItem GetSelectedItem()
-    {
-        return InventoryUI.instance.selectedItem;
-    }
 }
