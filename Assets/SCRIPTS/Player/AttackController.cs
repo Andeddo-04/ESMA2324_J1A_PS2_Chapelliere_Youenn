@@ -6,43 +6,30 @@ using UnityEngine;
 
 public class AttackController : MonoBehaviour
 {
-    ////////// * Variables publiques * \\\\\\\\\\
-
     public static AttackController instance;
 
     public Transform firePoint; // Point de départ de la flèche (par exemple, la main de l'archer)
-
     public GameObject arrowPrefab, myPlayer;
-
     public CrosshairMovement crosshairMovement;
-
     public HideHimSelf hideHimSelf;
-
     public GameObject handTopHitboxAttack, handRightHitboxAttack, handLeftHitboxAttack;
-
     public GameObject swordTopHitboxAttack, swordRightHitboxAttack, swordLeftHitboxAttack;
-    
     public GameObject halberdTopHitboxAttack, halberdRightHitboxAttack, halberdLeftHitboxAttack;
-
-    //public Text arrowWarningText;
 
     public InventoryItem ArrowItem;
 
-    public bool isAttacking, dontUseWeapon = true, useSword = false, useHalberd = false, useBow = false;
+    public InventoryItem firstEquippedWeapon = null;
+    public InventoryItem secondEquippedWeapon = null;
+    public InventoryItem currentEquippedWeapon = null;
 
+    public bool isAttacking, dontUseWeapon = true, useSword = false, useHalberd = false, useBow = false;
     public float arrowSpeed;
 
-    ////////// * Variables privées * \\\\\\\\\\
-
     private Player player;
-
     private bool isShooting = false;
-
     private int playerId = 0;
-
     private float ATKCooldown = 0.5f;
 
-    ////////// * Méthode Awake() * \\\\\\\\\\
     void Awake()
     {
         player = ReInput.players.GetPlayer(playerId);
@@ -56,165 +43,125 @@ public class AttackController : MonoBehaviour
         instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!hideHimSelf.isPlayerHidden)
         {
-            ChoseYourWeapon();
 
             if (PlayerMovement.instance.useController)
             {
-                if (dontUseWeapon)
-                {
-                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                    if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(DontUseWeaponAttackAtTop());
-                    }
-
-                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                    else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(DontUseWeaponAttackAtRight());
-                    }
-
-                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                    else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(DontUseWeaponAttackAtLeft());
-                    }
-                }
-
-                else if (useSword)
-                {
-                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                    if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(SwordAttackAtTop());
-                    }
-
-                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                    else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(SwordAttackAtRight());
-                    }
-
-                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                    else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(SwordAttackAtLeft());
-                    }
-                }
-
-                else if (useHalberd)
-                {
-                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                    if ((player.GetAxis("Controller_AttackDirection_Y") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(HalberdAttackAtTop());
-                    }
-
-                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                    else if ((player.GetAxis("Controller_AttackDirection_X") > 0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(HalberdAttackAtRight());
-                    }
-
-                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                    else if ((player.GetAxis("Controller_AttackDirection_X") < -0.5) && player.GetButtonDown("Controller_Attack") && !isAttacking)
-                    {
-                        StartCoroutine(HalberdAttackAtLeft());
-                    }
-                }
-
-                else if (useBow)
-                {
-                    if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Controller_Attack"))
-                    {
-                        StartAttack();
-                    }
-                }
+                HandleControllerInput();
+            }
+            else
+            {
+                HandleKeyboardInput();
             }
 
-            if (!PlayerMovement.instance.useController)
+            // Bascule entre les armes équipées avec les touches définies
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if (dontUseWeapon)
-                {
-                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                    if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
-                    {
-                        StartCoroutine(DontUseWeaponAttackAtTop());
-                    }
-
-                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                    else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
-                    {
-                        StartCoroutine(DontUseWeaponAttackAtRight());
-                    }
-
-                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                    else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
-                    {
-                        StartCoroutine(DontUseWeaponAttackAtLeft());
-                    }
-
-                }
-
-                else if (useSword)
-                {
-                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                    if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
-                    {
-                        StartCoroutine(SwordAttackAtTop());
-                    }
-
-                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                    else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
-                    {
-                        StartCoroutine(SwordAttackAtRight());
-                    }
-
-                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                    else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
-                    {
-                        StartCoroutine(SwordAttackAtLeft());
-                    }
-                }
-
-                else if (useHalberd)
-                {
-                    // Vérifie si la flèche du haut est pressée et si l'objet est au sol
-                    if (player.GetButtonDown("KeyBoard_AttackAtTop") && !isAttacking)
-                    {
-                        StartCoroutine(HalberdAttackAtTop());
-                    }
-
-                    // Vérifie si la flèche droite est pressée et si l'objet est au sol
-                    else if (player.GetButtonDown("KeyBoard_AttackAtRight") && !isAttacking)
-                    {
-                        StartCoroutine(HalberdAttackAtRight());
-                    }
-
-                    // Vérifie si la flèche gauche est pressée et si l'objet est au sol
-                    else if (player.GetButtonDown("KeyBoard_AttackAtLeft") && !isAttacking)
-                    {
-                        StartCoroutine(HalberdAttackAtLeft());
-                    }
-                }
-
-                else if (useBow)
-                {
-                    if (Inventory.instance.HasItem(ArrowItem) && player.GetButtonDown("Mouse_LaunchArrow"))
-                    {
-                        StartAttack();
-                    }
-                }
+                SwitchWeapon(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SwitchWeapon(2);
             }
         }
     }
 
-        
+    private void HandleControllerInput()
+    {
+        if (dontUseWeapon)
+        {
+            HandleNoWeaponAttack("Controller_AttackDirection_Y", "Controller_AttackDirection_X", "Controller_Attack");
+        }
+        else if (useSword)
+        {
+            HandleSwordAttack("Controller_AttackDirection_Y", "Controller_AttackDirection_X", "Controller_Attack");
+        }
+        else if (useHalberd)
+        {
+            HandleHalberdAttack("Controller_AttackDirection_Y", "Controller_AttackDirection_X", "Controller_Attack");
+        }
+        else if (useBow && Inventory.instance.HasItem(ArrowItem))
+        {
+            if (player.GetButtonDown("Controller_Attack"))
+            {
+                StartAttack();
+            }
+        }
+    }
+
+    private void HandleKeyboardInput()
+    {
+        if (dontUseWeapon)
+        {
+            HandleNoWeaponAttack("KeyBoard_AttackAtTop", "KeyBoard_AttackAtRight", "KeyBoard_AttackAtLeft");
+        }
+        else if (useSword)
+        {
+            HandleSwordAttack("KeyBoard_AttackAtTop", "KeyBoard_AttackAtRight", "KeyBoard_AttackAtLeft");
+        }
+        else if (useHalberd)
+        {
+            HandleHalberdAttack("KeyBoard_AttackAtTop", "KeyBoard_AttackAtRight", "KeyBoard_AttackAtLeft");
+        }
+        else if (useBow && Inventory.instance.HasItem(ArrowItem))
+        {
+            if (player.GetButtonDown("Mouse_LaunchArrow"))
+            {
+                StartAttack();
+            }
+        }
+    }
+
+    private void HandleNoWeaponAttack(string attackUp, string attackRight, string attackLeft)
+    {
+        if (player.GetAxis(attackUp) > 0.5 && player.GetButtonDown(attackUp) && !isAttacking)
+        {
+            StartCoroutine(DontUseWeaponAttackAtTop());
+        }
+        else if (player.GetAxis(attackRight) > 0.5 && player.GetButtonDown(attackRight) && !isAttacking)
+        {
+            StartCoroutine(DontUseWeaponAttackAtRight());
+        }
+        else if (player.GetAxis(attackLeft) < -0.5 && player.GetButtonDown(attackLeft) && !isAttacking)
+        {
+            StartCoroutine(DontUseWeaponAttackAtLeft());
+        }
+    }
+
+    private void HandleSwordAttack(string attackUp, string attackRight, string attackLeft)
+    {
+        if (player.GetAxis(attackUp) > 0.5 && player.GetButtonDown(attackUp) && !isAttacking)
+        {
+            StartCoroutine(SwordAttackAtTop());
+        }
+        else if (player.GetAxis(attackRight) > 0.5 && player.GetButtonDown(attackRight) && !isAttacking)
+        {
+            StartCoroutine(SwordAttackAtRight());
+        }
+        else if (player.GetAxis(attackLeft) < -0.5 && player.GetButtonDown(attackLeft) && !isAttacking)
+        {
+            StartCoroutine(SwordAttackAtLeft());
+        }
+    }
+
+    private void HandleHalberdAttack(string attackUp, string attackRight, string attackLeft)
+    {
+        if (player.GetAxis(attackUp) > 0.5 && player.GetButtonDown(attackUp) && !isAttacking)
+        {
+            StartCoroutine(HalberdAttackAtTop());
+        }
+        else if (player.GetAxis(attackRight) > 0.5 && player.GetButtonDown(attackRight) && !isAttacking)
+        {
+            StartCoroutine(HalberdAttackAtRight());
+        }
+        else if (player.GetAxis(attackLeft) < -0.5 && player.GetButtonDown(attackLeft) && !isAttacking)
+        {
+            StartCoroutine(HalberdAttackAtLeft());
+        }
+    }
 
     public void StartAttack()
     {
@@ -222,71 +169,87 @@ public class AttackController : MonoBehaviour
 
         if (PlayerMovement.instance.useController && player.GetButtonDown("Controller_Attack"))
         {
-            if (Inventory.instance.HasItem(ArrowItem) && isShooting) // Vérifie si le joueur a des flèches dans son inventaire
+            if (Inventory.instance.HasItem(ArrowItem) && isShooting)
             {
                 isShooting = false;
                 StartCoroutine(LaunchArrow());
-
             }
         }
 
         if (!PlayerMovement.instance.useController && player.GetButtonDown("Mouse_LaunchArrow"))
         {
-            if (Inventory.instance.HasItem(ArrowItem) && isShooting) // Vérifie si le joueur a des flèches dans son inventaire
+            if (Inventory.instance.HasItem(ArrowItem) && isShooting)
             {
                 isShooting = false;
                 StartCoroutine(LaunchArrow());
-
             }
         }
     }
 
-    void ChoseYourWeapon()
+    private void EquipWeapon(InventoryItem weaponItem)
     {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            dontUseWeapon = true;
-            useSword = false;
-            useHalberd = false;
-            useBow = false;
+        UnequipCurrentWeapon();
 
-            crosshairMovement.IsAimingChangerAtFalse();
-            crosshairMovement.crossHair.SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (weaponItem.itemName == "Sword")
         {
-            dontUseWeapon = false;
             useSword = true;
-            useHalberd = false;
-            useBow = false;
-
-            crosshairMovement.IsAimingChangerAtFalse();
-            crosshairMovement.crossHair.SetActive(false);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
             dontUseWeapon = false;
-            useSword = false;
+        }
+        else if (weaponItem.itemName == "Halberd")
+        {
             useHalberd = true;
+            dontUseWeapon = false;
             useBow = false;
-
-            crosshairMovement.IsAimingChangerAtFalse();
-            crosshairMovement.crossHair.SetActive(false);
+            useSword = false;
+        }
+        else if (weaponItem.itemName == "Bow")
+        {
+            useBow = true;
+            dontUseWeapon = false;
         }
 
-        else if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-            dontUseWeapon = false;
-            useSword = false;
-            useHalberd = false;
-            useBow = true;
+        dontUseWeapon = false;
+    }
 
-            crosshairMovement.IsAimingChangerAtTrue();
-            crosshairMovement.crossHair.SetActive(true);
+
+    private void SwitchWeapon(int slot)
+    {
+        if (slot == 1 && InventoryUI.instance.firstEquippedWeapon != null)
+        {
+            currentEquippedWeapon = InventoryUI.instance.firstEquippedWeapon;
+            EquipWeapon(currentEquippedWeapon);
+        }
+        else if (slot == 2 && InventoryUI.instance.secondEquippedWeapon != null)
+        {
+            currentEquippedWeapon = InventoryUI.instance.secondEquippedWeapon;
+            EquipWeapon(currentEquippedWeapon);
         }
     }
+
+    private void UnequipCurrentWeapon()
+    {
+        if (currentEquippedWeapon != null)
+        {
+            if (currentEquippedWeapon.itemName == "Sword")
+            {
+                useSword = false;
+            }
+            else if (currentEquippedWeapon.itemName == "Halberd")
+            {
+                useHalberd = false;
+            }
+            else if (currentEquippedWeapon.itemName == "Bow")
+            {
+                useBow = false;
+            }
+
+            dontUseWeapon = true;
+        }
+    }
+
+
+
+
 
     ////////// * Coroutine Attaque a l'epee * \\\\\\\\\\
     public IEnumerator DontUseWeaponAttackAtTop()

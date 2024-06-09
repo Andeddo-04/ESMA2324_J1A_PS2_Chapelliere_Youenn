@@ -17,7 +17,7 @@ public class InventoryUI : MonoBehaviour
     public InventorySlot equipSlot1; // Premier slot d'équipement
     public InventorySlot equipSlot2; // Deuxième slot d'équipement
 
-    Inventory inventory; // Référence à l'inventaire
+    public Inventory inventory; // Référence à l'inventaire
     public InventorySlot[] slots; // Tableau de slots d'inventaire
 
     public InventoryItem selectedItem; // Référence à l'item sélectionné
@@ -28,6 +28,11 @@ public class InventoryUI : MonoBehaviour
 
     Player player; // Référence au joueur
     int playerID = 0; // ID du joueur
+
+    // Variables pour gérer les armes équipées
+    public InventoryItem firstEquippedWeapon = null;  // Première arme équipée
+    public InventoryItem secondEquippedWeapon = null; // Deuxième arme équipée
+    public InventoryItem currentEquippedWeapon = null; // Arme actuellement équipée
 
     void Awake()
     {
@@ -76,6 +81,13 @@ public class InventoryUI : MonoBehaviour
         UpdateEquipSlots();
     }
 
+    public void UpdateSelectedItem(InventoryItem item)
+    {
+        selectedItem = item;
+        selectedItemDescription.text = selectedItem.description;
+    }
+
+    // Méthode pour afficher les informations de l'item sélectionné
     // Méthode pour afficher les informations de l'item sélectionné
     public void DisplaySelectedItem(InventoryItem item)
     {
@@ -88,17 +100,27 @@ public class InventoryUI : MonoBehaviour
             selectedItemDescription.text = item.description;
 
             // Activer/désactiver les boutons en fonction de l'état de l'item
-            equipButton.gameObject.SetActive(item.equippable && !item.isEquipped);
-            unequipButton.gameObject.SetActive(item.equippable && item.isEquipped);
+            if (item.isEquipped)
+            {
+                equipButton.gameObject.SetActive(false); // Désactiver le bouton "équiper" si l'item est équipé
+                unequipButton.gameObject.SetActive(true); // Activer le bouton "déséquiper" si l'item est équipé
+            }
+            else
+            {
+                equipButton.gameObject.SetActive(true); // Activer le bouton "équiper" si l'item n'est pas équipé
+                unequipButton.gameObject.SetActive(false); // Désactiver le bouton "déséquiper" si l'item n'est pas équipé
+            }
 
             Debug.Log("Item Selected : " + selectedItem);
         }
         else
         {
-            // Si aucun item n'est sélectionné, désactivez les boutons et cachez les informations de l'item
+            // Si aucun item n'est sélectionné, désactiver les boutons et cacher les informations de l'item
             ClearSelectedItemDisplay();
         }
     }
+
+
 
     // Méthode pour effacer l'affichage de l'item sélectionné
     public void ClearSelectedItemDisplay()
@@ -112,18 +134,16 @@ public class InventoryUI : MonoBehaviour
     }
 
     // Méthode pour équiper l'item sélectionné
-    // Méthode pour équiper l'item sélectionné
-    // Méthode pour équiper l'item sélectionné
     public void EquipSelectedItem()
     {
         // Vérifier si un item est sélectionné et s'il est équipable
         if (selectedItem != null && selectedItem.equippable)
         {
-            // Vérifier si la halberd est déjà équipée
+            // Vérifier si la Halberd est déjà équipée
             if (equipSlot1.item != null && equipSlot1.item.itemName == "Halberd")
             {
                 Debug.Log("Cannot equip another item while the Halberd is equipped.");
-                return; // Sortir de la méthode si la halberd est déjà équipée
+                return; // Sortir de la méthode si la Halberd est déjà équipée
             }
 
             // Vérifier si les deux emplacements d'équipement sont non nuls
@@ -137,13 +157,18 @@ public class InventoryUI : MonoBehaviour
             if (equipSlot1.item != null && selectedItem.itemName == "Halberd")
             {
                 Debug.Log("Cannot equip Halberd. Only one equipment slot available.");
-                return; // Sortir de la méthode si le joueur possède déjà un emplacement d'équipement et tente d'équiper la halberd
+                return; // Sortir de la méthode si le joueur possède déjà un emplacement d'équipement et tente d'équiper la Halberd
             }
 
-            selectedItem.isEquipped = true; // Marquer l'item comme équipé
-            Debug.Log("Equipped item : " + selectedItem.itemName);
+            // Vérifier si l'item est déjà équipé dans l'un des emplacements
+            if (equipSlot1.item == selectedItem || equipSlot2.item == selectedItem)
+            {
+                // Si oui, déséquiper l'item
+                UnequipSelectedItem();
+                return;
+            }
 
-            // Déplacer l'item vers un slot d'équipement libre
+            // Vérifier si un des emplacements est vide
             if (equipSlot1.item == null)
             {
                 equipSlot1.AddItem(selectedItem, 1);
@@ -157,7 +182,7 @@ public class InventoryUI : MonoBehaviour
                 ActiveWeapon();
             }
 
-            // Retirer l'item de l'emplacement de base
+            // Déplacer l'item vers l'emplacement d'équipement
             foreach (InventorySlot slot in slots)
             {
                 if (slot.item == selectedItem)
@@ -170,8 +195,6 @@ public class InventoryUI : MonoBehaviour
             DisplaySelectedItem(selectedItem); // Mettre à jour l'affichage de l'item sélectionné
         }
     }
-
-
 
     // Méthode pour déséquiper l'item sélectionné
     public void UnequipSelectedItem()
@@ -202,8 +225,6 @@ public class InventoryUI : MonoBehaviour
             DisplaySelectedItem(selectedItem); // Mettre à jour l'affichage de l'item sélectionné
         }
     }
-
-
 
     // Méthode pour mettre à jour les slots d'équipement
     void UpdateEquipSlots()
@@ -259,7 +280,7 @@ public class InventoryUI : MonoBehaviour
         return null;
     }
 
-    void ActiveWeapon()
+    public void ActiveWeapon()
     {
         if (selectedItem.itemName == "Sword")
         {
@@ -275,5 +296,78 @@ public class InventoryUI : MonoBehaviour
         {
             AttackController.instance.useBow = true;
         }
+    }
+
+    public void UnequipCurrentWeapon()
+    {
+        if (currentEquippedWeapon != null)
+        {
+            if (currentEquippedWeapon == firstEquippedWeapon)
+            {
+                firstEquippedWeapon = null;
+            }
+            else if (currentEquippedWeapon == secondEquippedWeapon)
+            {
+                secondEquippedWeapon = null;
+            }
+
+            if (firstEquippedWeapon == null && secondEquippedWeapon != null)
+            {
+                currentEquippedWeapon = secondEquippedWeapon;
+            }
+            else if (firstEquippedWeapon != null)
+            {
+                currentEquippedWeapon = firstEquippedWeapon;
+            }
+            else
+            {
+                currentEquippedWeapon = null;
+            }
+
+            EquipWeapon(currentEquippedWeapon);
+        }
+    }
+
+    private void EquipWeapon(InventoryItem weaponItem)
+    {
+        if (weaponItem == null) return;
+
+        if (weaponItem.itemName == "Sword")
+        {
+            AttackController.instance.useSword = true;
+            AttackController.instance.useHalberd = false;
+            AttackController.instance.useBow = false;
+        }
+        else if (weaponItem.itemName == "Halberd")
+        {
+            AttackController.instance.useSword = false;
+            AttackController.instance.useHalberd = true;
+            AttackController.instance.useBow = false;
+        }
+        else if (weaponItem.itemName == "Bow")
+        {
+            AttackController.instance.useSword = false;
+            AttackController.instance.useHalberd = false;
+            AttackController.instance.useBow = true;
+        }
+        else
+        {
+            // Désactive l'utilisation de toute arme si l'objet n'est pas une arme
+            AttackController.instance.useSword = false;
+            AttackController.instance.useHalberd = false;
+            AttackController.instance.useBow = false;
+        }
+
+        AttackController.instance.dontUseWeapon = false;
+    }
+
+    public void EquipItem(InventoryItem item)
+    {
+        // Ajoutez ici la logique pour équiper d'autres types d'objets
+    }
+
+    public InventoryItem GetSelectedItem()
+    {
+        return selectedItem;
     }
 }

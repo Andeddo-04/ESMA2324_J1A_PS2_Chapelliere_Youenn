@@ -6,6 +6,7 @@ public class InventoryItem : ScriptableObject
     public string itemName;
     public Sprite itemIcon;
     public string description;
+    public ItemType itemType;
     public bool stackable;
     public int id;
     public bool equippable; // Indique si l'item peut être équipé
@@ -15,4 +16,17 @@ public class InventoryItem : ScriptableObject
     {
         isEquipped = false;
     }
+
+    public InventoryItem GetSelectedItem()
+    {
+        return InventoryUI.instance.selectedItem;
+    }
+}
+
+public enum ItemType
+{
+    Weapon,
+    Consumable,
+    Armor,
+    // Ajoutez d'autres types d'objets ici
 }
